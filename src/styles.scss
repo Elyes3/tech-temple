@@ -38,6 +38,7 @@ $tech-temple-theme: mat.define-light-theme((
 @include mat.all-component-themes($tech-temple-theme);
 
 @import "~bootstrap/dist/css/bootstrap.css";
+$background: #ececec;
 $principal: #5356FF;
 $auxiliary: #378CE7;
 $accent: #67C6E3;

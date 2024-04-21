@@ -22,6 +22,9 @@ import { ForgotPasswordComponent } from './views/forgot-password/forgot-password
     MaterialModule,
     RouterModule
     
-  ]
+  ],
+  exports: [
+    LogoComponent
+  ],
 })
 export class AuthModule { }
