@@ -12,4 +12,5 @@ export class LogoComponent {
   @Input() secondEColor = '#858AE3';
   @Input() width = '317';
   @Input() height = '217';
-}
+  @Input() viewBox= '0'
+ }

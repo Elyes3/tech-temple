@@ -17,7 +17,6 @@ import { AuthModule } from './libs/auth/auth.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialModule,
     BrowserAnimationsModule,
     AuthModule
   ],

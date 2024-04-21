@@ -3,12 +3,7 @@
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
-@import "~bootstrap/dist/css/bootstrap.css";
-$pale-azure: #97DFFC;
-$tropical-indigo: #858AE3;
-$iris: #613DC1;
-$indigo: #4E148C;
-$russian-violet: #2C0735;
+
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -30,8 +25,19 @@ $tech-temple-theme: mat.define-light-theme((
     primary: $tech-temple-primary,
     accent: $tech-temple-accent,
     warn: $tech-temple-warn,
-  )
+                ),
+                density: -3
 ));
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($tech-temple-theme);
+
+@import "~bootstrap/dist/css/bootstrap.css";
+$principal: #5356FF;
+$auxiliary: #378CE7;
+$accent: #67C6E3;
+$highlight: #DFF5FF;
+$text-color: #495057;
 @font-face {
   font-family: 'MarkPro';
   src: url('../src/assets/fonts/markprofont.otf') format('woff2');
@@ -39,75 +45,67 @@ $tech-temple-theme: mat.define-light-theme((
   font-weight: normal;
   font-style: normal;
 }
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($tech-temple-theme);
 
-/* You can add global styles to this file, and also import other style files */
+.bg-principal {
+  background-color: $principal !important;
+}
 
+.bg-auxiliary {
+  background-color: $auxiliary;
+}
+
+.bg-accent {
+  background-color: $accent;
+}
+
+.bg-highlight {
+  background-color: $highlight;
+}
+
+.text-principal {
+  color: $principal;
+}
+
+.text-auxiliary {
+  color: $auxiliary;
+}
+
+.text-accent {
+  color: $accent;
+}
+
+.text-highlight {
+  color: $highlight;
+}
+
+.text-generic {
+  color: $text-color
+}
+.border-principal {
+  border-color: $principal;
+}
+
+.border-auxiliary {
+  border-color: $auxiliary;
+}
+
+.border-accent {
+  border-color: $accent;
+}
+
+.border-highlight {
+  border-color: $highlight;
+}
+
+.fs-sm {
+  font-size: 0.95rem;
+}
+
+.p-7 {
+  padding: 5rem;
+}
 html,
 body {
   height: 100%;
   font-family: 'MarkPro', sans-serif;
-}
-
-.bg-pa {
-  background-color: $pale-azure;
-}
-
-.bg-ti {
-  background-color: $tropical-indigo;
-}
-
-.bg-iris {
-  background-color: $iris;
-}
-
-.bg-indigo {
-  background-color: $indigo;
-}
-
-.bg-rv {
-  background-color: $russian-violet;
-}
-
-.text-pa {
-  color: $pale-azure;
-}
-
-.text-ti {
-  color: $tropical-indigo;
-}
-
-.text-iris {
-  color: $iris;
-}
-
-.text-indigo {
-  color: $indigo;
-}
-
-.text-rv {
-  color: $russian-violet;
-}
-
-.border-pa {
-  border-color: $pale-azure;
-}
-
-.border-ti {
-  border-color: $tropical-indigo;
-}
-
-.border-iris {
-  border-color: $iris;
-}
-
-.border-indigo {
-  border-color: $indigo;
-}
-
-.border-rv {
-  border-color: $russian-violet;
 }
