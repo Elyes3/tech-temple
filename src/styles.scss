@@ -30,15 +30,87 @@ $tech-temple-theme: mat.define-light-theme((
     primary: $tech-temple-primary,
     accent: $tech-temple-accent,
     warn: $tech-temple-warn,
-  )
+                ),
+                density: -3
 ));
-
-// Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($tech-temple-theme);
 
-/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+$principal: #5356FF;
+$auxiliary: #378CE7;
+$accent: #67C6E3;
+$highlight: #DFF5FF;
+$text-color: #495057;
+@font-face {
+  font-family: 'MarkPro';
+  src: url('../src/assets/fonts/markprofont.otf') format('woff2');
+  /* Add more src URLs for different font file formats if necessary */
+  font-weight: normal;
+  font-style: normal;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.bg-principal {
+  background-color: $principal !important;
+}
+
+.bg-auxiliary {
+  background-color: $auxiliary;
+}
+
+.bg-accent {
+  background-color: $accent;
+}
+
+.bg-highlight {
+  background-color: $highlight;
+}
+
+.text-principal {
+  color: $principal;
+}
+
+.text-auxiliary {
+  color: $auxiliary;
+}
+
+.text-accent {
+  color: $accent;
+}
+
+.text-highlight {
+  color: $highlight;
+}
+
+.text-generic {
+  color: $text-color
+}
+.border-principal {
+  border-color: $principal;
+}
+
+.border-auxiliary {
+  border-color: $auxiliary;
+}
+
+.border-accent {
+  border-color: $accent;
+}
+
+.border-highlight {
+  border-color: $highlight;
+}
+
+.fs-sm {
+  font-size: 0.95rem;
+}
+
+.p-7 {
+  padding: 5rem;
+}
+html,
+body {
+  height: 100%;
+  font-family: 'MarkPro', sans-serif;
+}
