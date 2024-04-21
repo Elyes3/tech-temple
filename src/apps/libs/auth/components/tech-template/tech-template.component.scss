@@ -1,0 +1,32 @@
+@media (max-width: 1120px) {
+    .img-dm {
+        width: 100%;
+        height: 65%
+    }
+}
+
+@media (max-width: 992px) {
+    .img-dm {
+        width: 100%;
+        height: 50%
+    }
+}
+
+@media (max-width: 768px) {
+    .img-dm {
+        width: 90%;
+        height: 80%
+    }
+}
+
+@media (min-width: 1120px) {
+    .img-dm {
+        width: 90%;
+        height: 65%
+    }
+}
+
+.bg-gd {
+    background: rgb(83, 86, 255);
+    background: linear-gradient(90deg, rgba(83, 86, 255, 1) 23%, rgba(55, 140, 231, 1) 58%);
+}
