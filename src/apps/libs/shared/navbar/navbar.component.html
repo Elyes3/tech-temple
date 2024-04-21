@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg px-3 navbar-main" data-bs-theme="light">
     <div class="container-fluid">
         <a class="navbar-brand mr" href="#">
-            <img src="../../../../assets/logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            <app-logo width="30" height="24" firstTColor="#5356FF" secondTColor="#378CE7" firstEColor="#5356FF"
+            secondEColor="#67C6E3"></app-logo>
             Tech Temple
         </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav gap-2">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" routerLinkActive="active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -23,28 +24,28 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="/about" routerLinkActive="active">About</a>
           </li>
         </ul>
         <form class="d-flex ms-auto" role="search">
             <div class="input-container">
-                <button class="btn btn-outline-light icon-button" type="button" (click)="toggleSearch()" *ngIf="!isSearching">
+                <button class="btn btn-outline-dark icon-button" type="button" (click)="toggleSearch()" *ngIf="!isSearching">
                   <i class="bi bi-search"></i>
                 </button>
                 <div class="input-group" *ngIf="isSearching">
                     <input type="text" class="form-control search-input" placeholder="Search here..." />
-                    <button class="btn btn-outline-light" type="button" (click)="toggleSearch()">
+                    <button class="btn btn-outline-dark" type="button" (click)="toggleSearch()">
                       <i class="bi bi-x-lg"></i>
                     </button>
                   </div>
               </div>
           </form>
           <div class="vr"></div>
-          <a class="nav-item nav-link ps-0 pe-0" href="/basket">
-            <button class="btn btn-outline-light" type="button">
+          <a class="nav-item nav-link ps-0 pe-0" routerLinkActive="icon-active" href="/basket">
+            <button class="btn btn-outline-dark" type="button">
             <i class="bi bi-basket2-fill"></i>
             </button>
-            <span class="fw-semi-bold text-light ps-2">cart (0)</span>
+            <span class="fw-semi-bold text-dark ps-2">cart (0)</span>
             <!-- to add cart number entries after fetch service impl-->
         </a>
         <div class="vr"></div>
