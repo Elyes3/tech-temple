@@ -1,0 +1,66 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+$pale-azure: #97DFFC;
+$tropical-indigo: #858AE3;
+$iris: #613DC1;
+$indigo: #4E148C;
+$russian-violet: #2C0735;
+
+.bg-pa {
+    background-color: $pale-azure;
+}
+
+.bg-ti {
+    background-color: $tropical-indigo;
+}
+
+.bg-iris {
+    background-color: $iris;
+}
+
+.bg-indigo {
+    background-color: $indigo;
+}
+
+.bg-rv {
+    color: $russian-violet;
+}
+
+.text-pa {
+    color: $pale-azure;
+}
+
+.text-ti {
+    color: $tropical-indigo;
+}
+
+.text-iris {
+    color: $iris;
+}
+
+.text-indigo {
+    color: $indigo;
+}
+
+.text-rv {
+    color: $russian-violet;
+}
+
+.border-pa {
+    border-color: $pale-azure;
+}
+
+.border-ti {
+    border-color: $tropical-indigo;
+}
+
+.border-iris {
+    border-color: $iris;
+}
+
+.border-indigo {
+    border-color: $indigo;
+}
+
+.border-rv {
+    border-color: $russian-violet;
+}
