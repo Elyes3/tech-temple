@@ -6,17 +6,20 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material/lib/material.module';
 import { NavbarComponent } from './libs/shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LogoComponent } from './libs/shared/logo/logo.component';
+import { AuthModule } from './libs/auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
