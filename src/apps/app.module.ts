@@ -6,17 +6,20 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material/lib/material.module';
 import { NavbarComponent } from './libs/shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { OrdersModule } from './libs/orders/orders.module';
+import { PersonalMenuItemComponent } from './libs/shared/personal-menu-item/personal-menu-item.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    PersonalMenuItemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    OrdersModule
   ],
   providers: [],
   bootstrap: [AppComponent]

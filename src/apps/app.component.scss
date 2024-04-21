@@ -5,6 +5,9 @@ $iris: #613DC1;
 $indigo: #4E148C;
 $russian-violet: #2C0735;
 
+body {
+    scroll-behavior: smooth;
+}
 .bg-pa {
     background-color: $pale-azure;
 }
@@ -64,3 +67,14 @@ $russian-violet: #2C0735;
 .border-rv {
     border-color: $russian-violet;
 }
+.main-content {
+    margin: 0 auto;
+  
+    padding: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    @media (max-width: 768px){
+        padding: 15px
+    }
+  }
