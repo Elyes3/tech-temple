@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrdersModule } from './libs/orders/orders.module';
 import { PersonalMenuItemComponent } from './libs/shared/personal-menu-item/personal-menu-item.component';
 import { AuthModule } from './libs/auth/auth.module';
+import { ProductsModule } from './libs/products/products.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { AuthModule } from './libs/auth/auth.module';
     BrowserAnimationsModule,
     OrdersModule,
     BrowserAnimationsModule,
-    AuthModule
+    AuthModule,
+    ProductsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
