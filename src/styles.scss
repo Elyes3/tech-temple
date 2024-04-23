@@ -66,6 +66,9 @@ $text-color: #495057;
 .bg-highlight {
   background-color: $highlight;
 }
+.bg-generic {
+  background-color: $text-color
+}
 
 .text-principal {
   color: $principal;
