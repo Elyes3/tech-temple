@@ -14,7 +14,7 @@ import { ResponseInterceptor } from './libs/interceptors/response.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { JwtInterceptor } from './libs/interceptors/jwt.interceptor';
-
+import { ProductsModule } from './libs/products/products.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +29,7 @@ import { JwtInterceptor } from './libs/interceptors/jwt.interceptor';
     OrdersModule,
     BrowserAnimationsModule,
     AuthModule,
+    ProductsModule,
     HttpClientModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([])
