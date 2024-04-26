@@ -10,10 +10,10 @@ export class ResponseInterceptor implements HttpInterceptor {
   constructor(private snackBar: MatSnackBar) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let method : string;
     return next.handle(request).pipe(
         tap((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse && event.status === 200) {
-            const method = request.method;
           // Handle successful response
             const responseData = event.body;
               if (method.toLowerCase() != 'get') {
@@ -26,8 +26,8 @@ export class ResponseInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error: HttpErrorResponse) => {
-        // Handle errors
-        if (error.status >= 400) {
+        if (error.status >= 400 && method.toLowerCase() !== 'get') {
+          console.log(method)
           let errorMessage = 'An error occurred';
           if (error.error instanceof ErrorEvent) {
             errorMessage = error.error.message;

@@ -5,13 +5,13 @@ import * as UsersActions from './users.actions';
 import { UsersState } from './users.reducer';
 import { User } from '../../auth/shared/User';
 import { UsersActionTypes } from './users.actions';
+import { selectAllUsers, selectAuthenticatedUser } from '..';
 @Injectable({
   providedIn: 'root'
 })
 export class UsersFacade {
-  //users$ = this.store.pipe(select());
-  //authenticatedUser$ = this.store.pipe(select(selectCurrentUser));
-
+  allUsers$ = this.store.pipe(select(selectAllUsers));
+  authenticatedUser$ = this.store.pipe(select(selectAuthenticatedUser))
   mutations$ = this.actions$
     .pipe(
       filter(action =>
@@ -29,6 +29,7 @@ export class UsersFacade {
   }
 
   loadUsers() {
+    console.log("TRIED TO DISPATCH")
     this.store.dispatch(new UsersActions.LoadUsers());
   }
 

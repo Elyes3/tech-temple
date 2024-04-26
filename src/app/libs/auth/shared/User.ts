@@ -6,4 +6,6 @@ export interface User{
     age: number;
     password: string;
     message?: string;
+    orders?: any;
+    role?: string; 
 }

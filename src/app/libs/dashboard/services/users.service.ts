@@ -10,9 +10,13 @@ import { User } from '../../auth/shared/User';
 export class UsersService {
 
   constructor(private http: HttpClient, private router: Router) {}
-  endpoint = "users"
+  endpoint = "users";
+  endpointAuthenticatedUser = "auth";
   loadUsers() {
     return this.http.get<User[]>(this.getUrl())
+  }
+  loadAuthenticatedUser() {
+    return this.http.get<User>(this.getAuthenticatedUserUrl())
   }
   updateUser(id : string, user: User) {
     return this.http.put<User>(this.getUrlById(id),user);
@@ -29,5 +33,9 @@ export class UsersService {
   getUrl() : string{
     return `${environment.API_URL}/api/${this.endpoint}`
   }
+  getAuthenticatedUserUrl() {
+    return `${environment.API_URL}/api/${this.endpointAuthenticatedUser}`
+  }
+
 
 }

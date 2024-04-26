@@ -1,7 +1,14 @@
 
 <main>
-  <div class="main-content">
-    <router-outlet></router-outlet> <!-- Render routed components here -->
+  <div [class]="authenticatedRoutes() ? 'main-content' : ''">
+    <div class="d-flex justify-content-center align-items-center h-100-vh"
+      *ngIf="(authenticatedUser$ | async)?.loading; else loaded">
+      <mat-spinner></mat-spinner>
+    </div>
+    <ng-template #loaded>
+      <router-outlet></router-outlet>
+    </ng-template>
+    <!-- Render routed components here -->
   </div>
 </main>
 <footer>

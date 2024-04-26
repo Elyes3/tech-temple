@@ -12,8 +12,12 @@ import { AuthModule } from './libs/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ResponseInterceptor } from './libs/interceptors/response.interceptor';
 import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import { JwtInterceptor } from './libs/interceptors/jwt.interceptor';
+import { StateModule } from './libs/state/state.module';
+import { reducers } from '../app/libs/state/index';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersEffects } from '../app/libs/state/users/users.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -29,9 +33,8 @@ import { JwtInterceptor } from './libs/interceptors/jwt.interceptor';
     OrdersModule,
     BrowserAnimationsModule,
     AuthModule,
+    StateModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },

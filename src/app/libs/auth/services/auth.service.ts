@@ -14,7 +14,7 @@ export class AuthService {
   resetPasswordEndpoint = 'reset-password';
   constructor(private http: HttpClient, private router: Router) { }
   authenticate(credentials : Credentials) {
-    return this.http.post(this.getLoginUrl(), credentials, { observe: 'response', withCredentials: true }).subscribe();
+    return this.http.post(this.getLoginUrl(), credentials, { observe: 'response' })
   }
   register(user: User) {
     return this.http.post(this.getRegisterUrl(), user).subscribe({
