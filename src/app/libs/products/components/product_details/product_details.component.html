@@ -1,11 +1,130 @@
-<mat-grid-list cols="3" rowHeight="2:1">
-    <mat-grid-tile>1</mat-grid-tile>
+<div class="main_container">
+  <!-- <mat-grid-list cols="3" rowHeight="3:1">
+    <mat-grid-tile [rowspan]="3">
+      <div class="border p-1 d-flex justify-content-center">
+        <img  class="image_style rounded-4 fit" src="https://media.wired.com/photos/64daad6b4a854832b16fd3bc/4:3/w_1787,h_1340,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg" alt="">
+      </div>
+    </mat-grid-tile>
     <mat-grid-tile>2</mat-grid-tile>
-    <mat-grid-tile [rowspan]="2">3</mat-grid-tile>
-    <mat-grid-tile>11</mat-grid-tile>
+    <mat-grid-tile [rowspan]="3">3</mat-grid-tile>
+    <mat-grid-tile>21</mat-grid-tile>
     <mat-grid-tile>22</mat-grid-tile>
-  </mat-grid-list>
-  <mat-tab-group style="width: 25%;">
-    <mat-tab label="Description"> Content 1 </mat-tab>
-    <mat-tab label="Details"> Content 2 </mat-tab>
-  </mat-tab-group>
+    <mat-grid-tile>
+      <div style="display: inline-block;">
+        <div class="col-md-3">
+          <img class="image_style rounded-2 fit" src="https://media.wired.com/photos/64daad6b4a854832b16fd3bc/4:3/w_1787,h_1340,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg" alt="">
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list> -->
+  <div class="row ">
+    <div class="col-md-4 d-flex justify-content-center">
+      <div class="d-block">
+        <div class="border rounded-4 carousel slide" id="carouselExampleControls" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="image_style rounded-4 fit d-block w-100" src="https://media.wired.com/photos/64daad6b4a854832b16fd3bc/4:3/w_1787,h_1340,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="image_style rounded-4 fit d-block w-100" src="https://cdn.thewirecutter.com/wp-content/media/2023/06/bestlaptops-2048px-9765.jpg" alt="Second slide" >
+            </div>
+            <div class="carousel-item">
+              <img class="image_style rounded-4 fit  d-block w-100" src="https://media.wired.com/photos/64daad6b4a854832b16fd3bc/4:3/w_1787,h_1340,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg" alt="Third slide">
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+        <div class="col-sm-1 mt-4 mb-2 d-flex justify-content-center align-items-center">
+          <a class="" href="#carouselExampleControls" role="button"  data-slide="prev">
+            <span style="filter: invert(1);" class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="col-sm-3 mt-4 mb-2">
+          <div class=" border rounded-2 mr-1">
+            <img class="image_style rounded-2 fit" src="https://media.wired.com/photos/64daad6b4a854832b16fd3bc/4:3/w_1787,h_1340,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-sm-3 mt-4 mb-2">
+          <div class="border rounded-2 mr-1">
+            <img class="image_style rounded-2 fit" src="https://cdn.thewirecutter.com/wp-content/media/2023/06/bestlaptops-2048px-9765.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-sm-3 mt-4 mb-2" >
+          <div class=" border rounded-2 mr-1">
+            <img class="image_style rounded-2 fit" src="https://media.wired.com/photos/64daad6b4a854832b16fd3bc/4:3/w_1787,h_1340,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-sm-1 mt-4 mb-2 d-flex justify-content-center align-items-center">
+          <a class="" href="#carouselExampleControls" role="button" data-slide="next">
+            <span style="filter: invert(1);" class="carousel-control-next-icon" aria-hidden="true"></span>
+          </a>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex justify-content-center">
+      <div class="d-block">
+        <div class="row">
+          <h4 class="title text-dark">
+            PC PORTABLE LENOVO V15 G4 AMN AMD DUAL CORE 8 GO<br /> <br>
+            REF: 123
+          </h4>
+        </div>
+        <div class="d-flex flex-row my-3">
+          <div class="text-warning mb-1 me-2">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-half"></i>
+            <span class="ms-1">
+              4.5
+            </span>
+          </div>
+          <span class="text-muted"><i class="bi bi-basket-fill mx-1"></i>154 orders</span>
+          <span class="text-success ms-2">In stock</span>
+        </div>
+        <div class="row">
+          description
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex justify-content-center">
+      <div class="card w-100 m-1 border-top py-4 shadow-sm d-flex justify-content-center align-items-center">
+        <div class="d-block">
+          <div class="mb-3">
+            <span class="h5">75.00</span>
+            <span class="text-muted">DT TTC</span>
+          </div>
+          <div class=" mb-3">
+            <label class="mb-2 d-block w-100">Quantity</label>
+            <div class="input-group mb-3" style="width: 170px;">
+              <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                <i class="bi bi-dash"></i>
+              </button>
+              <input type="text" class="form-control text-center border border-secondary" placeholder="14" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+              <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                <i class="bi bi-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>   
+</div>
+<div class="row align-items-center">
+  <div class="col-md-4 d-flex justify-content-center">
+    11
+  </div>
+  <div class="col-md-4 d-flex justify-content-center">
+    22
+  </div>
+  <div class="col-md-4 d-flex justify-content-center">
+    33
+  </div> 
+</div>
+<mat-tab-group mat-stretch-tabs="false"  mat-align-tabs="start">
+  <mat-tab label="Description"> Content 1 </mat-tab>
+  <mat-tab label="Details"> Content 2 </mat-tab>
+</mat-tab-group>
