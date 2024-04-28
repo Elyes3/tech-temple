@@ -45,7 +45,7 @@
           </a>
         </div>
         <div class="col-3 mb-2" *ngFor="let image of images">
-          <div class=" border rounded-2 mr-1">
+          <div class="img_click border rounded-2 mr-1" (click)="affiche_img(image)">
             <img class="image_style rounded-2 fit" src="{{image}}" alt="">
           </div>
         </div>
@@ -100,11 +100,11 @@
             <div class=" mb-3">
               <label class="mb-2 d-block w-100">Quantity</label>
               <div class="input-group mb-3" style="width: 170px;">
-                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark" (click)="minus_qte()">
                   <i class="bi bi-dash"></i>
                 </button>
-                <input type="text" class="form-control text-center border border-secondary" placeholder="14" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                <input type="text" class="form-control text-center border border-secondary" placeholder="1" value="{{this.qte}}" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark" (click)="add_qte()">
                   <i class="bi bi-plus"></i>
                 </button>
               </div>
