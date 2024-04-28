@@ -25,4 +25,8 @@
 .img_click:hover{
 cursor: pointer;
 }
+
+.zoom_image:hover{
+    cursor: zoom-in;
+}
     
