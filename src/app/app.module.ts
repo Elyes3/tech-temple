@@ -15,6 +15,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { JwtInterceptor } from './libs/interceptors/jwt.interceptor';
 import { ProductsModule } from './libs/products/products.module';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { ProductsModule } from './libs/products/products.module';
   ],
   imports: [
     BrowserModule,
+    NgxImageZoomModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
