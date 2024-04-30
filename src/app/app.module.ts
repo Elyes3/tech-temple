@@ -19,7 +19,8 @@ import { DashboardModule } from './libs/dashboard/dashboard.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environments';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-
+import { ProductsModule } from './libs/products/products.module';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
   ],
   imports: [
     BrowserModule,
+    NgxImageZoomModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
@@ -38,6 +40,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     StateModule,
     RouterModule,
     FormsModule,
+    ProductsModule,
     HttpClientModule,
     DashboardModule,
     AngularFireModule.initializeApp(environment.firebase),

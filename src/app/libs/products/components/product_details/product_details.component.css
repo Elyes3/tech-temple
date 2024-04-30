@@ -1,0 +1,32 @@
+.main_container{
+    padding: 5%;
+    background-color: #ececec;
+}
+.image_style{
+    max-width: 100%; 
+    max-height: 100%; 
+    margin: auto;
+    object-fit: cover;
+}
+.custom_btn{
+    background-color: #67C6E3;
+    color: white;
+}
+::ng-deep .ngxImageZoomContainer > img{
+    width: 100%;
+  }
+::ng-deep .ngxImageZoomContainer {
+      width: 100% !important;
+      border-radius: 4%;
+    }
+::ng-deep .ngxImageZoomThumbnail {
+      width: 100% !important;
+    }
+.img_click:hover{
+cursor: pointer;
+}
+
+.zoom_image:hover{
+    cursor: zoom-in;
+}
+    
