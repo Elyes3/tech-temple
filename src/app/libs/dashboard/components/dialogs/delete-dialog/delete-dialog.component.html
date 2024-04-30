@@ -1,0 +1,15 @@
+<span mat-dialog-title class="d-inline-flex align-items-end "><mat-icon
+        fontSet="material-icons-outlined">delete</mat-icon>Delete a user
+</span>
+<mat-dialog-content>
+    <p>{{deleteDialogInfo.message}}</p>
+    <mat-dialog-actions>
+        <button mat-flat-button type="button" class="bg-principal p-3 text-white" [disabled]="isDataLoading$ | async"
+            (click)="onNoClick()">
+            <span>Cancel</span>
+        </button>
+        <button mat-flat-button class="bg-principal p-3 text-white" [disabled]="isDataLoading$ | async" type="submit">
+            <span (click)="deleteUser(deleteDialogInfo)">Confirm</span>
+        </button>
+    </mat-dialog-actions>
+</mat-dialog-content>

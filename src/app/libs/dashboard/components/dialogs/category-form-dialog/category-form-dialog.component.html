@@ -1,0 +1,35 @@
+<h4 mat-dialog-title>Add a user</h4>
+<mat-dialog-content>
+    <form #form="ngForm" (submit)="sendCategory(data)">
+        <div class="text-sm w-100">
+            <label class="mb-3 text-generic">Name<span class="text-danger">(*)</span></label>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Name</mat-label>
+                <input class="text-generic" matInput name="name" [(ngModel)]="data.name" required type="text"
+                    #name="ngModel" placeholder="Category 1">
+                <mat-error *ngIf="(name.dirty || name.touched) && name.invalid">
+                    Invalid Name
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="w-100 text-sm">
+            <label class="text-sm mb-3 text-generic">Description<span class="text-danger">(*)</span></label>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Description</mat-label>
+                <input class="text-generic" matInput name="description" [(ngModel)]="data.description" type="text"
+                    #description="ngModel">
+                <mat-error *ngIf="(description.dirty || description.touched) && description.invalid">
+                    Invalid Description
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <mat-dialog-actions>
+            <button mat-flat-button type="button" class="bg-principal p-3 text-white" (click)="onNoClick()">
+                <span>Cancel</span>
+            </button>
+            <button mat-flat-button class="bg-principal p-3 text-white" type="submit">
+                <span>Submit</span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

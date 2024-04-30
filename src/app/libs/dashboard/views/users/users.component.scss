@@ -1,0 +1,34 @@
+::ng-deep .rmv-err-cntr .mat-mdc-form-field-subscript-wrapper {
+    height: 0px;
+}
+
+.bg-gray {
+    background-color: rgba(128, 128, 128, 0.315);
+}
+
+.mat-column-email,
+.mat-column-lastName,
+.mat-column-firstName,
+.mat-column-age,
+.mat-column-row,
+.mat-column-enabled,
+.mat-column-role,
+.mat-column-actions {
+    text-align: right;
+}
+
+::ng-deep .user-table-header .mat-sort-header-container {
+    justify-content: end;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-floating-label {
+    display: inline !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper {
+    transform: translateY(0px) !important;
+}
+
+::ng-deep .mat-mdc-select-value {
+    margin-top: 5px;
+}
