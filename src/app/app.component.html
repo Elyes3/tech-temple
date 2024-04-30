@@ -2,7 +2,7 @@
 <main>
   <div [class]="authenticatedRoutes() ? 'main-content' : ''">
     <div class="d-flex justify-content-center align-items-center h-100-vh"
-      *ngIf="(authenticatedUser$ | async)?.loading; else loaded">
+      *ngIf="(authenticatedUser$ | async)?.authLoading; else loaded">
       <mat-spinner></mat-spinner>
     </div>
     <ng-template #loaded>

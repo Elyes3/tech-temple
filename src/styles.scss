@@ -31,8 +31,9 @@ $tech-temple-theme: mat.define-light-theme((
     accent: $tech-temple-accent,
     warn: $tech-temple-warn,
                 ),
-                density: -3
+                                density: -2
 ));
+
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($tech-temple-theme);
@@ -42,7 +43,7 @@ $background: #ececec;
 $principal: #5356FF;
 $auxiliary: #378CE7;
 $accent: #67C6E3;
-$highlight: #DFF5FF;
+$highlight: #ebf8fd;
 $text-color: #495057;
 @font-face {
   font-family: 'MarkPro';
@@ -51,7 +52,6 @@ $text-color: #495057;
   font-weight: normal;
   font-style: normal;
 }
-
 .bg-principal {
   background-color: $principal !important;
 }
@@ -113,8 +113,21 @@ $text-color: #495057;
 .p-7 {
   padding: 5rem;
 }
+.cursor-pointer {
+  cursor: pointer
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
 html,
 body {
   height: 100%;
   font-family: 'MarkPro', sans-serif;
+}
+@media (min-width: 576px) {
+  .text-sm-left {
+    text-align: left !important;
+  }
 }

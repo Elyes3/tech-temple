@@ -13,7 +13,12 @@ export class AppComponent implements OnInit{
   constructor(private router : Router,private usersFacade : UsersFacade) {}
   authenticatedUser$ = this.usersFacade.authenticatedUser$;
   authenticatedRoutes() {
-    return this.router.url !== '/' && this.router.url !== '/register' && this.router.url !== '/reset-password'
+    return this.router.url !== '/'
+      && this.router.url !== '/register'
+      && this.router.url !== '/reset-password'
+      && this.router.url !== '/admin/users'
+      && this.router.url !== '/admin/categories'
+      && this.router.url !== '/admin/products'
   }
   ngOnInit(): void {
     
@@ -24,8 +29,12 @@ export class AppComponent implements OnInit{
       }
       else if (user.authenticatedUser && user.authenticatedUser.role == Role.Admin)
       {
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl(this.router.url);
       }
+      else
+      {
+        console.log(user.authenticatedUser);
+        }
       
     })
 

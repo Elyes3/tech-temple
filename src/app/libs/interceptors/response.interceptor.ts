@@ -10,13 +10,14 @@ export class ResponseInterceptor implements HttpInterceptor {
   constructor(private snackBar: MatSnackBar) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let method : string;
     return next.handle(request).pipe(
         tap((event: HttpEvent<any>) => {
-          if (event instanceof HttpResponse && event.status === 200) {
+          if (event instanceof HttpResponse && (event.status === 200 || event.status === 201)) {
           // Handle successful response
             const responseData = event.body;
-              if (method.toLowerCase() != 'get') {
+            console.log("HERE")
+            if (request.method.toLowerCase() != 'get') {
+                
                   this.snackBar.open(responseData.message, 'Close', {
                       duration: 3000,
                       verticalPosition: 'top',
@@ -26,8 +27,8 @@ export class ResponseInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error: HttpErrorResponse) => {
-        if (error.status >= 400 && method.toLowerCase() !== 'get') {
-          console.log(method)
+        if (error.status >= 400 && request.method.toLowerCase() !== 'get') {
+          console.log(request.method)
           let errorMessage = 'An error occurred';
           if (error.error instanceof ErrorEvent) {
             errorMessage = error.error.message;

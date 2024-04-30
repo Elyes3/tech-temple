@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, of, switchMap } from "rxjs";
 import { User } from "../../auth/shared/User";
-import { AddUser, AuthenticatedUserError, AuthenticatedUserLoaded, DeleteUser, LoadAuthenticatedUser, LoadUsers, UpdateUser, UserAdded, UserDeleted, UserUpdated, UsersActionTypes, UsersLoaded } from "./users.actions";
+import { AddUser, AuthenticatedUserError, AuthenticatedUserLoaded, DeleteUser, LoadAuthenticatedUser, LoadUsers, LoadUsersWithPaginationAndSort, UpdateUser, UserAdded, UserDeleted, UserUpdated, UsersActionTypes, UsersLoaded, UsersWithPaginationAndSortLoaded } from "./users.actions";
 import { UsersService } from "../../dashboard/services/users.service";
 // import { DataPersistence } from '@nrwl/nx';
 // CHECK FOR NRWL IF IT DOESNT WORK
@@ -31,6 +31,18 @@ export class UsersEffects {
             )
         )
     );
+        loadUsersWithPaginationAndSort$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UsersActionTypes.LoadUsersWithPaginationAndSort),
+            switchMap((action: LoadUsersWithPaginationAndSort) => {
+                
+                return this.usersService.loadUsersWithPaginationAndSort(action.payload).pipe(
+                    map((res: User[]) => new UsersWithPaginationAndSortLoaded(res)),
+                )
+            }
+            )
+        )
+    );
     addUser$ = createEffect(() =>
         this.actions$.pipe(
             ofType(UsersActionTypes.AddUser),
@@ -55,7 +67,7 @@ export class UsersEffects {
         this.actions$.pipe(
             ofType(UsersActionTypes.DeleteUser),
             switchMap((action: DeleteUser) =>
-                this.usersService.deleteUser(action.payload.id,action.payload).pipe(
+                this.usersService.deleteUser(action.payload.id).pipe(
                     map((res: User) => new UserDeleted(res))),
             )
         )

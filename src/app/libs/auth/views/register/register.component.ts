@@ -3,7 +3,6 @@ import { User } from '../../shared/User';
 import { AuthService } from '../../services/auth.service';
 import { UsersFacade } from 'src/app/libs/state/users/users.facade';
 import { Observable } from 'rxjs';
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

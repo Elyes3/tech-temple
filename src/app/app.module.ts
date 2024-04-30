@@ -11,19 +11,21 @@ import { PersonalMenuItemComponent } from './libs/shared/personal-menu-item/pers
 import { AuthModule } from './libs/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ResponseInterceptor } from './libs/interceptors/response.interceptor';
-import { StoreModule } from '@ngrx/store';
 import { JwtInterceptor } from './libs/interceptors/jwt.interceptor';
 import { StateModule } from './libs/state/state.module';
-import { reducers } from '../app/libs/state/index';
-import { EffectsModule } from '@ngrx/effects';
-import { UsersEffects } from '../app/libs/state/users/users.effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { DashboardModule } from './libs/dashboard/dashboard.module';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environments';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     PersonalMenuItemComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserAnimationsModule,
     AuthModule,
     StateModule,
+    RouterModule,
+    FormsModule,
     HttpClientModule,
+    DashboardModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },

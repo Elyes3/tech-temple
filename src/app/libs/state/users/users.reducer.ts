@@ -3,14 +3,16 @@ import { User } from '../../auth/shared/User';
 import { UsersActions, UsersActionTypes } from './users.actions';
 export interface UsersState extends EntityState<User>{
     authenticatedUser: User | null;
-    loading: boolean,
+    authLoading: boolean,
+    dataLoading: boolean
 }
 export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
 export const initialState: UsersState = adapter.getInitialState({
     authenticatedUser: null,
-    loading: false,
+    authLoading: false,
+    dataLoading: false,
 })
-export function usersReducer(state : UsersState | undefined = initialState, action: UsersActions): UsersState {
+export function usersReducer(state : UsersState = initialState, action: UsersActions): UsersState {
     switch (action.type) {
         case UsersActionTypes.AuthenticatedUserLoaded: {
             return Object.assign({}, state, {
@@ -21,31 +23,71 @@ export function usersReducer(state : UsersState | undefined = initialState, acti
                     age: action.payload.age,
                     email: action.payload.email,
                     orders: action.payload.orders,
-            }, loading: false})
+                    role: action.payload.role
+            }, authLoading: false})
         }
         case UsersActionTypes.LoadAuthenticatedUser: {
             return Object.assign({}, state, {
                 authenticatedUser: null,
-                loading : true,
+                authLoading : true,
             })
         }
         case UsersActionTypes.AuthenticatedUserError: {
             return Object.assign({}, state, {
                 authenticatedUser: null,
-                loading : false,
+                authLoading : false,
             })
         }
+        case UsersActionTypes.AddUser: {
+            return {
+                ...state, dataLoading: true
+            }
+        }
+        case UsersActionTypes.UpdateUser: {
+            return {
+                ...state, dataLoading: true,
+            }
+        }
+        case UsersActionTypes.DeleteUser: {
+            return {
+                ...state, dataLoading: true,
+            }
+        }
+        case UsersActionTypes.LoadUsers: {
+            return {
+                ...state, dataLoading: true,
+            }
+        }
+        case UsersActionTypes.LoadUsersWithPaginationAndSort: {
+            return {
+                ...state, dataLoading: true,
+            }
+        }
         case UsersActionTypes.UserAdded: {
-            return adapter.addOne(action.payload, state)
+            return {
+                ...adapter.addOne(action.payload, state), dataLoading: false
+            }
         }
         case UsersActionTypes.UserDeleted: {
-            return adapter.removeOne(action.payload.id, state)
+            return {
+                ...adapter.removeOne(action.payload.id, state), dataLoading: false
+            }
         }
         case UsersActionTypes.UserUpdated: {
-            return adapter.upsertOne(action.payload, state)
+            return {
+                ...adapter.upsertOne(action.payload, state), dataLoading: false
+            }
         }
         case UsersActionTypes.UsersLoaded: {
-            return adapter.setAll(action.payload, state)
+            return {
+                ...adapter.setAll(action.payload, state), dataLoading: false
+            }
+        }
+        case UsersActionTypes.UsersWithPaginationAndSortLoaded: {
+            return {
+                ...adapter.setAll(action.payload, state),
+                dataLoading: false,
+            }
         }
         default:
             return state
@@ -53,6 +95,7 @@ export function usersReducer(state : UsersState | undefined = initialState, acti
 }
 export const getAuthenticatedUser = (state: UsersState) => state;
 
+export const getDataLoading = (state: UsersState) => state.dataLoading;
 const { selectIds, selectEntities, selectAll, selectTotal } = adapter.getSelectors();
 
 export const selectUserIds = selectIds;
