@@ -16,7 +16,7 @@ export class LoginComponent {
     
   }
   login(credentials: Credentials) {
-    this.authService.authenticate(credentials);
+    this.authService.authenticate(credentials).subscribe();
     
   }
 }

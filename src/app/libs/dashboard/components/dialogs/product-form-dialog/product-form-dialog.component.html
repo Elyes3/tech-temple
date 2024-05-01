@@ -1,0 +1,151 @@
+<h4 mat-dialog-title>Add a product</h4>
+<mat-dialog-content>
+    <form #form="ngForm" (submit)="sendProduct(data.product)">
+        <div class="text-sm w-100">
+            <label class="mb-3 text-generic">Name<span class="text-danger">(*)</span></label>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Name</mat-label>
+                <input class="text-generic" matInput name="name" [(ngModel)]="data.product.name" required type="text"
+                    #name="ngModel" placeholder="ex. MSI GF63">
+                <mat-error *ngIf="(name.dirty || name.touched) && name.invalid">
+                    Invalid Name
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="w-100 text-sm">
+            <label class="text-sm mb-3 text-generic">Description<span class="text-danger">(*)</span></label>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Description</mat-label>
+                <input class="text-generic" matInput name="description" required [(ngModel)]="data.product.description"
+                    type="text" #description="ngModel">
+                <mat-error *ngIf="(description.dirty || description.touched) && description.invalid">
+                    Invalid Description
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="text-sm w-100">
+            <label class="mb-3 text-generic">Price<span class="text-danger">(*)</span></label>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Price</mat-label>
+                <input class="text-generic" matInput required name="price" [(ngModel)]="data.product.price"
+                    class="text-sm" type="number" step="0.01" min="0" #price="ngModel">
+                <mat-error *ngIf="(price.dirty || price.touched) && price.invalid">
+                    Invalid Price
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="text-sm w-100">
+            <mat-form-field class="w-100">
+                <mat-label class="mb-3 text-generic">Brand</mat-label>
+                <mat-select [(value)]="data.product.brand">
+                    <mat-option *ngFor="let brand of brands" [value]="brand.value">{{brand.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="text-sm w-100">
+            <mat-form-field class="w-100">
+                <mat-label class="mb-3 text-generic">Product Category</mat-label>
+                <mat-select [(value)]="data.product.productCategory.id">
+                    <!-- MAP OVER CATEGORIES FROM DB -->
+                    <mat-option *ngFor="let category of data.categories"
+                        [value]="category.id">{{category.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="text-sm w-100">
+            <mat-form-field class="w-100">
+                <mat-label class="mb-3 text-generic">Status</mat-label>
+                <mat-select [(value)]="data.product.status">
+                    <mat-option [value]="orderItemStatus.ACTIVE">Available</mat-option>
+                    <mat-option [value]="orderItemStatus.OUT_OF_STOCK">Out of Stock</mat-option>
+                    <mat-option [value]="orderItemStatus.BY_COMMAND">By Command</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="fs-sm w-100">
+            <label class="mb-3 text-dark">Main Image</label>
+            <div class="bg-whitesmoke shadow-sm p-3 rounded">
+                <div *ngIf="primaryImageLocal.url.length > 0 && !data.product.img1"
+                    class="mb-3 position-relative d-inline-block">
+                    <div class="position-absolute pos-x pos-y"><mat-icon class="cursor-pointer"
+                            (click)="resetPrimaryImage()">cancel</mat-icon></div>
+                    <img class="rounded img-dims" [src]="primaryImageLocal.url" alt="property-1">
+                </div>
+                <div *ngIf="data.product.img1" class="mb-3 position-relative d-inline-block">
+
+                    <div class="position-absolute pos-x pos-y"><mat-icon class="cursor-pointer"
+                            (click)="removeSavedMainImage()">cancel</mat-icon></div>
+                    <img class="rounded img-dims" [src]="data.product.img1" alt="property-1">
+                </div>
+                <div>
+                    <button class="bg-principal p-3 text-white" type="button" mat-raised-button
+                        (click)="primaryImageInput.click()">Choose File</button>
+                    <input required hidden (change)="onPrimaryImageSelected($event)" #primaryImageInput type="file"
+                        id="file" accept=".png,.jpg">
+                </div>
+            </div>
+            <mat-error *ngIf="primaryImageLocal && primaryImageLocal.file == null && validators.formSubmitted">Main
+                Image is required
+                !</mat-error>
+        </div>
+        <div class="fs-sm w-100 mb-3">
+            <label class="text-dark mt-4">Secondary Images(max: 3)</label>
+            <div class="bg-whitesmoke bg-highlight shadow-sm p-3 rounded">
+                <div class="d-flex gap-3 p-3">
+                    <div *ngIf="data.product.img2" class="position-relative">
+                        <div class="position-absolute pos-x pos-y">
+                            <mat-icon (click)="data.product.img2 =''" class="cursor-pointer">cancel</mat-icon>
+                        </div>
+                        <img [src]="data.product.img2" class="rounded img-dims">
+                    </div>
+                    <div *ngIf="data.product.img3" class="position-relative">
+                        <div class="position-absolute pos-x pos-y">
+                            <mat-icon (click)="data.product.img3 =''" class="cursor-pointer">cancel</mat-icon>
+                        </div>
+                        <img [src]="data.product.img3" class="rounded img-dims">
+                    </div>
+                    <div *ngIf="data.product.img4" class="position-relative">
+                        <div class="position-absolute pos-x pos-y">
+                            <mat-icon (click)="data.product.img4 =''" class="cursor-pointer">cancel</mat-icon>
+                        </div>
+                        <img [src]="data.product.img4" class="rounded img-dims">
+                    </div>
+                    <div class="d-flex gap-3">
+                        <div *ngFor="let image of secondaryImagesLocal; let index= index" class="position-relative">
+                            <div class="position-absolute pos-x pos-y">
+                                <mat-icon (click)="secondaryImagesLocal.splice(index,1)"
+                                    class="cursor-pointer">cancel</mat-icon>
+                            </div>
+                            <img [src]="image.url" class="rounded img-dims" [alt]="'img-' + index + 2">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="bg-principal p-3 text-white" type="button" mat-raised-button
+                        (click)="secondaryImageInput.click()">Choose File</button>
+                    <input hidden (change)="onSecondaryImageSelected($event)" accept=".png,.jpg" multiple="multiple"
+                        #secondaryImageInput type="file" id="file">
+                </div>
+            </div>
+            <mat-error *ngIf="validators.imagesOutOfBound">Not more than three secondary images</mat-error>
+        </div>
+        <mat-dialog-actions>
+            <button mat-flat-button type="button" class="bg-principal p-3 text-white" (click)="onNoClick()">
+                <span *ngIf="!isLoading; else loaderCancel">Cancel</span>
+                <ng-template #loaderCancel>
+                    <span>
+                        <mat-spinner class="text-white wh-25"></mat-spinner>
+                    </span>
+                </ng-template>
+            </button>
+            <button mat-flat-button class="bg-principal p-3 text-white" type="submit">
+                <span *ngIf="!isLoading; else loaderSubmit">Submit</span>
+                <ng-template #loaderSubmit>
+                    <span>
+                        <mat-spinner class="text-white" class="wh-25"></mat-spinner>
+                    </span>
+                </ng-template>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>
