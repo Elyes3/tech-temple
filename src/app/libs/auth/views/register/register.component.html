@@ -1,0 +1,86 @@
+<div class="height">
+    <div class="row gx-0 h-100 ">
+        <div class="col-md">
+            <app-tech-template></app-tech-template>
+        </div>
+        <div class="col-md">
+            <div class="d-flex h-100 w-100 p-7 justify-content-center flex-column ">
+                <div class="mb-3">
+                    <app-logo width="80" height="80" firstTColor="#5356FF" secondTColor="#67C6E3" firstEColor="#5356FF"
+                        secondEColor="#67C6E3"></app-logo>
+                </div>
+                <h5 class="fw-bold mb-5">Register</h5>
+                <form #form="ngForm" (submit)="register(user)">
+                    <div>
+                        <div class="fs-sm w-100">
+                            <label class="mb-3 text-generic">First Name <span class="text-principal">(*)</span></label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>First Name</mat-label>
+                                <input matInput name="firstname" [(ngModel)]="user.firstName" required class="text-sm" #firstName="ngModel"
+                                    placeholder="John">
+                                <mat-error *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid">
+                                    Invalid First Name
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="fs-sm w-100">
+                            <label class="mb-3 text-generic">Last Name <span class="text-principal">(*)</span></label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Last Name</mat-label>
+                                <input matInput name="lastname" [(ngModel)]="user.lastName" required class="text-sm" type="text" #lastName="ngModel"
+                                    placeholder="Doe">
+                                <mat-error *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid">
+                                    Invalid Last Name
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="fs-sm w-100">
+                            <label class="mb-3 text-generic">Age <span class="text-principal">(*)</span></label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Age</mat-label>
+                                <input matInput name="age" [(ngModel)]="user.age" required min="13" class="text-sm" type="number" placeholder="Doe"
+                                    #age="ngModel">
+                                <mat-error *ngIf="(age.dirty || age.touched) && (user.age < 13)">
+                                    Invalid Age
+                                </mat-error>
+                            </mat-form-field>
+
+                        </div>
+                        <div class="fs-sm w-100">
+                            <label class="mb-3 text-generic">Email <span class="text-principal">(*)</span></label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Email</mat-label>
+                                <input matInput name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                    [(ngModel)]="user.email" class="text-sm" type="email" placeholder="john.doe@xyz.com" #email="ngModel">
+                                <mat-error *ngIf="(email.dirty || email.touched) && email.invalid">
+                                    Invalid Email
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="fs-sm w-100">
+                            <label class="mb-3 text-generic">Password <span class="text-principal">(*)</span></label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Password</mat-label>
+                                <input matInput name="password" [(ngModel)]="user.password" class="text-sm" type="password">
+                            </mat-form-field>
+                        </div>
+                        <div class="w-100">
+                            <button type="submit" mat-flat-button
+                                [class]="(!form.invalid ? 'bg-principal' :  'bg-principal opacity-50') + ' p-3 w-100 fs-sm fw-light text-light'"
+                                [disabled]="form.invalid">
+                                Register
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-between flex-wrap mt-3">
+
+                            <a routerLink="/" class="text-generic text-decoration-none fs-sm fw-bold">Don't
+                                have an
+                                account
+                                ? <span class="text-principal">Sign In</span></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

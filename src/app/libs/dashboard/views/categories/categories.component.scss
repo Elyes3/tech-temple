@@ -1,0 +1,38 @@
+::ng-deep .rmv-err-cntr .mat-mdc-form-field-subscript-wrapper {
+    height: 0px;
+}
+
+.bg-gray {
+    background-color: rgba(128, 128, 128, 0.315);
+}
+
+::ng-deep .mdc-dialog__container {
+    padding: 15px !important;
+}
+
+.demo-table {
+    width: 100%;
+}
+
+.mat-column-demo-position {
+    width: 32px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-actions {
+    text-align: right;
+}
+
+.mat-column-name {
+    text-align: right;
+}
+
+.mat-column-description {
+    text-align: right;
+}
+
+::ng-deep .table-header .mat-sort-header-container {
+    justify-content: end;
+}

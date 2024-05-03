@@ -1,0 +1,27 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+    <mat-toolbar class="example-toolbar bg-principal text-white">
+        <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+        <h1 class="example-app-name">TechTemple</h1>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 43 : 0">
+        <mat-sidenav class="bg-principal" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+            [fixedInViewport]="mobileQuery.matches" fixedTopGap="43">
+            <mat-nav-list>
+                <a mat-list-item class="expand-items" (click)="currentRoute = menuItem.name"
+                    [routerLink]="menuItem.path" *ngFor="let menuItem of menuItems">
+                    <div class="d-flex align-items-end ">
+                        <mat-icon fontSet="material-icons-outlined" class="white-icon">{{menuItem.icon}}</mat-icon>
+                        <span style="margin-bottom: -2px;"
+                            class="ms-2 text-white span-hover-color">{{menuItem.name}}</span>
+                    </div>
+                </a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="bg-highlight p-3">
+            <app-title-card [currentRoute]="currentRoute"></app-title-card>
+            <router-outlet />
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
