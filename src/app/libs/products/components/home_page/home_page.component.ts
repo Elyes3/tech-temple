@@ -55,7 +55,10 @@ export class Home_pageComponent implements OnInit {
     this.model_ml=await cocoSSD.load();
   }
 
-  async detectObjects(element:any) {
+  async detectObjects(parentelement:any) {
+    console.log(parentelement)
+    let element:any;
+    element=parentelement.querySelector('img');
     this.predictions = await this.model_ml.detect(element);
     console.log(this.predictions);
     this.displayPredictions(element);
@@ -72,23 +75,49 @@ export class Home_pageComponent implements OnInit {
     for (let i = 0; i < circles.length; i++) {
       console.log(i)
       let circle = circles[i] as HTMLElement; // Type assertion to HTMLElement
-      circle.style.display = 'none';
+      circle.style.opacity = '0';
     }
     // Draw bounding boxes around detected objects
     this.predictions.forEach((prediction:any,index:any) => {
       // Calculate the center of the bounding box
       const centerX = prediction.bbox[0] + prediction.bbox[2] / 2;
       const centerY = prediction.bbox[1] + prediction.bbox[3] / 2;
-      circles[index].style.left = `${centerX}px`;
-      circles[index].style.top = `${centerY}px`;
-      circles[index].style.display ='' 
+      let circle:any;
+      circle=document.getElementById("cir"+(index+1));
+      console.log('cir'+(index+1))
+      console.log(circle);
+      circle.style.left = `${centerX}px`;
+      circle.style.top = `${centerY}px`;
+      circle.style.opacity ='1' 
       console.log("circle indice",index," x : ",centerX," y : ",centerY);
-      container.appendChild(circles[index]);
+      container.appendChild(circle);
       buts[index].setAttribute('data-container', 'body');
       buts[index].setAttribute('data-toggle','popover');
       buts[index].setAttribute('data-content', '100dt');
-      buts[index].setAttribute('title', 'price');
-
+      buts[index].setAttribute('title', prediction.class);
     });
+  }
+
+  leave_image(){
+    console.log("leave image")
+    let circles_element1:any;
+    let circles_element2:any;
+    let circles_element3:any;
+    circles_element1=document.querySelector('#cir1');
+    circles_element2=document.querySelector('#cir2');
+    circles_element3=document.querySelector('#cir3');
+    if(circles_element1){
+      circles_element1.style.opacity='0'
+    }
+    if(circles_element2){
+      circles_element2.style.opacity='0'
+    }
+    if(circles_element3){
+      circles_element3.style.opacity='0'
+    }
+  }
+
+  fn(){
+    console.log("click")
   }
 }

@@ -46,9 +46,9 @@
   <div>
     <div class="container">
       <div class="row">
-        <div class="col-md-6 d-flex justify-content-center">
-          <div class="ml-2 mb-1"  style="position: relative;">
-            <img (click)="detectObjects($event.target)" crossorigin="anonymous" #imageElement class="imm img-fluid" src="https://i.imgur.com/tsFXgXc.jpeg" alt="">
+        <div class="imm col-md-6 d-flex justify-content-center">
+          <div class="ml-2 mb-1" (mouseenter)="detectObjects($event.target)" (mouseleave)="leave_image()"  style="position: relative;">
+            <img crossorigin="anonymous" #imageElement class=" img-fluid" src="https://i.imgur.com/tsFXgXc.jpeg" alt="">
           </div>
         </div>
       </div>
@@ -58,14 +58,14 @@
   <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
 
 
-  <div class="circle" id="circle">
-    <button class="btn_pop w-100"></button>
+  <div class="circle" id="cir1" >
+    <button type="button"  class="btn btn_pop " (click)="fn()" >click</button>
   </div>
-  <div class="circle" id="circle">
-    <button class="btn_pop w-100"></button>
+  <div class="circle "  id="cir2" >
+    <button type="button"  class="btn btn_pop " (click)="fn()" >click</button>
   </div>
-  <div class="circle" id="circle">
-    <button class="btn_pop w-100"></button>
+  <div class="circle "  id="cir3" >
+    <button type="button"  class="btn btn_pop " (click)="fn()" >click</button>
   </div>
 </div>
 
