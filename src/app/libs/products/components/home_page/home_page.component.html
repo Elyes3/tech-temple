@@ -46,26 +46,22 @@
   <div>
     <div class="container">
       <div class="row">
-        <div class="imm col-md-6 d-flex justify-content-center">
+        <div class="imm col-md-6 d-flex justify-content-center" *ngFor="let product of produits">
           <div class="ml-2 mb-1" (mouseenter)="detectObjects($event.target)" (mouseleave)="leave_image()"  style="position: relative;">
-            <img crossorigin="anonymous" #imageElement class=" img-fluid" src="https://i.imgur.com/tsFXgXc.jpeg" alt="">
+            <img crossorigin="anonymous" #imageElement class=" img-fluid" src="{{product.img1}}" alt="">
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
-
-
   <div class="circle" id="cir1" >
-    <button type="button"  class="btn btn_pop " (click)="fn()" >click</button>
+    <button type="button"  class="btn btn_pop " (click)="fn()" ><div class="dot"></div></button>
   </div>
   <div class="circle "  id="cir2" >
-    <button type="button"  class="btn btn_pop " (click)="fn()" >click</button>
+    <button type="button"  class="btn btn_pop " (click)="fn()" ><div class="dot"></div></button>
   </div>
   <div class="circle "  id="cir3" >
-    <button type="button"  class="btn btn_pop " (click)="fn()" >click</button>
+    <button type="button"  class="btn btn_pop " (click)="fn()" ><div class="dot"></div></button>
   </div>
 </div>
 

@@ -8,6 +8,7 @@ import '@tensorflow/tfjs-backend-cpu'
 import { Product } from 'src/app/libs/shared/models/Product';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 import { Category } from 'src/app/libs/shared/models/Category';
+declare var $: any;
 @Component({
   selector: 'app-home_page',
   templateUrl: './home_page.component.html',
@@ -40,7 +41,7 @@ export class Home_pageComponent implements OnInit {
         message: 'echrei menna terbah men 8adi',
         products: this.produits
     },
-      price: 123,
+      price: 2000,
       brand: 'lenovo',
       status: OrderItemStatus.ACTIVE,
       img1: 'https://i.imgur.com/61hySKT.jpeg',
@@ -48,7 +49,27 @@ export class Home_pageComponent implements OnInit {
       img3: 'https://i.imgur.com/61hySKT.jpeg',
       img4: 'https://i.imgur.com/61hySKT.jpeg',
     }
+    const prod2={
+      id: '1',
+      name: 'laptop test1',
+      description: 'rani behy echrouni',
+      productCategory: {
+        id: '1',
+        name: 'laptop',
+        description: '5fif ndhif',
+        message: 'echrei menna terbah men 8adi',
+        products: this.produits
+    },
+      price: 1000,
+      brand: 'lenovo',
+      status: OrderItemStatus.ACTIVE,
+      img1: 'https://i.imgur.com/tsFXgXc.jpeg',
+      img2: 'https://i.imgur.com/61hySKT.jpeg',
+      img3: 'https://i.imgur.com/61hySKT.jpeg',
+      img4: 'https://i.imgur.com/61hySKT.jpeg',
+    }
     this.produits.push(prod)
+    this.produits.push(prod2)
   }
 
   async load_model(){
@@ -91,10 +112,10 @@ export class Home_pageComponent implements OnInit {
       circle.style.opacity ='1' 
       console.log("circle indice",index," x : ",centerX," y : ",centerY);
       container.appendChild(circle);
-      buts[index].setAttribute('data-container', 'body');
+      buts[index].setAttribute('data-bs-trigger', 'hover');
       buts[index].setAttribute('data-toggle','popover');
-      buts[index].setAttribute('data-content', '100dt');
       buts[index].setAttribute('title', prediction.class);
+      $('[data-toggle="popover"]').popover({content:'100dt'+index});
     });
   }
 

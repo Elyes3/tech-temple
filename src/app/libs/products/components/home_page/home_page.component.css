@@ -163,10 +163,8 @@
   }
 
   .circle{
-    height: 50px;
-    width: 50px;
+    display: inline-block;
     position: absolute;
-    background-color: white;
     opacity: 0;
 
   }
@@ -174,6 +172,41 @@
   .imm:hover ~ .circle{
     opacity: 1;
   }
-  .btn_pop:hover{
+  /* .btn_pop:hover{
   background-color: #79A70A;
+} */
+
+.btn_pop {
+  width: 40px; /* Adjust button size as needed */
+  height: 40px; /* Adjust button size as needed */
+  border-radius: 50%; /* Makes the button circular */
+  background-color: black;
+  border: solid 1px white;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%; /* Makes the dot circular */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease; /* Add smooth transition effect */
+}
+
+.btn_pop:hover .dot {
+  transform: translate(-50%, -50%) scale(1.2); /* Enlarge the dot on hover */
+}
+.btn_pop:hover{
+  width: 40px; /* Adjust button size as needed */
+  height: 40px; /* Adjust button size as needed */
+  border-radius: 50%; /* Makes the button circular */
+  background-color: black; 
+  border: solid 1px white;
+  cursor: pointer;
+  opacity: 0.9;
 }
