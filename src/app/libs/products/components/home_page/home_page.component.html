@@ -43,7 +43,7 @@
   <div class=" m-4 title separator"> <h4>Sélection PC de Bureau Gamer</h4>
   </div>
 
-  <div>
+  <!-- <div>
     <div class="container">
       <div class="row">
         <div class="imm col-md-6 d-flex justify-content-center" *ngFor="let product of produits">
@@ -53,7 +53,46 @@
         </div>
       </div>
     </div>
+  </div> -->
+  <div class="container">
+    <div class="row">
+      <div class="article-card card p-0"  *ngFor="let product of produits">
+        <div class="imm d-flex justify-content-center">
+          <div class="ml-2 img-container" (mouseenter)="detectObjects($event.target)" (mouseleave)="leave_image()"  style="position: relative;">
+            <img crossorigin="anonymous" #imageElement class="rounded-top img-fluid" src="{{product.img1}}" alt="">
+          </div>
+        </div>
+        <div class="card-footer p-2">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h5 class="card-title title text-dark">{{product.productCategory.name}}</h5>
+            </div>
+            <button mat-fab color="white" >
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <p class="m-0 d-inline">{{product.name}}</p>
+          <div class="d-flex flex-row my-3">
+            <div class="text-warning mb-1 me-2">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+              <span class="ms-1">
+                4.5
+              </span>
+            </div>
+            <span class="text-muted"><i class="bi bi-basket-fill mx-1"></i>154 orders</span>
+            <span class="text-success ms-2">In stock</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+
+  <!-- circles for the object detections -->
   <div class="circle" id="cir1" >
     <button type="button"  class="btn btn_pop " (click)="fn()" ><div class="dot"></div></button>
   </div>

@@ -68,8 +68,29 @@ export class Home_pageComponent implements OnInit {
       img3: 'https://i.imgur.com/61hySKT.jpeg',
       img4: 'https://i.imgur.com/61hySKT.jpeg',
     }
+    const prod3={
+      id: '1',
+      name: 'laptop test1',
+      description: 'rani behy echrouni',
+      productCategory: {
+        id: '1',
+        name: 'laptop',
+        description: '5fif ndhif',
+        message: 'echrei menna terbah men 8adi',
+        products: this.produits
+    },
+      price: 1000,
+      brand: 'lenovo',
+      status: OrderItemStatus.ACTIVE,
+      img1: 'https://i.imgur.com/klE9TXP.jpeg',
+      img2: 'https://i.imgur.com/61hySKT.jpeg',
+      img3: 'https://i.imgur.com/61hySKT.jpeg',
+      img4: 'https://i.imgur.com/61hySKT.jpeg',
+    }
     this.produits.push(prod)
     this.produits.push(prod2)
+    this.produits.push(prod3)
+    
   }
 
   async load_model(){
