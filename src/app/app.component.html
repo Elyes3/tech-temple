@@ -1,4 +1,3 @@
-
 <main>
   <div [class]="authenticatedRoutes() ? 'main-content' : ''">
     <div class="d-flex justify-content-center align-items-center h-100-vh"
@@ -6,6 +5,9 @@
       <mat-spinner></mat-spinner>
     </div>
     <ng-template #loaded>
+      <div *ngIf="authenticatedUser$ | async as user">
+        <app-navbar *ngIf="user.authenticatedUser"></app-navbar>
+      </div>
       <router-outlet></router-outlet>
     </ng-template>
     <!-- Render routed components here -->

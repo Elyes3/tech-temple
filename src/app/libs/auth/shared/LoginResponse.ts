@@ -1,5 +1,5 @@
-export interface LoginResponse{
-    message: string;
-    token: string;
-    isAdmin: boolean;
+export interface LoginResponse {
+    isAdmin: boolean,
+    token: string,
+    message: string,
 }
