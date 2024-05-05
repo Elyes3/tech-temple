@@ -2,15 +2,18 @@ import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/s
 import * as fromUsers from './users/users.reducer';
 import * as fromCategories from './categories/categories.reducer'
 import * as fromProducts from './products/products.reducer'
+import * as fromOrders from './orders/orders.reducer'
 export interface AppState{
     users: fromUsers.UsersState,
     categories: fromCategories.CategoriesState,
-    products: fromProducts.ProductsState
+    products: fromProducts.ProductsState,
+    orders: fromOrders.OrdersState
 }
 export const reducers: ActionReducerMap<AppState,any> = {
     users: fromUsers.usersReducer,
     categories: fromCategories.categoriesReducer,
-    products: fromProducts.productsReducer
+    products: fromProducts.productsReducer,
+    orders: fromOrders.ordersReducer
 };
 export const selectUsersState = createFeatureSelector<fromUsers.UsersState>('users');
 
@@ -63,7 +66,7 @@ export const selectCategoriesTotal = createSelector(
     fromCategories.selectCategoriesTotal
 )
 // ================================================================== PRODUCTS ======================================================================================
-// ================================================================== SELECTOR ========================================================================================export const selectCategoriesState = createFeatureSelector<fromCategories.CategoriesState>('categories');
+// ================================================================== SELECTOR ========================================================================================
 export const selectProductsState = createFeatureSelector<fromProducts.ProductsState>('products');
 
 export const selectProductLoading = createSelector(
@@ -85,4 +88,28 @@ export const selectAllProducts = createSelector(
 export const selectProductsTotal = createSelector(
     selectProductsState,
     fromProducts.selectProductsTotal
+)
+// ================================================================== ORDERS ======================================================================================
+// ================================================================== SELECTOR ========================================================================================
+export const selectOrdersState = createFeatureSelector<fromOrders.OrdersState>('orders');
+
+export const selectOrderLoading = createSelector(
+    selectOrdersState,
+    fromOrders.getLoading
+)
+export const selectOrderIds = createSelector(
+    selectOrdersState,
+    fromOrders.selectOrderIds
+)
+export const selectOrderEntities = createSelector(
+    selectOrdersState,
+    fromOrders.selectOrderEntities
+)
+export const selectAllOrders = createSelector(
+    selectOrdersState,
+    fromOrders.selectAllOrders
+)
+export const selectOrdersTotal = createSelector(
+    selectOrdersState,
+    fromOrders.selectOrdersTotal
 )

@@ -64,7 +64,7 @@ export class CategoriesComponent implements AfterViewInit{
           })
         })
         this.allCategories$.subscribe(categories => {
-          if (categories.length == 0) {
+          if (categories.length == 0 && this.paginator.pageIndex != 0) {
             this.paginator.previousPage();
           }
         })
@@ -112,7 +112,7 @@ export class CategoriesComponent implements AfterViewInit{
   }
   ngAfterViewInit(): void {
         this.sort.initialized.subscribe(() => {
-            this.categoriesService.countCategories().subscribe((count: any) => this.categoryCount = count.count);
+          this.categoriesService.countCategories().subscribe((count: any) => this.categoryCount = count);
             this.categoriesFacade.loadCategoriesWithPaginationAndSort({
               page: 0,
               order: 'desc',

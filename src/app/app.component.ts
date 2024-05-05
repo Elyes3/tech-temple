@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
       && this.router.url !== '/admin/users'
       && this.router.url !== '/admin/categories'
       && this.router.url !== '/admin/products'
+      && this.router.url !== '/admin/orders'
   }
   ngOnInit(): void {
     

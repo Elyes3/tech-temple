@@ -30,7 +30,7 @@ export class UsersComponent implements AfterViewInit {
       this.allUsers$.subscribe(users => {
       this.dataSource = new MatTableDataSource(users);
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;      
+      this.dataSource.paginator = this.paginator;
     })
   }
   authenticatedUser = this.usersFacade.authenticatedUser$ 
@@ -74,7 +74,7 @@ export class UsersComponent implements AfterViewInit {
           })
         })
         this.allUsers$.subscribe(users => {
-          if (users.length == 0) {
+          if (users.length == 0 && this.paginator.pageIndex != 0) {
             this.paginator.previousPage();
           }
         })
@@ -131,7 +131,7 @@ export class UsersComponent implements AfterViewInit {
   }
   ngAfterViewInit(): void {
         this.sort.initialized.subscribe(() => {
-            this.usersService.countUsers().subscribe((count: any) => this.userCount = count.count);
+          this.usersService.countUsers().subscribe((count: any) => this.userCount = count);
             this.usersFacade.loadUsersWithPaginationAndSort({
               page: 0,
               order: 'desc',

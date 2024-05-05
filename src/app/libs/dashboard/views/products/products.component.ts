@@ -72,7 +72,7 @@ export class ProductsComponent {
           })
         })
         this.allProducts$.subscribe(products => {
-          if (products.length == 0) {
+          if (products.length == 0 && this.paginator.pageIndex != 0) {
             this.paginator.previousPage();
           }
         })
@@ -93,7 +93,7 @@ export class ProductsComponent {
             products: []
           },
           brand: '',
-          status: OrderItemStatus.ACTIVE,
+          status: OrderItemStatus.AVAILABLE,
           img1: '',
           img2: '',
           img3: '',
@@ -150,7 +150,7 @@ export class ProductsComponent {
   }
   ngAfterViewInit(): void {
     this.sort.initialized.subscribe(() => {
-            this.productsService.countProducts().subscribe((count: any) => this.productCount = count.count);
+      this.productsService.countProducts().subscribe((count:any) => { this.productCount = count});
             this.productsFacade.loadProductsWithPaginationAndSort({
               page: 0,
               order: 'desc',

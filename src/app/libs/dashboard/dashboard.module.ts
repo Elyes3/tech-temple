@@ -27,7 +27,7 @@ import { ProductFormDialogComponent } from './components/dialogs/product-form-di
     DeleteDialogComponent,
     CategoriesComponent,
     CategoryFormDialogComponent,
-    ProductFormDialogComponent
+    ProductFormDialogComponent,
   ],
   imports: [
     CommonModule,
