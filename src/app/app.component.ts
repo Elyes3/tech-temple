@@ -8,9 +8,9 @@ import { Role } from './libs/auth/shared/Role';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'tech-temple';
-  constructor(private router : Router,private usersFacade : UsersFacade) {}
+  constructor(private router: Router, private usersFacade: UsersFacade) { }
   authenticatedUser$ = this.usersFacade.authenticatedUser$;
   authenticatedRoutes() {
     return this.router.url !== '/'
@@ -21,21 +21,19 @@ export class AppComponent implements OnInit{
       && this.router.url !== '/admin/products'
   }
   ngOnInit(): void {
-    
+
     this.usersFacade.loadAuthenticatedUser();
     this.authenticatedUser$.subscribe(user => {
       if (user.authenticatedUser && user.authenticatedUser.role == Role.Client) {
-        this.router.navigateByUrl('/basket');
+        this.router.navigateByUrl('/home');
       }
-      else if (user.authenticatedUser && user.authenticatedUser.role == Role.Admin)
-      {
+      else if (user.authenticatedUser && user.authenticatedUser.role == Role.Admin) {
         this.router.navigateByUrl(this.router.url);
       }
-      else
-      {
+      else {
         console.log(user.authenticatedUser);
-        }
-      
+      }
+
     })
 
   }

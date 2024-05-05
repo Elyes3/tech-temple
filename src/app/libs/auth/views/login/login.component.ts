@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Credentials } from '../../shared/Credentials';
 import { AuthService } from '../../services/auth.service';
+import { LoginResponse } from '../../shared/LoginResponse';
+import { Observable } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,11 +15,15 @@ export class LoginComponent {
     email: '',
     password: ''
   }
-  constructor(private authService: AuthService ) {
-    
+  constructor(private authService: AuthService, private router: Router) {
+
   }
   login(credentials: Credentials) {
-    this.authService.authenticate(credentials).subscribe();
-    
+    this.authService.authenticate(credentials).subscribe((response) => {
+      if (response.status === 200) {
+        const loginResponse: LoginResponse = response.body as LoginResponse;
+        loginResponse.isAdmin ? this.router.navigate(['/admin']) : this.router.navigate(['/home']);
+      }
+    });
   }
 }
