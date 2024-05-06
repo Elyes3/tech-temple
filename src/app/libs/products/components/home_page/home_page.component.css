@@ -166,7 +166,7 @@
     display: inline-block;
     position: absolute;
     opacity: 0;
-
+    transition: opacity 0.5s ease;
   }
 
   .imm:hover ~ .circle{
@@ -254,4 +254,17 @@
 .article-card{
   flex: 0 0 calc(33.33% - 6px); /* Adjust the width as needed */
   margin: 3px;
+  transition: all 300ms;
+}
+
+@media (max-width: 991.98px) {
+  .article-card {
+    flex: 0 0 calc(50% - 20px); /* Adjust width for medium screens */
+  }
+}
+
+@media (max-width: 575.98px) {
+  .article-card {
+    flex: 0 0 100%; /* Adjust width for small screens */
+  }
 }

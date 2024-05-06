@@ -79,7 +79,7 @@ export class Home_pageComponent implements OnInit {
         message: 'echrei menna terbah men 8adi',
         products: this.produits
     },
-      price: 1000,
+      price: 3000,
       brand: 'lenovo',
       status: OrderItemStatus.ACTIVE,
       img1: 'https://i.imgur.com/klE9TXP.jpeg',
@@ -97,16 +97,16 @@ export class Home_pageComponent implements OnInit {
     this.model_ml=await cocoSSD.load();
   }
 
-  async detectObjects(parentelement:any) {
+  async detectObjects(parentelement:any,produit:any) {
     console.log(parentelement)
     let element:any;
     element=parentelement.querySelector('img');
     this.predictions = await this.model_ml.detect(element);
     console.log(this.predictions);
-    this.displayPredictions(element);
+    this.displayPredictions(element,produit);
   }
 
-  displayPredictions(imgElement: any) {
+  displayPredictions(imgElement: any,prod:any) {
     var circles:any;
     circles = document.getElementsByClassName('circle');
     var buts:any;
@@ -135,13 +135,18 @@ export class Home_pageComponent implements OnInit {
       container.appendChild(circle);
       buts[index].setAttribute('data-bs-trigger', 'hover');
       buts[index].setAttribute('data-toggle','popover');
-      buts[index].setAttribute('title', prediction.class);
-      $('[data-toggle="popover"]').popover({content:'100dt'+index});
+      $('#btn'+(index+1)).popover({
+        content:prod.price,
+        title: prediction.class
+      });
     });
   }
 
   leave_image(){
     console.log("leave image")
+    $('#btn1').popover('dispose');
+    $('#btn2').popover('dispose');
+    $('#btn3').popover('dispose');
     let circles_element1:any;
     let circles_element2:any;
     let circles_element3:any;
