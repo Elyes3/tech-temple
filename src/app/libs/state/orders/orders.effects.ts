@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, switchMap } from "rxjs";
+import { catchError, map, of, switchMap } from "rxjs";
 import { OrdersService } from "../../dashboard/services/orders.service";
-import { OrdersActionTypes, OrdersLoaded, OrdersWithPaginationAndSortLoaded, OrderDeleted, OrderStatusUpdated, DeleteOrder, LoadOrders, LoadOrdersWithPaginationAndSort, UpdateOrderStatus } from "./orders.actions";
+import { OrdersActionTypes, OrdersLoaded, OrdersWithPaginationAndSortLoaded, OrderDeleted, OrderStatusUpdated, DeleteOrder, LoadOrders, LoadOrdersWithPaginationAndSort, UpdateOrderStatus, LoadOrdersWithPaginationAndSortError, LoadOrdersError, UpdateOrderStatusError, DeleteOrderError } from "./orders.actions";
 import { Order } from "../../shared/models/Order";
 @Injectable()
 export class OrdersEffects {
@@ -16,6 +16,7 @@ export class OrdersEffects {
             switchMap((action: LoadOrders) =>
                 this.ordersService.loadOrders().pipe(
                     map((res: Order[]) => new OrdersLoaded(res)),
+                    catchError(error => of(new LoadOrdersError()))
                 )
             )
         )
@@ -26,7 +27,8 @@ export class OrdersEffects {
             switchMap((action: LoadOrdersWithPaginationAndSort) => {
                 console.log("err2")
                 return this.ordersService.loadOrdersWithPaginationAndSort(action.payload).pipe(
-                    map((res: Order[]) => { console.log('err3'); return new OrdersWithPaginationAndSortLoaded(res) }),
+                    map((res: Order[]) =>  new OrdersWithPaginationAndSortLoaded(res) ),
+                    catchError(error => of(new LoadOrdersWithPaginationAndSortError))
                 )
             }
             )
@@ -38,6 +40,7 @@ export class OrdersEffects {
             switchMap((action: UpdateOrderStatus) =>
                 this.ordersService.updateOrderStatus(action.payload.id,action.payload).pipe(
                     map((res: Order) => new OrderStatusUpdated(res)),
+                    catchError(error => of(new UpdateOrderStatusError))
 )
             )
         )
@@ -47,7 +50,9 @@ export class OrdersEffects {
             ofType(OrdersActionTypes.DeleteOrder),
             switchMap((action: DeleteOrder) =>
                 this.ordersService.deleteOrder(action.payload.id).pipe(
-                    map((res: Order) => new OrderDeleted(res))),
+                    map((res: Order) => new OrderDeleted(res)),
+                    catchError(error => of(new DeleteOrderError))
+                ),
             )
         )
     );

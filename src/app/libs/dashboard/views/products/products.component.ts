@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductsFacade } from 'src/app/libs/state/products/products.facade';
 import { ProductsService } from '../../services/products.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,14 +11,27 @@ import { ProductFormDialogComponent } from '../../components/dialogs/product-for
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 import { CategoriesFacade } from 'src/app/libs/state/categories/categories.facade';
 import { Category } from 'src/app/libs/shared/models/Category';
-import { Observable, merge, tap } from 'rxjs';
+import { Observable, Subscription, merge, tap } from 'rxjs';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { IsOpenService } from '../../services/isopen.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+    animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit,AfterViewInit{
+    @Input()
+  isOpen: boolean = false;
+  isOpenSubscription!: Subscription;
+  allProductsSubscription!: Subscription;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource!: MatTableDataSource<Product>;
@@ -29,20 +42,27 @@ export class ProductsComponent {
     private changeDetector: ChangeDetectorRef,
     public productFormDialog: MatDialog,
     public DeleteDialog: MatDialog,
+    private isOpenService: IsOpenService
   ) {
-    this.allProducts$.subscribe(products => {
+
+    this.isOpenSubscription = this.isOpenService.isOpen$.subscribe(isOpen => 
+         this.isOpen = isOpen
+       );
+    this.allProductsSubscription = this.allProducts$.subscribe(products => {
       console.log(products);
       this.dataSource = new MatTableDataSource(products);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
     })
+    this.dataSource.sort = this.sort;
+    console.log(this.sort);
+    this.dataSource.paginator = this.paginator;
   }
+  expandedElement!: Product | null;
   allCategories$ : Observable<Category[]> = this.categoriesFacade.allCategories$
   allProducts$ : Observable<Product[]> = this.productsFacade.allProducts$
   isDataLoading$ : Observable<boolean> = this.productsFacade.isLoading$; 
   categories : Category[] = [];
   // Default call.
-  displayedColumns = ['id', 'name', 'description', 'productCategory', 'price', 'brand', 'status', 'actions']
+  displayedColumns = ['id', 'name', 'productCategory', 'price', 'brand', 'status', 'actions']
   productCount = 0;
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -51,6 +71,9 @@ export class ProductsComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+  capitalizeString(s: string): string {
+    return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+}
   openDeleteDialog(id: string): void{
     const dialogRef = this.DeleteDialog.open(DeleteDialogComponent,
       {
@@ -172,6 +195,17 @@ export class ProductsComponent {
       })
     ).subscribe()
     this.changeDetector.detectChanges();
-    
+  }
+  formatStatus(status : string) : string{
+    switch (status) {
+      case 'AVAILABLE':
+        return 'Available';
+      case 'OUT_OF_STOCK':
+        return 'Out of Stock';
+      case 'BY_COMMAND':
+        return 'By Command';
+      default: 
+        return ''
+    }
   }
 }

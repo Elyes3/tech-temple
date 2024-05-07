@@ -13,7 +13,6 @@ export class ResponseInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
         tap((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse && (event.status === 200 || event.status === 201)) {
-          // Handle successful response
             const responseData = event.body;
             console.log("HERE")
             if (request.method.toLowerCase() != 'get') {

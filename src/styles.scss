@@ -57,15 +57,15 @@ $text-color: #495057;
 }
 
 .bg-auxiliary {
-  background-color: $auxiliary;
+  background-color: $auxiliary !important;
 }
 
 .bg-accent {
-  background-color: $accent;
+  background-color: $accent !important;
 }
 
 .bg-highlight {
-  background-color: $highlight;
+  background-color: $highlight !important;
 }
 .bg-generic {
   background-color: $text-color
@@ -114,7 +114,7 @@ $text-color: #495057;
   padding: 5rem;
 }
 .cursor-pointer {
-  cursor: pointer
+  cursor: pointer !important
 }
 
 .text-sm {

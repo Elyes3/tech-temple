@@ -62,6 +62,31 @@ export function productsReducer(state : ProductsState = initialState, action: Pr
                 loading: false,
             }
         }
+        case ProductsActionTypes.AddProductError: {
+            return {
+                ...state, loading: false,
+            }
+            }
+        case ProductsActionTypes.UpdateProductError: {
+            return {
+                ...state, loading: false,
+            }
+            }
+        case ProductsActionTypes.DeleteProductError: {
+            return {
+                ...state, loading: false,
+            }
+            }
+        case ProductsActionTypes.LoadProductsError: {
+            return {
+                ...state, loading: false,
+            }
+            }
+        case ProductsActionTypes.LoadProductsWithPaginationAndSortError: {
+            return {
+                ...state, loading: false,
+            }
+            }
         default:
             return state
     }

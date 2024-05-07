@@ -1,7 +1,15 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
     <mat-toolbar class="example-toolbar bg-principal text-white">
-        <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+        <button mat-icon-button (click)="snav.toggle(); setIsOpen()"><mat-icon>menu</mat-icon></button>
+        <app-logo width="40" height="40" firstTColor="white" secondTColor="white" firstEColor="white"
+            secondEColor="white"></app-logo>
         <h1 class="example-app-name">TechTemple</h1>
+            <span class="example-spacer"></span>
+            <button mat-button class="d-flex justify-content-center">
+            
+                <span class="d-flex align-items-end"><mat-icon class="me-1">logout</mat-icon> <span class="mb--2"
+                        (click)="logout()">Logout</span></span>
+            </button>
     </mat-toolbar>
 
     <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 43 : 0">
@@ -12,8 +20,7 @@
                     [routerLink]="menuItem.path" *ngFor="let menuItem of menuItems">
                     <div class="d-flex align-items-end ">
                         <mat-icon fontSet="material-icons-outlined" class="white-icon">{{menuItem.icon}}</mat-icon>
-                        <span style="margin-bottom: -2px;"
-                            class="ms-2 text-white span-hover-color">{{menuItem.name}}</span>
+                        <span class="ms-2 mb--2 text-white span-hover-color">{{menuItem.name}}</span>
                     </div>
                 </a>
             </mat-nav-list>

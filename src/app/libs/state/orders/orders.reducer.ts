@@ -46,9 +46,32 @@ export function ordersReducer(state : OrdersState = initialState, action: Orders
             }
         }
         case OrdersActionTypes.OrdersWithPaginationAndSortLoaded: {
-            console.log("ERR4")
             return {
                 ...adapter.setAll(action.payload, state),
+                loading: false,
+            }
+        }
+        case OrdersActionTypes.LoadOrdersError: {
+            return {
+                ...state,
+                loading: false,
+            }
+        }
+        case OrdersActionTypes.LoadOrdersWithPaginationAndSortError: {
+            return {
+                ...state,
+                loading: false,
+            }
+        }
+        case OrdersActionTypes.DeleteOrderError: {
+            return {
+                ...state,
+                loading: false,
+            }
+        }
+        case OrdersActionTypes.UpdateOrderStatusError: {
+            return {
+                ...state,
                 loading: false,
             }
         }

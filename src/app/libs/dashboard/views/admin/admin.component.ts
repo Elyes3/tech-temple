@@ -1,7 +1,10 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersFacade } from 'src/app/libs/state/users/users.facade';
+import { IsOpenService } from '../../services/isopen.service';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/libs/auth/services/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -33,8 +36,10 @@ export class AdminComponent implements OnDestroy{
   ]
   private _mobileQueryListener: () => void;
   constructor(changeDetectorRef: ChangeDetectorRef,
+    private isOpenService: IsOpenService,
     media: MediaMatcher,
     private usersFacade: UsersFacade,
+    private authService: AuthService,
     private router : Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -48,6 +53,15 @@ export class AdminComponent implements OnDestroy{
         'Orders';
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-  }
 
+  }
+    setIsOpen() {
+      this.isOpenService.setIsOpen();
+  }
+  logout() {
+    console.log("CALLED");
+    this.authService.logout().subscribe(() => {
+          this.router.navigateByUrl('/');
+    });
+  }
 }

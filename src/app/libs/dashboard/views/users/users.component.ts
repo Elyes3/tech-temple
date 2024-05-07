@@ -1,7 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { merge, tap } from 'rxjs';
+import { Subscription, merge, tap } from 'rxjs';
 import { User } from 'src/app/libs/auth/shared/User';
 import { UsersFacade } from 'src/app/libs/state/users/users.facade';
 import { UsersService } from '../../services/users.service';
@@ -10,28 +10,37 @@ import { UserFormDialogComponent } from '../../components/dialogs/user-form-dial
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/delete-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { IsOpenService } from '../../services/isopen.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements AfterViewInit {
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+export class UsersComponent implements AfterViewInit,OnDestroy {
+    @Input()
+  isOpen: boolean = false;
+    isOpenSubscription!: Subscription;
+  allUsersSubscription!: Subscription;
+  @ViewChild(MatSort,{static: false}) sort!: MatSort;
+  @ViewChild(MatPaginator,{static : false}) paginator!: MatPaginator;
   dataSource!: MatTableDataSource<User>;
   constructor(
     private usersFacade: UsersFacade,
     private usersService: UsersService,
     private changeDetector : ChangeDetectorRef,
     public userFormDialog: MatDialog,
-    public DeleteDialog: MatDialog
+    public DeleteDialog: MatDialog,
+    private isOpenService: IsOpenService
   )
   {  
-      this.allUsers$.subscribe(users => {
+        this.isOpenSubscription = this.isOpenService.isOpen$.subscribe(isOpen => 
+         this.isOpen = isOpen
+       );
+      this.allUsersSubscription = this.allUsers$.subscribe(users => {
       this.dataSource = new MatTableDataSource(users);
+      })
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    })
   }
   authenticatedUser = this.usersFacade.authenticatedUser$ 
   allUsers$ = this.usersFacade.allUsers$
@@ -129,9 +138,21 @@ export class UsersComponent implements AfterViewInit {
         } 
       })
   }
+  updateUserStatus(user : User) {
+    this.usersFacade.updateUser({ 
+      id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    age: user.age,
+    role: 'CLIENT', 
+    enabled: !user.enabled
+    });
+    
+  }
   ngAfterViewInit(): void {
-        this.sort.initialized.subscribe(() => {
-          this.usersService.countUsers().subscribe((count: any) => this.userCount = count);
+    this.sort.initialized.subscribe(() => {
+            this.usersService.countUsers().subscribe((count: any) => this.userCount = count);
             this.usersFacade.loadUsersWithPaginationAndSort({
               page: 0,
               order: 'desc',
@@ -154,5 +175,9 @@ export class UsersComponent implements AfterViewInit {
       })
     ).subscribe()
     this.changeDetector.detectChanges();
+  }
+  ngOnDestroy(): void {
+    this.allUsersSubscription.unsubscribe();
+    this.isOpenSubscription.unsubscribe();
   }
 }

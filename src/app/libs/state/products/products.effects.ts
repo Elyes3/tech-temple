@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, switchMap } from "rxjs";
+import { catchError, map, of, switchMap } from "rxjs";
 import { ProductsService } from "../../dashboard/services/products.service";
-import { AddProduct, ProductsActionTypes, ProductsLoaded, ProductsWithPaginationAndSortLoaded, ProductAdded, ProductDeleted, ProductUpdated, DeleteProduct, LoadProducts, LoadProductsWithPaginationAndSort, UpdateProduct } from "./products.actions";
+import { AddProduct, ProductsActionTypes, ProductsLoaded, ProductsWithPaginationAndSortLoaded, ProductAdded, ProductDeleted, ProductUpdated, DeleteProduct, LoadProducts, LoadProductsWithPaginationAndSort, UpdateProduct, LoadProductsError, LoadProductsWithPaginationAndSortError, AddProductError, UpdateProductError, DeleteProductError } from "./products.actions";
 import { Product } from "../../shared/models/Product";
 @Injectable()
 export class ProductsEffects {
@@ -16,6 +16,8 @@ export class ProductsEffects {
             switchMap((action: LoadProducts) =>
                 this.productsService.loadProducts().pipe(
                     map((res: Product[]) => new ProductsLoaded(res)),
+                    catchError(error => of(new LoadProductsError()))
+                
                 )
             )
         )
@@ -27,6 +29,7 @@ export class ProductsEffects {
                 console.log("err2")
                 return this.productsService.loadProductsWithPaginationAndSort(action.payload).pipe(
                     map((res: Product[]) => { console.log('err3'); return new ProductsWithPaginationAndSortLoaded(res) }),
+                    catchError(error => of(new LoadProductsWithPaginationAndSortError()))
                 )
             }
             )
@@ -38,7 +41,8 @@ export class ProductsEffects {
             switchMap((action: AddProduct) =>
                 this.productsService.addProduct(action.payload).pipe(
                     map((res: Product) => new ProductAdded(res)),
-)
+                    catchError(error => of(new AddProductError()))
+)                   
             )
         )
     );
@@ -48,6 +52,7 @@ export class ProductsEffects {
             switchMap((action: UpdateProduct) =>
                 this.productsService.updateProduct(action.payload.id,action.payload).pipe(
                     map((res: Product) => new ProductUpdated(res)),
+                    catchError(error => of(new UpdateProductError()))
 )
             )
         )
@@ -57,7 +62,10 @@ export class ProductsEffects {
             ofType(ProductsActionTypes.DeleteProduct),
             switchMap((action: DeleteProduct) =>
                 this.productsService.deleteProduct(action.payload.id).pipe(
-                    map((res: Product) => new ProductDeleted(res))),
+                    map((res: Product) => new ProductDeleted(res)),
+                    catchError(error => of(new DeleteProductError()))
+                ),
+                
             )
         )
     );

@@ -1,7 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { merge, tap } from 'rxjs';
+import { Subscription, merge, tap } from 'rxjs';
 import { CategoriesFacade } from '../../../state/categories/categories.facade';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from 'src/app/libs/shared/models/Category';
@@ -9,24 +9,31 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/delete-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { CategoryFormDialogComponent } from '../../components/dialogs/category-form-dialog/category-form-dialog.component';
+import { IsOpenService } from '../../services/isopen.service';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class CategoriesComponent implements AfterViewInit{
+export class CategoriesComponent implements AfterViewInit,OnDestroy{
   @ViewChild(MatSort,{static: false}) sort!: MatSort;
   @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
   dataSource!: MatTableDataSource<Category>;
+  isOpen!: boolean;
+  isOpenSubscription!: Subscription;
+  allCategoriesSubscription!: Subscription;
   constructor(
     private categoriesFacade: CategoriesFacade,
     private categoriesService: CategoriesService,
     private changeDetector: ChangeDetectorRef,
+    private isOpenService: IsOpenService,
     public categoriesFormDialog: MatDialog,
     public deleteDialog: MatDialog
   )
-  {  
-      this.allCategories$.subscribe(categories => {
+  {  this.isOpenSubscription = this.isOpenService.isOpen$.subscribe(isOpen => 
+         this.isOpen = isOpen
+       );
+     this.allCategoriesSubscription = this.allCategories$.subscribe(categories => {
       this.dataSource = new MatTableDataSource(categories);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -135,5 +142,9 @@ export class CategoriesComponent implements AfterViewInit{
       })
     ).subscribe()
     this.changeDetector.detectChanges();
+  }
+  ngOnDestroy(): void {
+    this.isOpenSubscription.unsubscribe();
+    this.allCategoriesSubscription.unsubscribe();
   }
 }

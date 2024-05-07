@@ -89,6 +89,31 @@ export function usersReducer(state : UsersState = initialState, action: UsersAct
                 dataLoading: false,
             }
         }
+        case UsersActionTypes.LoadUsersWithPaginationAndSortError: {
+            return {
+                ...state,dataLoading : false,
+            }
+        }
+        case UsersActionTypes.LoadUsersError: {
+            return {
+                ...state,dataLoading : false,
+            }
+        }
+        case UsersActionTypes.UpdateUserError: {
+            return {
+                ...state,dataLoading : false,
+            }
+        }
+        case UsersActionTypes.DeleteUserError: {
+            return {
+                ...state,dataLoading : false,
+            }
+        }
+        case UsersActionTypes.AddUserError: {
+            return {
+                ...state,dataLoading : false,
+            }
+        }                
         default:
             return state
     }

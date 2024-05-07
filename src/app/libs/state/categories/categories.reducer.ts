@@ -54,13 +54,36 @@ export function categoriesReducer(state : CategoriesState = initialState, action
             return {
                 ...state, loading: true,
             }
-        }
-           
+        } 
         case CategoriesActionTypes.CategoriesWithPaginationAndSortLoaded: {
-             console.log("CATEGORY SET")
             return {
                 ...adapter.setAll(action.payload, state),
                 loading: false,
+            }
+        }
+        case CategoriesActionTypes.LoadCategoriesWithPaginationAndSortError: {
+            return {
+                ...state, loading: false,
+            }
+        }
+        case CategoriesActionTypes.LoadCategoriesError: {
+            return {
+                ...state, loading: false,
+            }
+        }
+        case CategoriesActionTypes.AddCategoryError: {
+            return {
+                ...state, loading: false,
+            }
+        }
+        case CategoriesActionTypes.DeleteCategoryError: {
+            return {
+                ...state, loading: false,
+            }
+        }
+        case CategoriesActionTypes.UpdateCategoryError: {
+            return {
+                ...state, loading: false,
             }
         }
         default:

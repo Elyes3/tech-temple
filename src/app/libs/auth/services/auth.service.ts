@@ -9,12 +9,17 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   loginEndpoint = 'login';
+  logoutEndpoint = 'logout';
   registerEndpoint = 'signup';
   sendResetEndpoint = 'send-reset';
   resetPasswordEndpoint = 'reset-password';
   constructor(private http: HttpClient, private router: Router) { }
   authenticate(credentials : Credentials) {
     return this.http.post(this.getLoginUrl(), credentials, { observe: 'response' })
+  }
+  logout() {
+    console.log(this.getLogoutUrl())
+    return this.http.get(this.getLogoutUrl());
   }
   register(user: User) {
     return this.http.post(this.getRegisterUrl(), user).subscribe({
@@ -32,6 +37,9 @@ export class AuthService {
   }
   getLoginUrl(): string{
     return `${environment.API_URL}/api/${this.loginEndpoint}`
+  }
+  getLogoutUrl(): string{
+    return `${environment.API_URL}/api/${this.logoutEndpoint}`
   }
   getRegisterUrl(): string{
     return `${environment.API_URL}/api/${this.registerEndpoint}`

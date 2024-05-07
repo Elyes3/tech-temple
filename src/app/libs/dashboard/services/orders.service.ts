@@ -20,7 +20,8 @@ constructor(private http: HttpClient) {}
   countOrders() {
     return this.http.get(this.getCountUrl())
   }
-  loadOrdersWithPaginationAndSort(paginationInfo : PaginationInfo) {
+  loadOrdersWithPaginationAndSort(paginationInfo: PaginationInfo) {
+    console.log("CALLING");
     return this.http.get<Order[]>(this.getPaginationUrl(paginationInfo))
   }
   updateOrderStatus(id: string, order : Order) {
@@ -30,7 +31,7 @@ constructor(private http: HttpClient) {}
     return this.http.delete<Order>(this.getUrlById(id));
   }
   getPaginationUrl(paginationInfo : PaginationInfo) {
-     return `${environment.API_URL}/api/${this.endpoint}?page=${paginationInfo.page}&sort=${paginationInfo.sort}&order=${paginationInfo.order}&size=${paginationInfo.size}`
+     return `${environment.API_URL}/api/${this.endpoint}?page=${paginationInfo.page}&sort=${paginationInfo.sort},${paginationInfo.order}&size=${paginationInfo.size}`
   }
   getUrlById(id : string) : string {
     return `${environment.API_URL}/api/${this.endpoint}/${id}`
