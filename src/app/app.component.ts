@@ -9,9 +9,9 @@ import { map, skip, skipWhile } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent{
+export class AppComponent {
   title = 'tech-temple';
-  constructor(private router : Router,private usersFacade : UsersFacade) {}
+  constructor(private router: Router, private usersFacade: UsersFacade) { }
   authenticatedUser$ = this.usersFacade.authenticatedUser$;
   authenticatedRoutes() {
     return this.router.url !== '/'
@@ -21,5 +21,6 @@ export class AppComponent{
       && this.router.url !== '/admin/categories'
       && this.router.url !== '/admin/products'
       && this.router.url !== '/admin/orders'
+
   }
 }
