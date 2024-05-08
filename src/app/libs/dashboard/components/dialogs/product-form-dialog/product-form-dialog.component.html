@@ -56,9 +56,9 @@
             <mat-form-field class="w-100">
                 <mat-label class="mb-3 text-generic">Status</mat-label>
                 <mat-select [(value)]="data.product.status">
-                    <mat-option [value]="orderItemStatus.ACTIVE">Available</mat-option>
-                    <mat-option [value]="orderItemStatus.OUT_OF_STOCK">Out of Stock</mat-option>
-                    <mat-option [value]="orderItemStatus.BY_COMMAND">By Command</mat-option>
+                    <mat-option value="AVAILABLE">Available</mat-option>
+                    <mat-option value="OUT_OF_STOCK">Out of Stock</mat-option>
+                    <mat-option value="BY_COMMAND">By Command</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -90,7 +90,7 @@
         </div>
         <div class="fs-sm w-100 mb-3">
             <label class="text-dark mt-4">Secondary Images(max: 3)</label>
-            <div class="bg-whitesmoke bg-highlight shadow-sm p-3 rounded">
+            <div class="bg-whitesmoke shadow-sm p-3 rounded">
                 <div class="d-flex gap-3 p-3">
                     <div *ngIf="data.product.img2" class="position-relative">
                         <div class="position-absolute pos-x pos-y">

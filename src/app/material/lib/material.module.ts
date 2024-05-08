@@ -15,11 +15,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatChipsModule } from '@angular/material/chips'
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 @NgModule({
   imports: [
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatChipsModule,
     MatStepperModule,
     MatSnackBarModule,
     MatIconModule,
@@ -32,12 +35,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
     MatTableModule,
     MatSelectModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSlideToggleModule,
   ],
   exports: [
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatChipsModule,
     MatStepperModule,
     MatSnackBarModule,
     MatIconModule,
@@ -50,7 +55,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
     MatTableModule,
     MatSelectModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule {}

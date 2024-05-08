@@ -36,7 +36,7 @@ constructor(private http: HttpClient, private firebaseService: FirebaseService) 
     return `${environment.API_URL}/api/${this.endpoint}/${id}`
   }
   getPaginationUrl(paginationInfo : PaginationInfo) {
-     return `${environment.API_URL}/api/${this.endpoint}?page=${paginationInfo.page}&sort=${paginationInfo.sort}&order=${paginationInfo.order}&size=${paginationInfo.size}`
+     return `${environment.API_URL}/api/${this.endpoint}?page=${paginationInfo.page}&sort=${paginationInfo.sort},${paginationInfo.order}&size=${paginationInfo.size}`
   }
 
   getUrl() : string{

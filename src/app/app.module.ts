@@ -21,12 +21,11 @@ import { environment } from 'src/environments/environments';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { ProductsModule } from './libs/products/products.module';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { LogoComponent } from './libs/shared/logo/logo.component';
+import { SharedModule } from './libs/shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    PersonalMenuItemComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -45,6 +44,7 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
     DashboardModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
+    SharedModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },

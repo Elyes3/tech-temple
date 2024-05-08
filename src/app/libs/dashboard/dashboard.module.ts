@@ -14,7 +14,10 @@ import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete
 import { CategoriesComponent } from './views/categories/categories.component';
 import { CategoryFormDialogComponent } from './components/dialogs/category-form-dialog/category-form-dialog.component';
 import { ProductFormDialogComponent } from './components/dialogs/product-form-dialog/product-form-dialog.component';
-
+import { ChipsComponent } from './components/chips/chips.component';
+import { AuthModule } from '../auth/auth.module';
+import { LogoComponent } from '../shared/logo/logo.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { ProductFormDialogComponent } from './components/dialogs/product-form-di
     DeleteDialogComponent,
     CategoriesComponent,
     CategoryFormDialogComponent,
-    ProductFormDialogComponent
+    ProductFormDialogComponent,
+    ChipsComponent,
   ],
   imports: [
     CommonModule,
@@ -36,14 +40,7 @@ import { ProductFormDialogComponent } from './components/dialogs/product-form-di
     DashboardRoutingModule,
     MaterialModule,
     FormsModule,
+    SharedModule
   ],
-  exports: [
-    CommonModule,
-    MaterialModule,
-    RouterModule,
-    DashboardRoutingModule,
-    MaterialModule,
-    FormsModule,
-  ]
 })
 export class DashboardModule { }

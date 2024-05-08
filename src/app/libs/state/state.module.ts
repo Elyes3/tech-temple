@@ -7,6 +7,7 @@ import { UsersEffects } from './users/users.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CategoriesEffects } from './categories/categories.effects';
 import { ProductsEffects } from './products/products.effects';
+import { OrdersEffects } from './orders/orders.effects';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ProductsEffects } from './products/products.effects';
     EffectsModule.forRoot(
       UsersEffects,
       CategoriesEffects,
-      ProductsEffects
+      ProductsEffects,
+      OrdersEffects,
     )
 
   ]

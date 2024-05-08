@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, of, switchMap } from "rxjs";
 import { CategoriesService } from "../../dashboard/services/categories.service";
-import { AddCategory, CategoriesActionTypes, CategoriesLoaded, CategoriesWithPaginationAndSortLoaded, CategoryAdded, CategoryDeleted, CategoryUpdated, DeleteCategory, LoadCategories, LoadCategoriesWithPaginationAndSort, UpdateCategory } from "./categories.actions";
+import { AddCategory, AddCategoryError, CategoriesActionTypes, CategoriesLoaded, CategoriesWithPaginationAndSortLoaded, CategoryAdded, CategoryDeleted, CategoryUpdated, DeleteCategory, DeleteCategoryError, LoadCategories, LoadCategoriesError, LoadCategoriesWithPaginationAndSort, LoadCategoriesWithPaginationAndSortError, UpdateCategory, UpdateCategoryError } from "./categories.actions";
 import { Category } from "../../shared/models/Category";
 @Injectable()
 export class CategoriesEffects {
@@ -16,6 +16,7 @@ export class CategoriesEffects {
             switchMap((action: LoadCategories) =>
                 this.categoriesService.loadCategories().pipe(
                     map((res: Category[]) => new CategoriesLoaded(res)),
+                    catchError(error => of(new LoadCategoriesError()))
                 )
             )
         )
@@ -27,6 +28,7 @@ export class CategoriesEffects {
                 console.log(action.payload)
                 return this.categoriesService.loadCategoriesWithPaginationAndSort(action.payload).pipe(
                     map((res: Category[]) => new CategoriesWithPaginationAndSortLoaded(res)),
+                    catchError(error => of(new LoadCategoriesWithPaginationAndSortError()))
                 )
             }
             )
@@ -38,6 +40,7 @@ export class CategoriesEffects {
             switchMap((action: AddCategory) =>
                 this.categoriesService.addCategory(action.payload).pipe(
                     map((res: Category) => new CategoryAdded(res)),
+                    catchError(error => of(new AddCategoryError()))
 )
             )
         )
@@ -48,6 +51,7 @@ export class CategoriesEffects {
             switchMap((action: UpdateCategory) =>
                 this.categoriesService.updateCategory(action.payload.id,action.payload).pipe(
                     map((res: Category) => new CategoryUpdated(res)),
+                    catchError(error => of(new UpdateCategoryError()))
 )
             )
         )
@@ -57,7 +61,8 @@ export class CategoriesEffects {
             ofType(CategoriesActionTypes.DeleteCategory),
             switchMap((action: DeleteCategory) =>
                 this.categoriesService.deleteCategory(action.payload.id).pipe(
-                    map((res: Category) => new CategoryDeleted(res))),
+                    map((res: Category) => new CategoryDeleted(res)),
+                    catchError(error => of(new DeleteCategoryError()))),
             )
         )
     );
