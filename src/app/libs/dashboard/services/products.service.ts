@@ -11,7 +11,7 @@ import { ImageData } from '../shared/ImageData';
 })
 export class ProductsService {
 
-constructor(private http: HttpClient, private firebaseService: FirebaseService) {}
+  constructor(private http: HttpClient, private firebaseService: FirebaseService) { }
   endpoint = "products";
   countEndpoint = "products/count"
   loadProducts() {
@@ -20,26 +20,29 @@ constructor(private http: HttpClient, private firebaseService: FirebaseService) 
   countProducts() {
     return this.http.get(this.getCountUrl())
   }
-  loadProductsWithPaginationAndSort(paginationInfo : PaginationInfo) {
+  loadProductsWithPaginationAndSort(paginationInfo: PaginationInfo) {
     return this.http.get<Product[]>(this.getPaginationUrl(paginationInfo))
   }
-  updateProduct(id : string, product: Product) {
-    return this.http.put<Product>(this.getUrlById(id),product);
+  updateProduct(id: string, product: Product) {
+    return this.http.put<Product>(this.getUrlById(id), product);
   }
-  deleteProduct(id : string) {
+  deleteProduct(id: string) {
     return this.http.delete<Product>(this.getUrlById(id));
   }
   addProduct(product: Product) {
     return this.http.post<Product>(this.getUrl(), product);
   }
-  getUrlById(id : string) : string {
+  getProductById(id: string) {
+    return this.http.get<Product>(this.getUrlById(id));
+  }
+  getUrlById(id: string): string {
     return `${environment.API_URL}/api/${this.endpoint}/${id}`
   }
-  getPaginationUrl(paginationInfo : PaginationInfo) {
-     return `${environment.API_URL}/api/${this.endpoint}?page=${paginationInfo.page}&sort=${paginationInfo.sort}&order=${paginationInfo.order}&size=${paginationInfo.size}`
+  getPaginationUrl(paginationInfo: PaginationInfo) {
+    return `${environment.API_URL}/api/${this.endpoint}?page=${paginationInfo.page}&sort=${paginationInfo.sort}&order=${paginationInfo.order}&size=${paginationInfo.size}`
   }
 
-  getUrl() : string{
+  getUrl(): string {
     return `${environment.API_URL}/api/${this.endpoint}`
   }
   getCountUrl() {
