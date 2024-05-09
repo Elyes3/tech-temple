@@ -25,15 +25,11 @@ $tech-temple-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$tech-temple-theme: mat.define-light-theme((
-  color: (
-    primary: $tech-temple-primary,
-    accent: $tech-temple-accent,
-    warn: $tech-temple-warn,
-                ),
-                                density: -2
-));
-
+$tech-temple-theme: mat.define-light-theme((color: (primary: $tech-temple-primary,
+        accent: $tech-temple-accent,
+        warn: $tech-temple-warn,
+      ),
+      density: -3));
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($tech-temple-theme);
@@ -43,8 +39,9 @@ $background: #ececec;
 $principal: #5356FF;
 $auxiliary: #378CE7;
 $accent: #67C6E3;
-$highlight: #ebf8fd;
+$highlight: #DFF5FF;
 $text-color: #495057;
+
 @font-face {
   font-family: 'MarkPro';
   src: url('../src/assets/fonts/markprofont.otf') format('woff2');
@@ -52,6 +49,7 @@ $text-color: #495057;
   font-weight: normal;
   font-style: normal;
 }
+
 .bg-principal {
   background-color: $principal !important;
 }
@@ -66,9 +64,6 @@ $text-color: #495057;
 
 .bg-highlight {
   background-color: $highlight !important;
-}
-.bg-generic {
-  background-color: $text-color
 }
 
 .text-principal {
@@ -90,6 +85,7 @@ $text-color: #495057;
 .text-generic {
   color: $text-color
 }
+
 .border-principal {
   border-color: $principal;
 }
@@ -113,21 +109,13 @@ $text-color: #495057;
 .p-7 {
   padding: 5rem;
 }
+
 .cursor-pointer {
   cursor: pointer !important
 }
 
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
 html,
 body {
   height: 100%;
   font-family: 'MarkPro', sans-serif;
-}
-@media (min-width: 576px) {
-  .text-sm-left {
-    text-align: left !important;
-  }
 }

@@ -1,10 +1,10 @@
 import { Category } from "./Category";
 import { OrderItemStatus } from "../enum/OrderItemStatus";
-export interface Product{
+export interface Product {
     id: string;
     name: string;
     description: string;
-    productCategory: Category;
+    productCategory: Category; // why full object here not just id ?
     price: number;
     brand: string;
     status: OrderItemStatus;

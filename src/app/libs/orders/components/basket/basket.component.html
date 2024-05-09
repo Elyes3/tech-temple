@@ -1,1 +1,15 @@
-<p>basket works!</p>
+<div class="grid gap-3 px-4">
+    <div class="col-md-8 cart rounded-2">
+        <div class="title">
+            <div class="row">
+                <div class="col">
+                    <h4><b>Shopping Cart</b></h4>
+                </div>
+                <div class="col text-right text-muted d-flex justify-content-end">{{ cartItems.length }} items</div>
+            </div>
+        </div>
+        <ng-container *ngFor="let item of cartItems">
+            <app-basket-item [item]="item"></app-basket-item>
+        </ng-container>
+    </div>
+</div>
