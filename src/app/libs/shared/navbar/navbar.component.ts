@@ -16,15 +16,12 @@ export class NavbarComponent {
   }
 
   ngOnInit(): void {
-    // Subscribe to cartItems$ observable to get updates on cart items
     this.cartItemsSubscription = this.cartService.cartItems$.subscribe(cartItems => {
-      // Calculate total number of items in the cart
-      this.cartentries = cartItems.reduce((total, item) => total + item.quantity, 0);
+      this.cartentries = cartItems.length;
     });
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe from the observable to prevent memory leaks
     this.cartItemsSubscription.unsubscribe();
   }
 

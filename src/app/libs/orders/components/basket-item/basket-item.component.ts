@@ -48,7 +48,7 @@ export class BasketItemComponent implements OnInit, OnDestroy {
   }
 
   calculateTotalPrice() {
-    this.totalPrice = this.item.product.price * this.item.quantity;
+    this.item.totalPrice = this.item.product.price * this.item.quantity;
   }
 
   onDeleteButtonClick() {

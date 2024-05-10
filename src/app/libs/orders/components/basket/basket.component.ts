@@ -12,10 +12,12 @@ import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 export class BasketComponent implements OnInit {
   cartItems: CartItem[] = [];
   private cartItemsSubscription: Subscription;
+  cartPrice: number = 0;
 
   constructor(private cartService: CartService) {
     this.cartItemsSubscription = this.cartService.cartItems$.subscribe(cartItems => {
       this.cartItems = cartItems;
+      this.getCartPrice();
     });
   }
 
@@ -72,7 +74,14 @@ export class BasketComponent implements OnInit {
     this.cartService.addItemToCart(sampleCartItem2);
   }
 
+  clearCart() {
+    this.cartService.clearCart();
+  }
   ngOnDestroy() {
     this.cartItemsSubscription.unsubscribe();
+  }
+
+  getCartPrice() {
+    this.cartPrice = this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
   }
 }
