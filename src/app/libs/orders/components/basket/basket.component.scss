@@ -23,6 +23,8 @@
 .cart {
     background-color: #fff;
     padding: 4vh 5vh;
+    box-shadow: -1px 3px 14px 8px rgba(122, 122, 122, 0.65);
+    -webkit-box-shadow: -1px 3px 14px 8px rgba(122, 122, 122, 0.65);
 }
 
 .counter {
@@ -37,4 +39,18 @@
         background: none;
         border: none;
     }
+}
+
+.items-list {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.clear-all-btn {
+    width: 150px;
+}
+
+.h-40 {
+    height: 46%;
 }
