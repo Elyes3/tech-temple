@@ -1,5 +1,5 @@
-export enum OrderStatus{
-    PAID = 'Paid',
-    ISSUED = 'Issued',
-    CANCELLED = 'Cancelled'
+export enum InvoiceStatus {
+    PAID = 'PAID',
+    ISSUED = 'ISSUED',
+    CANCELLED = 'CANCELLED'
 }

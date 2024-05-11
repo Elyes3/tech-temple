@@ -1,0 +1,92 @@
+<div class="container" *ngIf="!showCashPaySuccess && !showOnlinePaySuccess">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-5 order-md-2 mb-4">
+            <div class="box-left general-container">
+                <p class="textmuted h8">Invoice</p>
+                <div class="mb-2">
+                    <span class="fw-bold h7">
+                        {{ formData.firstName }}
+                    </span>
+                    <span class="fw-bold h7">
+                        {{ formData.lastName }}
+                    </span>
+                </div>
+                <div class="mb-2 fs-6 fw-light ">
+                    {{ formData.email }}
+                </div>
+                <div class="h8">
+                    <div class="row m-0 border">
+                        <div class="col-6 h8 pe-0">
+                            <p class="text-muted py-2">Items</p>
+                        </div>
+                        <div class="col-2 text-center p-0">
+                            <p class="text-muted p-2">Qty</p>
+                        </div>
+                        <div class="col-2 p-0 text-center h8 border-end">
+                            <p class="text-muted p-2">Price</p>
+                        </div>
+                        <div class="col-2 p-0 text-center">
+                            <p class="text-muted p-2">Total</p>
+                        </div>
+                    </div>
+
+                    <div class="row m-0 border" *ngFor="let item of cartItems">
+                        <div class="col-6 h8 pe-0 ps-2">
+                            <span class="d-block py-2 border-bottom">{{ item.product.name }}</span>
+                        </div>
+                        <div class="col-2 text-center p-0">
+                            <span class="d-block p-2 border-bottom">{{ item.quantity }}</span>
+                        </div>
+                        <div class="col-2 p-0 text-center h8 border-end">
+                            <span class="d-block border-bottom py-2"><span class="fas fa-dollar-sign"></span>{{
+                                item.product.price }}</span>
+                        </div>
+                        <div class="col-2 p-0 text-center">
+                            <span class="d-block py-2 border-bottom"><span class="fas fa-dollar-sign"></span>{{
+                                item.quantity * item.product.price }}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex h7 mt-3">
+                        <p class="">Total Amount</p>
+                        <p class="ms-auto">{{ cartPrice }} dt</p>
+                    </div>
+
+                    <div class="d-flex h7">
+                        <p class="">Address</p>
+                        <p class="ms-auto">{{ formData.address }}</p>
+                    </div>
+                    <div class="d-flex h7">
+                        <p class="">Postal code</p>
+                        <p class="ms-auto">{{ formData.postalCode }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 order-md-1 form">
+            <h3>Checkout</h3>
+            <app-billing-address (formData)="handleFormData($event)"></app-billing-address>
+            <div class="mb-3 row gap-2">
+                <div class="col">
+                    <button type="button" (click)="redirectToSuccessScreen('cash')"
+                        class="btn btn-primary w-100 d-flex justify-content-center align-items-center payment-btn gap-3">Pay
+                        with Cash on retrieval<i class="bi bi-cash"></i></button>
+                </div>
+                <div class="col">
+                    <button type="button" (click)="openOnlinePaymentDialog()"
+                        class="btn btn-primary w-100 d-flex justify-content-center align-items-center payment-btn gap-3">Pay
+                        online with Debit Card <i class="bi bi-credit-card"></i></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<app-invoice-payed *ngIf="formData.delivery && (showCashPaySuccess || showOnlinePaySuccess )"
+    [imageUrl]="'../../../../../assets/images/delivery-animation-no-bg.gif'"
+    [message]="'Your order is being processed. We will deliver you your purchases as soon as the items are ready. An agent might call you to confirm your order and your delivery address'"></app-invoice-payed>
+
+<app-invoice-payed *ngIf="!formData.delivery && (showCashPaySuccess || showOnlinePaySuccess)"
+    [imageUrl]="'../../../../../assets/images/self-pick-up-animation.gif'"
+    [message]="'Your order is being processed and will be ready to pick up in a few. An agent might call you to confirm your order and give you more details on the take out.'"></app-invoice-payed>

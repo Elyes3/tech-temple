@@ -3,6 +3,10 @@ import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../../../libs/shared/models/CartItem';
 import { Subscription } from 'rxjs';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
+import { OrderStatus } from 'src/app/libs/shared/enum/OrderStatus';
+import { Order } from 'src/app/libs/shared/models/Order';
+import { OrderService } from '../../services/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-basket',
@@ -13,8 +17,8 @@ export class BasketComponent implements OnInit {
   cartItems: CartItem[] = [];
   private cartItemsSubscription: Subscription;
   cartPrice: number = 0;
-
-  constructor(private cartService: CartService) {
+  orderId: string = '';
+  constructor(private cartService: CartService, private orderService: OrderService, private router: Router) {
     this.cartItemsSubscription = this.cartService.cartItems$.subscribe(cartItems => {
       this.cartItems = cartItems;
       this.getCartPrice();
@@ -29,7 +33,7 @@ export class BasketComponent implements OnInit {
     const sampleCartItem1: CartItem = {
       id: '1',
       product: {
-        id: '1',
+        id: '2',
         name: 'Sample Product',
         description: 'Lorem ipsum dolor sit amet...',
         productCategory: {
@@ -51,7 +55,7 @@ export class BasketComponent implements OnInit {
     const sampleCartItem2: CartItem = {
       id: '2',
       product: {
-        id: '2',
+        id: '3',
         name: 'Sample Product 2',
         description: 'Lorem ipsum dolor sit amet...',
         productCategory: {
@@ -83,5 +87,32 @@ export class BasketComponent implements OnInit {
 
   getCartPrice() {
     this.cartPrice = this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
+  }
+
+
+  createOrder() {
+    const orderItems: any = this.cartItems.map(cartItem => {
+      return {
+        product_id: cartItem.product.id,
+        quantity: cartItem.quantity,
+        totalPrice: cartItem.totalPrice
+      };
+    });
+
+    const orderData: any = {
+      customer_id: '4',
+      orderItems: orderItems,
+    };
+
+    this.orderService.createOrder(orderData).subscribe(
+      (order: any) => {
+        console.log('Order created successfully:', order);
+        const orderId = order.id;
+        this.router.navigate(['/checkout', orderId]);
+      },
+      error => {
+        console.error('Error creating order:', error);
+      }
+    );
   }
 }
