@@ -1,0 +1,64 @@
+<div class="container">
+  <form (submit)="send()" [formGroup]="form">
+    <div class="row">
+      <h2 class="text-center mt-4">What's the issue?</h2>
+      <div class="px-5">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name <span style="color: red">*</span></label>
+          <input 
+          formControlName="name" 
+          type="text" 
+          class="form-control p-2 " 
+          id="name" 
+          [(ngModel)]="initialName" 
+          >
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email <span style="color: red">*</span></label>
+          <input formControlName="email" required type="email" class="form-control p-2" id="email" [(ngModel)]="initialEmail" >
+        </div>
+        <div class="mb-3">
+          <label for="issue_type" class="form-label">Issue Type <span style="color: red">*</span></label>
+          <select formControlName="issue_type" class="form-select p-2" id="issue_type" aria-label="Default select example" [(ngModel)]="form.value.issue_type">
+            <option value="1">Product damaged while in delivery</option>
+            <option value="2">Wrong product received</option>
+            <option value="3">Payment issue</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description <span style="color: red">*</span></label>
+          <textarea formControlName="description" class="form-control p-2" id="description" rows="5"></textarea>
+        </div>
+        <div class="d-flex justify-content-center  my-4">
+          <button style="height: 40px; width: 100px;" type="submit" class="btn btn-secondary">Submit</button>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div #complaintModalSuccess class="modal fade" id="complaintModalSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title m-3" id="exampleModalLabel">Complaint Sent!</h5>
+      </div>
+      <div class="modal-body m-3">
+        Your complaint have been registered. Thanks for using TechTemple!
+      </div>
+    </div>
+  </div>
+</div>
+<div #complaintModalFailed class="modal fade" id="complaintModalFailed" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title m-3" id="exampleModalLabel">Error</h5>
+      </div>
+      <div class="modal-body m-3">
+        All fields must be filled
+      </div>
+    </div>
+  </div>
+</div>
