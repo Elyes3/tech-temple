@@ -8,16 +8,26 @@ import { MatSort } from '@angular/material/sort';
 import { Order } from 'src/app/libs/shared/models/Order';
 import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/delete-dialog.component';
 import { merge, tap } from 'rxjs';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { OrderItem } from 'src/app/libs/shared/models/OrderItem';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
+      animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
 export class OrdersComponent {
   @ViewChild(MatSort,{static: false}) sort!: MatSort;
   @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
   dataSource!: MatTableDataSource<Order>;
+  expandedElement!: Order | null;
   constructor(
     private ordersFacade: OrdersFacade,
     private ordersService: OrdersService,
@@ -74,6 +84,7 @@ export class OrdersComponent {
       {
         data: {
           message: 'Are you sure you want to delete this order ?',
+          title: 'Delete an order',
           id
         }  
       }
@@ -110,5 +121,15 @@ export class OrdersComponent {
           this.ordersFacade.updateOrder(order)
         } 
       })
+  }
+  capitalizeString(s: string): string {
+    return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+  }
+  calculateTotalPrice(orderItems : OrderItem[]) {
+    let total = 0;
+    for (let i = 0; i < orderItems.length; i++){
+      total += orderItems[i].totalPrice;
+    }
+    return total;
   }
 }
