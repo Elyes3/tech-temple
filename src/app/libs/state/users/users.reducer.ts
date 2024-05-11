@@ -23,7 +23,8 @@ export function usersReducer(state : UsersState = initialState, action: UsersAct
                     age: action.payload.age,
                     email: action.payload.email,
                     orders: action.payload.orders,
-                    role: action.payload.role
+                    role: action.payload.role,
+                    img: action.payload.img
             }, authLoading: false})
         }
         case UsersActionTypes.LoadAuthenticatedUser: {
