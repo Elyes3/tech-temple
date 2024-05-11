@@ -1,0 +1,16 @@
+/* online-payment-dialog.component.css */
+
+.payment-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.payment-img {
+    width: 250px;
+    /* Adjust the width as needed */
+    height: auto;
+    margin-bottom: 20px;
+}
