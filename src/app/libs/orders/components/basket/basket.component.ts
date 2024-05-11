@@ -3,6 +3,9 @@ import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../../../libs/shared/models/CartItem';
 import { Subscription } from 'rxjs';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
+import { OrderStatus } from 'src/app/libs/shared/enum/OrderStatus';
+import { Order } from 'src/app/libs/shared/models/Order';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-basket',
@@ -14,7 +17,7 @@ export class BasketComponent implements OnInit {
   private cartItemsSubscription: Subscription;
   cartPrice: number = 0;
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private orderService: OrderService) {
     this.cartItemsSubscription = this.cartService.cartItems$.subscribe(cartItems => {
       this.cartItems = cartItems;
       this.getCartPrice();
@@ -83,5 +86,36 @@ export class BasketComponent implements OnInit {
 
   getCartPrice() {
     this.cartPrice = this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
+  }
+
+
+  createOrder() {
+    const orderItems: any = this.cartItems.map(cartItem => {
+      return {
+        productId: cartItem.product.id,
+        quantity: cartItem.quantity,
+        totalPrice: cartItem.totalPrice
+      };
+    });
+
+    const orderData: Order = {
+      placedDate: new Date(),
+      status: OrderStatus.PENDING,
+      code: 'ORD123',
+      customer: 'customer-id',
+      orderItems: orderItems,
+      id: ''
+    };
+
+    this.orderService.createOrder(orderData).subscribe(
+      (order: Order) => {
+        console.log('Order created successfully:', order);
+        this.cartService.clearCart();
+        this.cartItems = [];
+      },
+      error => {
+        console.error('Error creating order:', error);
+      }
+    );
   }
 }

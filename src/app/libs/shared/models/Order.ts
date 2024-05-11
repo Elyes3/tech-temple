@@ -3,12 +3,12 @@ import { OrderStatus } from "../enum/OrderStatus";
 import { Invoice } from "./Invoice";
 import { OrderItem } from "./OrderItem";
 
-export interface Order{
+export interface Order {
     id: string;
     status: OrderStatus;
     placedDate: Date;
     code: string;
-    invoice: Invoice | null,
-    customer: User,
+    invoice?: Invoice | null,
+    customer: string,
     orderItems: OrderItem[]
 }
