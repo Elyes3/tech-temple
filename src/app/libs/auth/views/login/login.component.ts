@@ -22,7 +22,7 @@ export class LoginComponent {
     this.authService.authenticate(credentials).subscribe((response) => {
       if (response.status === 200) {
         const loginResponse: LoginResponse = response.body as LoginResponse;
-        loginResponse.isAdmin ? this.router.navigate(['/admin']) : this.router.navigate(['/home']);
+        loginResponse.isAdmin ? this.router.navigateByUrl('/admin/users') : this.router.navigate(['/home']);
       }
     });
   }

@@ -8,8 +8,7 @@ import { Observable } from 'rxjs';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
-  users$: Observable<User[]> = this.usersFacade.allUsers$;
+export class RegisterComponent {
   user: User = {
     id : '',
     firstName: '',
@@ -18,11 +17,7 @@ export class RegisterComponent implements OnInit {
     email: '',
     password:''
   }
-  ngOnInit(): void {
-    console.log("CALLED")
-    this.usersFacade.loadUsers();
-  }
-  constructor(private authService: AuthService, private usersFacade: UsersFacade) {
+  constructor(private authService: AuthService) {
   }
   register(user : User) {
     this.authService.register(user)
