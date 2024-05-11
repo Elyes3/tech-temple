@@ -65,10 +65,10 @@
                         Actions
                     </th>
                     <td mat-cell *matCellDef="let row">
-                        <button class="p-0 bg-white border-0 me-3" (click)="openUpdateDialog(row)">
+                        <button class="p-0 bg-white border-0 me-3 bg-transparent" (click)="openUpdateDialog(row)">
                             <mat-icon fontSet="material-icons-outlined" class='text-principal'>edit</mat-icon>
                         </button>
-                        <button class="p-0 border-0 bg-white" (click)="openDeleteDialog(row.id)">
+                        <button class="p-0 border-0 bg-white bg-transparent" (click)="openDeleteDialog(row.id)">
                             <mat-icon fontSet="material-icons-outlined" class='text-principal'>delete</mat-icon>
                         </button>
                     </td>
@@ -97,7 +97,7 @@
                     [class.example-expanded-row]="expandedElement === element"
                     (click)="expandedElement = expandedElement === element ? null : element">
                 </tr>
-<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
             </table>
         </div>
     </div>

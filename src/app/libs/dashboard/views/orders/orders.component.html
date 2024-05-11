@@ -15,7 +15,8 @@
                     <mat-spinner color="primary"></mat-spinner>
                 </div>
             </div>
-            <table mat-table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" matSortDirection="desc">
+            <table mat-table [dataSource]="dataSource" class="example-table" matSort matSortActive="id" multiTemplateDataRows
+                matSortDirection="desc">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell class="table-header" *matHeaderCellDef>ID</th>
                     <td mat-cell *matCellDef="let row">{{row.id}}</td>
@@ -35,32 +36,89 @@
                 <ng-container matColumnDef="OrderStatus">
                     <th mat-header-cell *matHeaderCellDef class="table-header" mat-sort-header disableClear>Order Status
                     </th>
-                    <td mat-cell *matCellDef="let row">{{row.status}}</td>
+                    <td mat-cell *matCellDef="let row"><app-chips [text]="capitalizeString(row.status)"
+                            [color]="row.status === 'COMPLETED' ? 'success' : row.status === 'CANCELLED' ? 'danger' : 'info'"></app-chips>
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="InvoiceStatus">
                     <th mat-header-cell *matHeaderCellDef class="table-header" mat-sort-header disableClear>Invoice Status
                     </th>
-                    <td mat-cell *matCellDef="let row">{{row.invoice.status}}</td>
+                    <td mat-cell *matCellDef="let row"><app-chips [text]="capitalizeString(row.invoice.status)"
+                            [color]="row.status === 'PAID' ? 'success' : row.status === 'CANCELLED' ? 'danger' : 'info'"></app-chips>
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef disableClear>
                         Actions
                     </th>
                     <td mat-cell *matCellDef="let row">
-                        <button class="p-0 bg-white border-0 me-3" (click)="cancelOrderDialog(row.id)">
+                        <button class="p-0 bg-white border-0 me-3 bg-transparent" (click)="cancelOrderDialog(row.id)">
                             <mat-icon fontSet="material-icons-outlined" class="text-principal">close</mat-icon>
-                        </button>
-                        <button class="p-0 border-0 bg-white" (click)="openDeleteDialog(row.id)">
-                            <mat-icon fontSet="material-icons-outlined" class=' text-principal'>delete</mat-icon>
                         </button>
                     </td>
                 </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                <tr>
-                </tr>
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                        <div [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                            <table>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Brand</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                    </tr>
+                                    <tr *ngFor="let orderItem of element.orderItems" class="border-btm">
+                                        <td>
+                                            <div class="d-flex">
+                                                <div class="me-3">
+                                                    <img [src]="orderItem.product.img1" width="70" height="70">
+                                                </div>
+                                                <div class="d-flex flex-column gap-2 ">
+                                                    <img *ngIf="orderItem.product.img2.length > 0" width="25" height="25" [src]="orderItem.product.img2">
+                                                    <img *ngIf="orderItem.product.img3.length > 0" width="25" height="25" [src]="orderItem.product.img3">
+                                                    <img *ngIf="orderItem.product.img4.length > 0" width="25" height="25" [src]="orderItem.product.img4">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ orderItem.product.name }}
+                                        </td>
+                                        <td>
+                                            {{ orderItem.product.price }}
+                                        </td>
+                                        <td>
+                                            <app-chips [text]="capitalizeString(orderItem.product.status)"
+                                                [color]="orderItem.product.status === 'AVAILABLE' ? 'success' : orderItem.product.status === 'OUT_OF_STOCK' ? 'danger' : 'info'"></app-chips>
+                                        </td>
+                                        <td>
+                                            <app-chips [text]="capitalizeString(orderItem.product.brand)" color="default"></app-chips>
+                                        </td>
+                                        <td>
+                                            {{ orderItem.quantity }}
+                                        </td>
+                                        <td>
+                                            {{ orderItem.totalPrice }}
+                                        </td>
+                                    </tr>
+                                    <tr class="pt-3 pb-3">
+                                        <td class="fw-bold pt-2 pb-2">Total</td>
+                                        <td class="pt-2 pb-2" [attr.colspan]="displayedColumns.length - 2"></td>
+                                        <td class="fw-bold pt-2 pb-2">{{ calculateTotalPrice(element.orderItems) }}</td>
+                                    </tr>
+                                    </table>
+                                    </div>
+                                    </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+                                        [class.example-expanded-row]="expandedElement === element"
+                                        (click)="expandedElement = expandedElement === element ? null : element"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
             </table>
         </div>
         </div>
-        <mat-paginator [length]="orderCount" class="rounded" [pageSize]="3" aria-label="Select all categories"></mat-paginator>
+        <mat-paginator [length]="orderCount" class="rounded" [pageSize]="3" aria-label="Select all orders"></mat-paginator>
         </div>

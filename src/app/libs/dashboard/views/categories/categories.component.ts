@@ -55,6 +55,7 @@ export class CategoriesComponent implements AfterViewInit,OnDestroy{
       {
         data: {
           message: 'Are you sure you want to delete this category ?',
+          title: 'Delete a category',
           id
         }
       }

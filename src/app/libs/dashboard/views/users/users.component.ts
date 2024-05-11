@@ -67,6 +67,7 @@ export class UsersComponent implements AfterViewInit,OnDestroy {
       {
         data: {
           message: 'Are you sure you want to delete this user ?',
+          title: 'Delete a user',
           id
         }  
       }

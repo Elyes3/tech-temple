@@ -79,6 +79,7 @@ export class ProductsComponent implements OnInit,AfterViewInit{
       {
         data: {
           message: 'Are you sure you want to delete this product ?',
+          title: 'Delete a product',
           id
         }  
       }

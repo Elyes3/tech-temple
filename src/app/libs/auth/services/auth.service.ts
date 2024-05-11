@@ -30,10 +30,10 @@ export class AuthService {
       );
   }
   sendReset(email: string) {
-    return this.http.post(this.getSendResetUrl(), email);
+    return this.http.post(this.getSendResetUrl(), { email: email });
   }
-  resetPassword(password : string) {
-    return this.http.post(this.getResetPasswordUrl(), password);
+  resetPassword(password : string, id: number, token: string) {
+    return this.http.post(this.getResetPasswordUrl(), { password, id, token});
   }
   getLoginUrl(): string{
     return `${environment.API_URL}/api/${this.loginEndpoint}`
@@ -45,7 +45,7 @@ export class AuthService {
     return `${environment.API_URL}/api/${this.registerEndpoint}`
   }
   getSendResetUrl(): string{
-    return `${environment.API_URL}/api/${this.registerEndpoint}`
+    return `${environment.API_URL}/api/${this.sendResetEndpoint}`
   }
   getResetPasswordUrl(): string{
     return `${environment.API_URL}/api/${this.resetPasswordEndpoint}`

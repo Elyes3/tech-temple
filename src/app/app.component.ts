@@ -22,11 +22,4 @@ export class AppComponent {
       && this.router.url !== '/admin/products'
       && this.router.url !== '/admin/orders'
   }
-  ngOnInit(): void {
-
-    this.usersFacade.loadAuthenticatedUser();
-    this.authenticatedUser$.subscribe(user => {
-    })
-
-  }
 }
