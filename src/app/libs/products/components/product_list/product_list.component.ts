@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProductsService } from 'src/app/libs/dashboard/services/products.service';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 import { Product } from 'src/app/libs/shared/models/Product';
 
@@ -10,10 +12,15 @@ import { Product } from 'src/app/libs/shared/models/Product';
 export class Product_listComponent implements OnInit {
   produit!:Product;
   produits:Product[]=[];
-  constructor() { }
+  prods_cat: any;
+  constructor(private route:ActivatedRoute,private productsService: ProductsService) { }
 
   ngOnInit() {
-    this.retreiveProducts();
+    this.route.params.subscribe(params => {
+      this.prods_cat = params['cat'];
+      console.log(this.prods_cat)
+      this.retreiveProducts();
+    });
   }
 
   retreiveProducts():void{
@@ -74,9 +81,19 @@ export class Product_listComponent implements OnInit {
       img3: 'https://i.imgur.com/61hySKT.jpeg',
       img4: 'https://i.imgur.com/61hySKT.jpeg',
     }
-    this.produits.push(prod)
-    this.produits.push(prod2)
-    this.produits.push(prod3)
-    
+    // this.produits.push(prod)
+    // this.produits.push(prod2)
+    // this.produits.push(prod3)
+    this.productsService.loadProducts().subscribe(
+      (data: any) => { 
+        this.produits = data;
+      },
+      (error: any) => {
+        console.error('An error occurred:', error);
+      },
+      () => {
+        
+      }
+    )
   }
 }

@@ -8,6 +8,7 @@ import '@tensorflow/tfjs-backend-cpu'
 import { Product } from 'src/app/libs/shared/models/Product';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 import { Category } from 'src/app/libs/shared/models/Category';
+import { ProductsService } from 'src/app/libs/dashboard/services/products.service';
 declare var $: any;
 @Component({
   selector: 'app-home_page',
@@ -17,7 +18,7 @@ declare var $: any;
 })
 export class Home_pageComponent implements OnInit {
   @ViewChild('imageElement') imageElement!: ElementRef;
-  constructor() { }
+  constructor(private productsService: ProductsService) { }
 
   produit!:Product;
   produits:Product[]=[];
@@ -87,10 +88,20 @@ export class Home_pageComponent implements OnInit {
       img3: 'https://i.imgur.com/61hySKT.jpeg',
       img4: 'https://i.imgur.com/61hySKT.jpeg',
     }
-    this.produits.push(prod)
-    this.produits.push(prod2)
-    this.produits.push(prod3)
-    
+    // this.produits.push(prod)
+    // this.produits.push(prod2)
+    // this.produits.push(prod3)
+    this.productsService.loadProducts().subscribe(
+      (data: any) => { 
+        this.produits = data;
+      },
+      (error: any) => {
+        console.error('An error occurred:', error);
+      },
+      () => {
+        
+      }
+    )
   }
 
   async load_model(){
