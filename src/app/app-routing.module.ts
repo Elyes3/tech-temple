@@ -7,10 +7,11 @@ import { AuthRedirectGuard } from './libs/guards/authredirect.guard';
 import { OrdersRoutingModule } from './libs/orders/orders-routing.module';
 import { DashboardRoutingModule } from './libs/dashboard/dashboard-routing.module';
 import { ProductsRoutingModule } from './libs/products/products-routing.module';
+import { UsersRoutingModule } from './libs/users-module/users-routing.module';
 const routes: Routes = [
   { path: '', component: LoginComponent,canActivate : [AuthRedirectGuard] },
   { path: 'reset-password', component: ForgotPasswordComponent, canActivate : [AuthRedirectGuard] },
-  {path : 'register', component : RegisterComponent, canActivate : [AuthRedirectGuard]},
+  { path : 'register', component : RegisterComponent, canActivate : [AuthRedirectGuard]},
 
 ];
 
@@ -18,7 +19,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes),
     OrdersRoutingModule,
     DashboardRoutingModule,
-    ProductsRoutingModule
+    ProductsRoutingModule,
+    UsersRoutingModule,
   ],
   exports: [RouterModule]
 })

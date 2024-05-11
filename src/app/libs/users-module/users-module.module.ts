@@ -9,8 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    // UserProfileComponent,
-    // UserReclamationComponent
+    UserProfileComponent,
+    UserReclamationComponent
   ],
   imports: [
     CommonModule,
