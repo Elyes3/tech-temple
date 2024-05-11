@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ComponentVisibilityService } from '../service/ComponentVisibilityService';
 
 @Component({
   selector: 'app-navbar',
@@ -6,9 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+
+  isVisible$ = this.componentVisibilityService.isVisible$;
+
+  constructor(private componentVisibilityService: ComponentVisibilityService) {}
+
+
   isSearching: boolean = false;
+
 
   toggleSearch(): void {
     this.isSearching = !this.isSearching;
+  }
+
+  toggle() {
+    this.componentVisibilityService.toggleVisibility();
   }
 }

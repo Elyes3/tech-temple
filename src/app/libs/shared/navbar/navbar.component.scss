@@ -35,3 +35,9 @@
         padding-left: 0;
     }
   }
+
+.btn-no-animation:focus,
+.btn-no-animation:active {
+  box-shadow: none !important;
+  outline: none !important;
+}

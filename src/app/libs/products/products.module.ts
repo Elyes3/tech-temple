@@ -6,18 +6,27 @@ import { MaterialModule } from 'src/app/material/lib/material.module';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { UserProfileComponent } from '../users-module/components/user-profile/user-profile.component';
+import { UserReclamationComponent } from '../users-module/components/user-reclamation/user-reclamation.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     Product_detailsComponent,
-    Home_pageComponent
+    Home_pageComponent,
+    UserProfileComponent,
+    UserReclamationComponent
   ],
   imports: [
     NgxImageZoomModule,
     CommonModule,
     MaterialModule,
     MatGridListModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class ProductsModule { }
