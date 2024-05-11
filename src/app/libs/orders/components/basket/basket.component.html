@@ -1,1 +1,66 @@
-<p>basket works!</p>
+<div class="row px-4 mt-4">
+    <div class="col-md-8 cart rounded-2">
+        <div class="title">
+            <div class="row">
+                <div class="col">
+                    <h4><b>Shopping Cart</b></h4>
+                </div>
+                <div class="col text-right text-muted d-flex justify-content-end gap-2 align-items-center"><span>{{
+                        cartItems.length }}
+                        items</span>
+                </div>
+            </div>
+        </div>
+        <div class="items-list">
+            <ng-container *ngFor="let item of cartItems">
+                <app-basket-item [item]="item"></app-basket-item>
+            </ng-container>
+        </div>
+        <div class="row d-flex justify-content-end mt-4">
+            <button class="btn btn-danger clear-all-btn" (click)="clearCart()"><i
+                    class="bi bi-trash-fill"></i><span>clear all</span></button>
+        </div>
+    </div>
+    <div class="col"></div>
+    <div class="col-md-3">
+        <div class="row cart rounded-2 mx-auto mb-4">
+            <div class="row">
+                <span class="fs-4 fw-bold">Coupon code</span>
+            </div>
+            <div class="row">
+                <span class="text-secondary">You can claim a discount by entering a valid coupon code.</span>
+            </div>
+            <div class="row mt-2">
+                <input type="text" class="form-control" placeholder="Enter coupon code">
+            </div>
+            <div class="row mt-2">
+                <button class="btn btn-secondary">Apply</button>
+            </div>
+        </div>
+        <div class="row cart rounded-2 mx-auto h-40">
+            <div class="row">
+                <div class="d-flex justify-content-between "></div><span class="fs-4 fw-bolder">Cart Total</span>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <span class="fs-6 fw-light">Items subtotal</span>
+                    <span class="fs-6 fw-light">{{ cartPrice }} dt</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <span class="fs-6 fw-light">Discount</span>
+                    <span class="fs-6 fw-light">0 dt</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <span class="fs-6 fw-bold">Total</span>
+                    <span class="fs-6 fw-bold">{{ cartPrice }} dt</span>
+                </div>
+            </div>
+            <div class="row mt-2"><button class="btn btn-primary" (click)="createOrder()">Checkout</button></div>
+        </div>
+    </div>
+
+</div>

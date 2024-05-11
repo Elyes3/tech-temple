@@ -1,3 +1,6 @@
+import { Component } from '@angular/core';
+import { CartService } from '../../orders/services/cart.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentVisibilityService } from '../service/ComponentVisibilityService';
 
@@ -14,6 +17,21 @@ export class NavbarComponent {
 
 
   isSearching: boolean = false;
+  cartentries: number = 0;
+  private cartItemsSubscription!: Subscription;
+
+  constructor(private cartService: CartService) {
+  }
+
+  ngOnInit(): void {
+    this.cartItemsSubscription = this.cartService.cartItems$.subscribe(cartItems => {
+      this.cartentries = cartItems.length;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.cartItemsSubscription.unsubscribe();
+  }
 
 
   toggleSearch(): void {

@@ -1,0 +1,42 @@
+<div class="row border-top border-bottom">
+    <div class="row main align-items-center my-4">
+        <div class="col-2">
+            <div class="rounded-2 card-image">
+                <img class="img-fluid m-auto w-100" [src]="item.product.img1">
+            </div>
+        </div>
+        <div class="col-3 h-100 m-2 d-flex flex-column">
+            <div class="row flex-grow-1">
+                <div class="align-self-center">
+                    <span>{{ item.product.name }}</span>
+                </div>
+            </div>
+            <div class="row flex-grow-1">
+                <div class="align-self-center">
+                    {{ item.product.price }} dt
+                </div>
+            </div>
+            <div class="row flex-grow-1">
+                <div class="align-self-center">
+                    <span>{{ item.product.status }}</span>
+
+                </div>
+            </div>
+        </div>
+        <div class="col align-items-center d-flex justify-content-center">
+            <div class="counter rounded-2">
+                <button (click)="decrementQuantity()">-</button>
+                <span>{{ item.quantity }}</span>
+                <button (click)="incrementQuantity()">+</button>
+            </div>
+        </div>
+        <div class="col-3 h-100 d-flex flex-column">
+            <span class="row fs-5 fw-bold justify-content-end align-items-start h-50">{{item.totalPrice}} dt</span>
+            <div class="row h-50 align-items-center">
+                <button class="d-flex justify-content-end util-button" (click)="onDeleteButtonClick()">
+                    <i class="bi bi-trash-fill"></i><span>delete</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

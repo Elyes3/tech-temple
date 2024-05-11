@@ -1,0 +1,56 @@
+.main-container {
+    padding: 12px 24px;
+}
+
+.general-container {
+    border-radius: 20px;
+    padding: 8px;
+    background: white;
+}
+
+.card-style {
+    border: none;
+}
+
+.card-image {
+    background-color: #ececec;
+    margin: 4px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.cart {
+    background-color: #fff;
+    padding: 4vh 5vh;
+    box-shadow: -1px 3px 14px 8px rgba(122, 122, 122, 0.65);
+    -webkit-box-shadow: -1px 3px 14px 8px rgba(122, 122, 122, 0.65);
+}
+
+.counter {
+    border: 1px gray solid;
+
+    span {
+        margin: 0 4px;
+    }
+
+    button {
+        background-color: none;
+        background: none;
+        border: none;
+    }
+}
+
+.items-list {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.clear-all-btn {
+    width: 150px;
+}
+
+.h-40 {
+    height: 46%;
+}

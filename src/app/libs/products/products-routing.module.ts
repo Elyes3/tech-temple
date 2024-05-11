@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Product_detailsComponent } from './components/product_details/product_details.component';
 import { Home_pageComponent } from './components/home_page/home_page.component';
-import { UserProfileComponent } from '../users-module/components/user-profile/user-profile.component';
-import { UserReclamationComponent } from '../users-module/components/user-reclamation/user-reclamation.component';
+import { Product_listComponent } from './components/product_list/product_list.component';
 const routes: Routes = [
-  { path: 'details', component: Product_detailsComponent },
+  { path: 'details/:id', component: Product_detailsComponent },
   { path: 'home', component: Home_pageComponent },
-  { path: 'profile', component: UserProfileComponent },
-  { path: 'reclamation', component: UserReclamationComponent }
+  { path: 'prod_list/:cat', component: Product_listComponent },
 ];
 
 @NgModule({
