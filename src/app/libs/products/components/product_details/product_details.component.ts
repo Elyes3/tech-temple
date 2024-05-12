@@ -41,25 +41,6 @@ export class Product_detailsComponent implements OnInit {
   }
 
 retreiveProduct():void{
-  // this.product={
-  //   id: '123',
-  //   name: 'PC PORTABLE LENOVO V15 G4 AMN AMD DUAL CORE 8 GO',
-  //   description: 'Écran 15,6" FHD (1 920 x 1 080 px) - Processeur AMD Athlon Silver 7120U, up to 3.5 Ghz, 3 Mo de cache - Mémoire 8 Go LPDDR5-4800 MHz - Disque SSD 256 Go M.2 PCIe 4.0 NVMe - Carte Graphique AMD Radeon 610M - 2x Haut-parleurs 1.5W - Caméra HD 720p avec obturateur de confidentialité - Wi-Fi  - Bluetooth 5.1 - 2x USB 3.2 - 1x USB-C 3.2 - 1x HDMI 1.4b - 1x Ethernet (RJ-45) - 1x Jack (3.5 mm) - Couleur Noir',
-  //   productCategory: {
-  //     id: '1',
-  //     name: 'laptop',
-  //     description: '5fif ndhif',
-  //     message: 'echrei menna terbah men 8adi',
-  //     products: [this.product]
-  // },
-  //   price: 75.00,
-  //   brand: 'lenovo',
-  //   status: OrderItemStatus.AVAILABLE,
-  //   img1: 'https://i.imgur.com/61hySKT.jpeg',
-  //   img2: 'https://cdn.thewirecutter.com/wp-content/media/2023/06/bestlaptops-2048px-9765.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/4:3/w_1787,h_1340,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg',
-  //   img3: 'https://www.tunisianet.com.tn/315861-large/pc-portable-lenovo-v15-g4-amn-amd-dual-core-8-go.jpg',
-  //   img4: 'https://i.imgur.com/61hySKT.jpeg',
-  // }
 this.productsService.getProductById(this.prod_id).subscribe((prod: any) => { 
   this.product = prod;
   console.log(this.product)

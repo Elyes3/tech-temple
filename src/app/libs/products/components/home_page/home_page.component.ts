@@ -35,6 +35,18 @@ export class Home_pageComponent implements OnInit {
   }
 
   retreiveProducts():void{
+    this.productsService.loadProducts().subscribe(
+      (data: any) => { 
+        this.produits = data.slice(0, 9);
+        console.log(this.produits)
+      },
+      (error: any) => {
+        console.error('An error occurred:', error);
+      },
+      () => {
+        
+      }
+    )
      this.prod_promo={
       id: '100',
       name: 'desktop setup',
@@ -96,18 +108,6 @@ export class Home_pageComponent implements OnInit {
      this.produits_promo.push(this.slide1)
      console.log(this.produits_promo )
     // this.produits.push(prod3)
-    this.productsService.loadProducts().subscribe(
-      (data: any) => { 
-        this.produits = data.slice(0, 9);
-        console.log(this.produits)
-      },
-      (error: any) => {
-        console.error('An error occurred:', error);
-      },
-      () => {
-        
-      }
-    )
   }
 
   async load_model(){
