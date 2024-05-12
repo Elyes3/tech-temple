@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UsersFacade } from 'src/app/libs/state/users/users.facade';
 import { IsOpenService } from '../../services/isopen.service';
 import { AuthService } from 'src/app/libs/auth/services/auth.service';
-import { map, skipWhile } from 'rxjs';
+import { Subscription, map, skipWhile } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -13,6 +13,7 @@ import { map, skipWhile } from 'rxjs';
 })
 export class AdminComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
+  subscription!: Subscription
   menuItems = [{
     icon: 'person',
     name: 'Users',
@@ -54,12 +55,18 @@ export class AdminComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
 
+
   }
   setIsOpen() {
     this.isOpenService.setIsOpen();
   }
   logout() {
     this.usersFacade.logoutAuthenticatedUser();
-    this.router.navigate(['/'])
+    this.subscription = this.usersFacade.authenticatedUser$.subscribe(authenticatedUser => {
+      if (authenticatedUser.authenticatedUser == null) {
+        console.log(authenticatedUser.authenticatedUser);
+        this.router.navigateByUrl('/', { state: { logout: true } })
+      }
+    })
   }
 }

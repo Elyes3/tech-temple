@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, of, switchMap } from "rxjs";
 import { User } from "../../auth/shared/User";
-import { AddUser, AddUserError, AuthenticatedUserError, AuthenticatedUserLoaded, AuthenticatedUserLoggedOut, AuthenticatedUserLoggedOutError, DeleteUser, DeleteUserError, LoadAuthenticatedUser, LoadUsers, LoadUsersError, LoadUsersWithPaginationAndSort, LoadUsersWithPaginationAndSortError, UpdateUser, UpdateUserError, UserAdded, UserDeleted, UserUpdated, UsersActionTypes, UsersLoaded, UsersWithPaginationAndSortLoaded } from "./users.actions";
+import { AddUser, AddUserError, AuthenticatedUserError, AuthenticatedUserLoaded, AuthenticatedUserLoggedOut, AuthenticatedUserLoggedOutError, DeleteUser, DeleteUserError, LoadAuthenticatedUser, LoadUsers, LoadUsersError, LoadUsersWithPaginationAndSort, LoadUsersWithPaginationAndSortError, LogoutAuthenticatedUser, UpdateUser, UpdateUserError, UserAdded, UserDeleted, UserUpdated, UsersActionTypes, UsersLoaded, UsersWithPaginationAndSortLoaded } from "./users.actions";
 import { UsersService } from "../../dashboard/services/users.service";
 import { AuthService } from "../../auth/services/auth.service";
 // import { DataPersistence } from '@nrwl/nx';
@@ -82,7 +82,7 @@ export class UsersEffects {
     logoutAuthenticatedUser$ = createEffect(() =>
         this.actions$.pipe(
             ofType(UsersActionTypes.LogoutAuthenticatedUser),
-            switchMap((action: DeleteUser) =>
+            switchMap(() =>
                 this.authService.logout().pipe(
                     map(() => new AuthenticatedUserLoggedOut()),
                     catchError(error => of(new AuthenticatedUserLoggedOutError()))),
