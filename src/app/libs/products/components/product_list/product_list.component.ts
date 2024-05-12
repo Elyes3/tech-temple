@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from 'src/app/libs/dashboard/services/products.service';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 import { Product } from 'src/app/libs/shared/models/Product';
+import { Category } from 'src/app/libs/shared/models/Category';
+import { CategoriesService } from 'src/app/libs/dashboard/services/categories.service';
 
 @Component({
   selector: 'app-product_list',
@@ -11,9 +13,10 @@ import { Product } from 'src/app/libs/shared/models/Product';
 })
 export class Product_listComponent implements OnInit {
   produit!:Product;
+  categories:Category[]=[];
   produits:Product[]=[];
   prods_cat: any;
-  constructor(private route:ActivatedRoute,private productsService: ProductsService) { }
+  constructor(private route:ActivatedRoute,private productsService: ProductsService,private categoriesService: CategoriesService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -84,15 +87,17 @@ export class Product_listComponent implements OnInit {
     // this.produits.push(prod)
     // this.produits.push(prod2)
     // this.produits.push(prod3)
-    this.productsService.loadProducts().subscribe(
+    this.categoriesService.loadCategories().subscribe(
       (data: any) => { 
-        this.produits = data;
+        this.categories = data;
       },
       (error: any) => {
         console.error('An error occurred:', error);
       },
       () => {
-        
+        let categorie:any;
+         categorie = this.categories.find(category => category.id === this.prods_cat);
+        this.produits=categorie.products;
       }
     )
   }

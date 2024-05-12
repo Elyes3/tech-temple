@@ -67,7 +67,7 @@
             <div>
               <h5 class="card-title title text-dark">{{product.productCategory.name}}</h5>
             </div>
-            <button mat-fab color="white" >
+            <button mat-fab color="white" (click)="add_cart(product)" *ngIf="product.status=='Available'">
               <mat-icon>add</mat-icon>
             </button>
           </div>
@@ -84,7 +84,7 @@
               </span>
             </div>
             <span class="text-muted"><i class="bi bi-basket-fill mx-1"></i>154 orders</span>
-            <span class="text-success ms-2">In stock</span>
+            <span class="text-success ms-2">{{product.status}}</span>
           </div>
         </div>
       </div>
@@ -94,13 +94,13 @@
 
   <!-- circles for the object detections -->
   <div class="circle" id="cir1" >
-    <button type="button"  class="btn btn_pop" id="btn1" (click)="fn()" ><div class="dot"></div></button>
+    <button type="button"  class="btn btn_pop" id="btn1" (click)="fn('btn1')" ><div class="dot"></div></button>
   </div>
   <div class="circle "  id="cir2" >
-    <button type="button"  class="btn btn_pop " id="btn2" (click)="fn()" ><div class="dot"></div></button>
+    <button type="button"  class="btn btn_pop " id="btn2" (click)="fn('btn2')" ><div class="dot"></div></button>
   </div>
   <div class="circle "  id="cir3" >
-    <button type="button"  class="btn btn_pop " id="btn3" (click)="fn()" ><div class="dot"></div></button>
+    <button type="button"  class="btn btn_pop " id="btn3" (click)="fn('btn3')" ><div class="dot"></div></button>
   </div>
 </div>
 

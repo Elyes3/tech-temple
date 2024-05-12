@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 import { Product } from 'src/app/libs/shared/models/Product';
 import { ProductsService } from 'src/app/libs/dashboard/services/products.service';
+import { CartService } from 'src/app/libs/orders/services/cart.service';
 @Component({
   selector: 'app-product_details',
   templateUrl: './product_details.component.html',
@@ -16,7 +17,7 @@ export class Product_detailsComponent implements OnInit {
   qte:number=1;
   product!:Product;
   prod_id:any;
-  constructor(private route:ActivatedRoute,private productsService: ProductsService) { }
+  constructor(private route:ActivatedRoute,private productsService: ProductsService,private cartService:CartService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -90,6 +91,16 @@ add_qte():void{
 minus_qte():void{
   if(this.qte>1)
  { this.qte=this.qte-1;}
+}
+
+add_cart(prod:Product){
+  const item={
+    id: prod.id,
+    product: prod,
+    quantity: this.qte,
+    totalPrice: this.qte*prod.price
+  }
+    this.cartService.addItemToCart(item)
 }
 
 }

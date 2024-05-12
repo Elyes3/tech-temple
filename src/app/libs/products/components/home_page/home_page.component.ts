@@ -9,6 +9,9 @@ import { Product } from 'src/app/libs/shared/models/Product';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 import { Category } from 'src/app/libs/shared/models/Category';
 import { ProductsService } from 'src/app/libs/dashboard/services/products.service';
+import { CartService } from 'src/app/libs/orders/services/cart.service';
+import { Router } from '@angular/router';
+import { string } from '@tensorflow/tfjs';
 declare var $: any;
 @Component({
   selector: 'app-home_page',
@@ -18,7 +21,7 @@ declare var $: any;
 })
 export class Home_pageComponent implements OnInit {
   @ViewChild('imageElement') imageElement!: ElementRef;
-  constructor(private productsService: ProductsService) { }
+  constructor(private router: Router,private productsService: ProductsService,private cartService:CartService) { }
 
   produit!:Product;
   produits:Product[]=[];
@@ -93,7 +96,7 @@ export class Home_pageComponent implements OnInit {
     // this.produits.push(prod3)
     this.productsService.loadProducts().subscribe(
       (data: any) => { 
-        this.produits = data;
+        this.produits = data.data.slice(0, 9);
       },
       (error: any) => {
         console.error('An error occurred:', error);
@@ -147,8 +150,8 @@ export class Home_pageComponent implements OnInit {
       buts[index].setAttribute('data-bs-trigger', 'hover');
       buts[index].setAttribute('data-toggle','popover');
       $('#btn'+(index+1)).popover({
-        content:prod.price,
-        title: prediction.class
+        content:'prix: '+prod.price+'<br>Product ID: ' + prod.id,
+        title: prod.productCategory.name
       });
     });
   }
@@ -175,7 +178,21 @@ export class Home_pageComponent implements OnInit {
     }
   }
 
-  fn(){
+  fn(btn_id:string){
     console.log("click")
+    const content = $('#'+btn_id).data('bs.popover').config.content;
+    const idMatch = /Product ID: (\d+)/.exec(content);
+    const prod_id = idMatch ? idMatch[1] : null;
+    this.router.navigate(['/details/'+prod_id]);
+  }
+
+  add_cart(prod:Product){
+    const item={
+      id: prod.id,
+      product: prod,
+      quantity: 1,
+      totalPrice: prod.price
+    }
+      this.cartService.addItemToCart(item)
   }
 }
