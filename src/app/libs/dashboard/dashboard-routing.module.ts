@@ -10,12 +10,12 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AdminGuard],
+
       children: [
-        { path: 'users', component: UsersComponent },
-        { path: 'products', component: ProductsComponent },
-        { path: 'orders', component: OrdersComponent },
-        { path: 'categories',component: CategoriesComponent }
+        { path: 'users', component: UsersComponent, canActivate: [AdminGuard], },
+        { path: 'products', component: ProductsComponent, canActivate: [AdminGuard] },
+        { path: 'orders', component: OrdersComponent, canActivate: [AdminGuard]  },
+        { path: 'categories',component: CategoriesComponent, canActivate: [AdminGuard]  }
       ]
     }];
 

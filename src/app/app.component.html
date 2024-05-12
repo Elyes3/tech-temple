@@ -6,8 +6,7 @@
     </div>
     <ng-template #loaded>
       <div>
-        <app-navbar></app-navbar>
-        <app-sidebar></app-sidebar>
+        <app-navbar *ngIf="(authenticatedUser$ | async)?.authenticatedUser"></app-navbar>
       </div>
       <router-outlet></router-outlet>
     </ng-template>

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UsersFacade } from 'src/app/libs/state/users/users.facade';
 import { IsOpenService } from '../../services/isopen.service';
 import { AuthService } from 'src/app/libs/auth/services/auth.service';
+import { map, skipWhile } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -58,9 +59,7 @@ export class AdminComponent implements OnDestroy {
     this.isOpenService.setIsOpen();
   }
   logout() {
-    console.log("CALLED");
-    this.authService.logout().subscribe(() => {
-      this.router.navigateByUrl('/');
-    });
+    this.usersFacade.logoutAuthenticatedUser();
+    this.router.navigate(['/'])
   }
 }

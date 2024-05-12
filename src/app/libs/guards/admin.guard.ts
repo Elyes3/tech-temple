@@ -15,17 +15,15 @@ export class AdminGuard implements CanActivate {
   constructor(private router: Router,private usersFacade: UsersFacade) {}
 
     canActivate(): Observable<boolean> {
-        console.log("IN")
-        this.usersFacade.loadAuthenticatedUser();
         return this.usersFacade.authenticatedUser$.pipe(
             skipWhile(state => !state.authLoading),
             skipWhile(state => state.authLoading),
             map(authenticatedUser => {
-                
                 if (authenticatedUser.authenticatedUser && authenticatedUser.authenticatedUser.role == 'ADMIN') {
                     return true;
                 }
                 else {
+                    this.usersFacade.loadAuthenticatedUser();
                     this.router.navigateByUrl('/')
                     return false;
                 }

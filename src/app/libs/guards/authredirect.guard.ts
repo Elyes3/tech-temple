@@ -15,18 +15,19 @@ export class AuthRedirectGuard implements CanActivate {
   constructor(private router: Router,private usersFacade: UsersFacade) {}
 
     canActivate(): Observable<boolean> {
-        console.log("IN")
-        this.usersFacade.loadAuthenticatedUser();
+        console.log("IN_AUTH_REDIRECt")
         return this.usersFacade.authenticatedUser$.pipe(
             skipWhile(state => !state.authLoading),
             skipWhile(state => state.authLoading),
             map(authenticatedUser => {
-                
-                if (!authenticatedUser.authenticatedUser) 
+                console.log("SOMEHOW GOT HERE")
+                if (!authenticatedUser.authenticatedUser)
                     return true;
                 else {
                     if (authenticatedUser.authenticatedUser.role == 'ADMIN') {
-                        this.router.navigateByUrl('/admin/users');
+                        this.usersFacade.loadAuthenticatedUser()
+                        this.router.navigateByUrl('/admin/users')
+                        return false;
                     }
                     else
                     {

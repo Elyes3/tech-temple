@@ -4,9 +4,9 @@
       <div class="container py-4">
         <nav class="d-flex">
           <h6 class="mb-0">
-            <a href="" class="text-white-50" style="text-decoration: none;">Home</a>
+            <a href="/home" class="text-white-50" style="text-decoration: none;">Home</a>
             <span class="text-white-50 mx-2"> > </span>
-            <a href="" class="text-white"><u>Filter</u></a>
+            <a href="/prod_list/{{categorie.id}}" class="text-white"><u>{{categorie.name}}</u></a>
           </h6>
         </nav>
       </div>
@@ -38,13 +38,14 @@
                 <div class="col-lg-3 col-md-12  border-sm-start-none border-start">
                   <div class="d-flex flex-row align-items-center mb-1">
                     <h4 class="mb-1 me-1">{{product.price}}</h4>
-                    <span class="text-danger"><s>$20.99</s></span>
+                    <span class="text-muted">DT TTC</span>
+                    <span class="text-danger"><s> {{product.price+100}}</s></span>
                   </div>
                   <h6 class="text-success">Free shipping</h6>
                   <div class="d-flex flex-column mt-4">
-                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm" type="button">Details</button>
-                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary btn-sm mt-2" type="button">
-                      Add to Card
+                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm" type="button" (click)="redirect(product.id)" >Details</button>
+                    <button (click)="add_cart(product)" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary btn-sm mt-2" type="button">
+                      <i class="me-1 bi bi-basket"></i> Add to Card
                     </button>
                   </div>
                 </div>

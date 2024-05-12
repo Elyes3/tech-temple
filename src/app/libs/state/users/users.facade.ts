@@ -33,6 +33,9 @@ export class UsersFacade {
   loadUsers() {
     this.store.dispatch(new UsersActions.LoadUsers());
   }
+  logoutAuthenticatedUser() {
+    this.store.dispatch(new UsersActions.LogoutAuthenticatedUser());
+  }
   loadUsersWithPaginationAndSort(paginationInfo: PaginationInfo) {
     this.store.dispatch(new UsersActions.LoadUsersWithPaginationAndSort(paginationInfo))
   }
