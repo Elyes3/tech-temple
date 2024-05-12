@@ -20,7 +20,7 @@ export class DeleteDialogComponent {
     this.dialogRef.close();
     }
   isDataLoading$ = this.usersFacade.isDataLoading$
-  deleteUser(deletDialogInfo : DeleteDialogInfo) {
-    this.dialogRef.close(deletDialogInfo.id);
+  deleteEntity(deletDialogInfo : DeleteDialogInfo) {
+    this.dialogRef.close(deletDialogInfo);
   }
 }
