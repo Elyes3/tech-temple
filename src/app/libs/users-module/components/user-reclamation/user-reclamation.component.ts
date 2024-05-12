@@ -2,7 +2,6 @@ import { Component, OnInit, inject} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import emailjs from "@emailjs/browser"
 import { UserService } from '../../services/userService';
-import { ToastrService } from 'ngx-toastr';
 import { ViewChild } from '@angular/core';
 
 @Component({
@@ -84,7 +83,10 @@ export class UserReclamationComponent implements OnInit {
         description: this.form.get('description')?.value,
         });
         this.openSuccessModal();
-        this.form.reset;
+        this.form.patchValue({
+          issue_type: '',
+          description: ''
+        });
     }   
   }
 }

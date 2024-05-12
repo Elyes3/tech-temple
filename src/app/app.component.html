@@ -5,8 +5,8 @@
       <mat-spinner></mat-spinner>
     </div>
     <ng-template #loaded>
-      <div *ngIf="authenticatedUser$ | async as user">
-        <app-navbar *ngIf="user.authenticatedUser"></app-navbar>
+      <div>
+        <app-navbar></app-navbar>
         <app-sidebar></app-sidebar>
       </div>
       <router-outlet></router-outlet>

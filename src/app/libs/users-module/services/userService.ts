@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { UsersFacade } from '../../state/users/users.facade';
 
 @Injectable({
   providedIn: 'root'

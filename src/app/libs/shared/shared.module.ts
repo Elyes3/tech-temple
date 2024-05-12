@@ -5,6 +5,7 @@ import { LogoComponent } from './logo/logo.component';
 import { PersonalMenuItemComponent } from './personal-menu-item/personal-menu-item.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { RouterModule } from '@angular/router';
 
 
 

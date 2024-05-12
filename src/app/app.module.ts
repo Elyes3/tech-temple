@@ -24,7 +24,6 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { LogoComponent } from './libs/shared/logo/logo.component';
 import { SharedModule } from './libs/shared/shared.module';
 import { UsersModuleModule } from './libs/users-module/users-module.module';
-import { UsersModuleModule } from './libs/users-module/users-module.module';
 import { FooterComponent } from './libs/shared/footer/footer.component';
 
 @NgModule({

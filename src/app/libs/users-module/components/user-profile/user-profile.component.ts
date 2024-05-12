@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/userService';
-
+import { UsersFacade } from 'src/app/libs/state/users/users.facade';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,6 +9,8 @@ import { UserService } from '../../services/userService';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+
+  user: any;
 
   defaultImgUrl: string = "https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
 
@@ -27,19 +29,16 @@ export class UserProfileComponent implements OnInit {
     role:['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(private fb: FormBuilder, private userService: UserService, private usersFacade: UsersFacade) {}
 
   ngOnInit(): void {
-    this.userService.getUserById(1).subscribe(
+    this.usersFacade.authenticatedUser$.subscribe(
       (data) => {
-        this.initialFirstName = data.firstName.toUpperCase();
-        this.initialLastName = data.lastName.toUpperCase()
-        this.initialEmail = data.email;
-        this.role = data.role
-        this.initialImage = data.img
-        if (data.img != null) {
-          this.imageUrl = data.img;
-        }
+        this.initialFirstName = data.authenticatedUser?.firstName.toUpperCase()??'';
+        this.initialLastName = data.authenticatedUser?.lastName.toUpperCase()??''
+        this.initialEmail = data.authenticatedUser?.email.toUpperCase()??''
+        this.role = data.authenticatedUser?.role??'';
+        this.initialImage = data.authenticatedUser?.img?? this.defaultImgUrl; 
       },
       (error) => {
         console.error(error);

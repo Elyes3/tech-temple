@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../orders/services/cart.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentVisibilityService } from '../service/ComponentVisibilityService';
 
 @Component({
@@ -13,14 +12,12 @@ export class NavbarComponent {
 
   isVisible$ = this.componentVisibilityService.isVisible$;
 
-  constructor(private componentVisibilityService: ComponentVisibilityService) {}
-
 
   isSearching: boolean = false;
   cartentries: number = 0;
   private cartItemsSubscription!: Subscription;
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private componentVisibilityService: ComponentVisibilityService) {
   }
 
   ngOnInit(): void {
