@@ -114,7 +114,16 @@ export function usersReducer(state : UsersState = initialState, action: UsersAct
             return {
                 ...state,dataLoading : false,
             }
-        }                
+        }
+        case UsersActionTypes.LogoutAuthenticatedUser: {
+            return {...state, authLoading: true}
+        }
+        case UsersActionTypes.AuthenticatedUserLoggedOut: {
+            return {...state, authLoading: false,authenticatedUser: null}
+        }        
+        case UsersActionTypes.AuthenticatedUserLoggedOutError: {
+            return {...state, authLoading: false}
+        }    
         default:
             return state
     }

@@ -4,6 +4,9 @@ import { PaginationInfo } from "../../dashboard/shared/PaginationInfo";
 
 export enum UsersActionTypes {
     LoadAuthenticatedUser = '[Users] Load Authenticated User',
+    LogoutAuthenticatedUser = '[Users] Logout Authenticated User',
+    AuthenticatedUserLoggedOut = '[Users] Authenticated User Logged Out',
+    AuthenticatedUserLoggedOutError = '[Users] Authenticated User Logged Out Error',
     AuthenticatedUserLoaded = '[Users] Authenticated User Loaded',
     LoadUsersWithPaginationAndSort = '[Users] Load Users with Pagination and Sort',
     UsersWithPaginationAndSortLoaded = '[Users] Users with Pagination and Sort Loaded',
@@ -36,6 +39,18 @@ export class LoadUsersWithPaginationAndSortError implements Action{
 }
 export class LoadAuthenticatedUser implements Action{
     readonly type = UsersActionTypes.LoadAuthenticatedUser;
+    constructor() { }
+}
+export class LogoutAuthenticatedUser implements Action{
+    readonly type = UsersActionTypes.LogoutAuthenticatedUser;
+    constructor() { }
+}
+export class AuthenticatedUserLoggedOut implements Action{
+    readonly type = UsersActionTypes.AuthenticatedUserLoggedOut;
+    constructor() { }
+}
+export class AuthenticatedUserLoggedOutError implements Action{
+    readonly type = UsersActionTypes.AuthenticatedUserLoggedOutError;
     constructor() { }
 }
 export class AuthenticatedUserLoaded implements Action{
@@ -112,3 +127,6 @@ export type UsersActions = LoadAuthenticatedUser
     | DeleteUser
     | UserDeleted
     | DeleteUserError
+    | LogoutAuthenticatedUser
+    | AuthenticatedUserLoggedOut
+    | AuthenticatedUserLoggedOutError

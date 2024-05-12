@@ -10,6 +10,7 @@ import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/de
 import { merge, tap } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { OrderItem } from 'src/app/libs/shared/models/OrderItem';
+import { OrderStatus } from 'src/app/libs/shared/enum/OrderStatus';
 
 @Component({
   selector: 'app-orders',
@@ -118,7 +119,7 @@ export class OrdersComponent {
       });
     dialogRef.afterClosed().subscribe((order: Order) => {
         if (order) {
-          this.ordersFacade.updateOrder(order)
+            this.ordersFacade.updateOrder({ ...order, status: OrderStatus.CANCELLED });
         } 
       })
   }
