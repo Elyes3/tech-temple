@@ -97,7 +97,7 @@
               <span class="h5">{{product.price}}</span>
               <span class="text-muted">DT TTC</span>
             </div>
-            <div class=" mb-3">
+            <div class=" mb-3" *ngIf="product.status=='Available'">
               <label class="mb-2 d-block w-100">Quantity</label>
               <div class="input-group mb-3" style="width: 170px;">
                 <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark" (click)="minus_qte()">
@@ -110,7 +110,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <button class="btn custom_btn shadow-0"> <i class="me-1 bi bi-basket"></i>Ajouter Au Panier </button>         
+              <button (click)="add_cart(product)" class="btn custom_btn shadow-0"> <i class="me-1 bi bi-basket"></i>Ajouter Au Panier </button>         
             </div>
           </div>
         </div>
