@@ -67,7 +67,7 @@
             <div>
               <h5 class="card-title title text-dark">{{product.productCategory.name}}</h5>
             </div>
-            <button mat-fab color="white" (click)="add_cart(product)" *ngIf="product.status=='Available'">
+            <button mat-fab color="white" (click)="add_cart(product)" *ngIf="product.status==av_status">
               <mat-icon>add</mat-icon>
             </button>
           </div>

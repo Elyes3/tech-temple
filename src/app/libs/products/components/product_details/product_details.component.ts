@@ -11,12 +11,13 @@ import { CartService } from 'src/app/libs/orders/services/cart.service';
 })
 export class Product_detailsComponent implements OnInit {
   image:any;
+  av_status='AVAILABLE'
   images: any[]=[];
   current_image:number=0;
   qte_dispo:number=3;
   qte:number=1;
   product!:Product;
-  prod_id:any;
+  prod_id:string='';
   constructor(private route:ActivatedRoute,private productsService: ProductsService,private cartService:CartService) { }
 
   ngOnInit() {
@@ -49,6 +50,7 @@ retreiveProduct():void{
   // }
 this.productsService.getProductById(this.prod_id).subscribe((prod: any) => { 
   this.product = prod;
+  console.log(this.product)
 },
 (error: any) => {
   console.error('An error occurred:', error);

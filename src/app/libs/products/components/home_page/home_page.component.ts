@@ -27,7 +27,7 @@ export class Home_pageComponent implements OnInit {
   produits:Product[]=[];
   model_ml:any;
   predictions:any;
-
+  av_status='AVAILABLE'
   async ngOnInit() {
     this.retreiveProducts();
     await this.load_model();
@@ -96,7 +96,8 @@ export class Home_pageComponent implements OnInit {
     // this.produits.push(prod3)
     this.productsService.loadProducts().subscribe(
       (data: any) => { 
-        this.produits = data.data.slice(0, 9);
+        this.produits = data.slice(0, 9);
+        console.log(this.produits)
       },
       (error: any) => {
         console.error('An error occurred:', error);
@@ -193,6 +194,7 @@ export class Home_pageComponent implements OnInit {
       quantity: 1,
       totalPrice: prod.price
     }
+    console.log(item)
       this.cartService.addItemToCart(item)
   }
 }

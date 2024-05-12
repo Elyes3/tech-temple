@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/libs/dashboard/services/products.service';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 import { Product } from 'src/app/libs/shared/models/Product';
 import { Category } from 'src/app/libs/shared/models/Category';
 import { CategoriesService } from 'src/app/libs/dashboard/services/categories.service';
+import { CartService } from 'src/app/libs/orders/services/cart.service';
 
 @Component({
   selector: 'app-product_list',
@@ -16,7 +17,8 @@ export class Product_listComponent implements OnInit {
   categories:Category[]=[];
   produits:Product[]=[];
   prods_cat: any;
-  constructor(private route:ActivatedRoute,private productsService: ProductsService,private categoriesService: CategoriesService) { }
+  categorie:any;
+  constructor(private router: Router,private cartService:CartService,private route:ActivatedRoute,private productsService: ProductsService,private categoriesService: CategoriesService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -90,15 +92,29 @@ export class Product_listComponent implements OnInit {
     this.categoriesService.loadCategories().subscribe(
       (data: any) => { 
         this.categories = data;
+        console.log(this.categories)
       },
       (error: any) => {
         console.error('An error occurred:', error);
       },
       () => {
-        let categorie:any;
-         categorie = this.categories.find(category => category.id === this.prods_cat);
-        this.produits=categorie.products;
+         this.categorie = this.categories.find(category => category.id == this.prods_cat);
+        this.produits=this.categorie.products;
       }
     )
   }
+  add_cart(prod:Product){
+    const item={
+      id: prod.id,
+      product: prod,
+      quantity: 1,
+      totalPrice: prod.price
+    }
+      this.cartService.addItemToCart(item)
+  }
+
+  redirect(id:any){
+    this.router.navigate(['/details/'+id]);
+  }
+  
 }
