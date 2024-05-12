@@ -111,15 +111,29 @@ export class OrdersComponent {
     })
   }
   cancelOrderDialog(order : Order): void {
-      const dialogRef =  this.ordersFormDialog.open(DeleteDialogComponent, {
+    console.log(order);  
+    const dialogRef = this.ordersFormDialog.open(DeleteDialogComponent, {
         data: {
-          order, 
-          message: 'Are you sure you want to cancel this order?'
+          id : order.id, 
+          message: 'Are you sure you want to cancel this order?',
+          title: 'Cancel an order'
         }  
       });
+          console.log("CALLED")
     dialogRef.afterClosed().subscribe((order: Order) => {
-        if (order) {
-            this.ordersFacade.updateOrder({ ...order, status: OrderStatus.CANCELLED });
+      console.log("CLOSED")
+      if (order) {
+            console.log(order)
+        this.ordersService.updateOrderStatus(order.id, { ...order, status: OrderStatus.CANCELLED }).subscribe(
+              () => {
+              this.ordersFacade.loadOrdersWithPaginationAndSort({
+              page: this.paginator.pageIndex,
+              order: this.sort.direction,
+              sort: this.sort.active,
+              size: 3,     
+          })
+              }
+            )
         } 
       })
   }

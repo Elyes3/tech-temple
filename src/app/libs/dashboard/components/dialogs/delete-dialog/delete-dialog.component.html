@@ -9,7 +9,7 @@
             <span>Cancel</span>
         </button>
         <button mat-flat-button class="bg-principal p-3 text-white" [disabled]="isDataLoading$ | async" type="submit">
-            <span (click)="deleteUser(deleteDialogInfo)">Confirm</span>
+            <span (click)="deleteEntity(deleteDialogInfo)">Confirm</span>
         </button>
     </mat-dialog-actions>
 </mat-dialog-content>
