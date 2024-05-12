@@ -12,7 +12,7 @@ export class ResponseInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
         tap((event: HttpEvent<any>) => {
-          if (event instanceof HttpResponse && (event.status === 200 || event.status === 201)) {
+          if (event instanceof HttpResponse && (event.status === 200 || event.status === 201 || event.status === 202)) {
             const responseData = event.body;
             console.log("HERE")
             if (request.method.toLowerCase() != 'get') {
