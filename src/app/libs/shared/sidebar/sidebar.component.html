@@ -1,0 +1,7 @@
+<div *ngIf="isVisible$ | async" id="sidebar">
+    <ul class="horizontal-list">
+        <li *ngFor="let item of newCategories">
+            <a [href]="'http://localhost:4200/prod_list/' + item.id">{{ item.name }}</a>
+        </li>
+    </ul>
+</div>

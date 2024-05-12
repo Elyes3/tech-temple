@@ -1,0 +1,27 @@
+#sidebar {
+    transition: all 0.35s ease-in-out;
+    box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.5);
+}
+
+.horizontal-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+.horizontal-list li {
+    flex: 1 0 auto;
+    margin: 5px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  a {
+    text-decoration: none; /* Remove underline */
+    color: black; /* Change text color */
+  }
+
+/* Sidebar collapse */
