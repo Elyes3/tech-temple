@@ -31,11 +31,9 @@ export class UsersFacade {
   }
 
   loadUsers() {
-    console.log("TRIED TO DISPATCH")
     this.store.dispatch(new UsersActions.LoadUsers());
   }
   loadUsersWithPaginationAndSort(paginationInfo: PaginationInfo) {
-    console.log("LOAD")
     this.store.dispatch(new UsersActions.LoadUsersWithPaginationAndSort(paginationInfo))
   }
   addUser(user : User) {

@@ -9,4 +9,5 @@ export interface User{
     orders?: any;
     role?: string; 
     enabled?: boolean;
+    img?: string | null;
 }
