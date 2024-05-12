@@ -8,11 +8,11 @@ import { UsersState } from '../state/users/users.reducer';
 import { LoadAuthenticatedUser } from '../state/users/users.actions';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class UserGuard implements CanActivate {
 
-    constructor(private router: Router, private usersFacade: UsersFacade) { }
+  constructor(private router: Router,private usersFacade: UsersFacade) {}
     currentUser: User | null = null;
     canActivate(): Observable<boolean> {
         const subscription: Subscription = this.usersFacade.authenticatedUser$.subscribe(authenticatedUser => {
@@ -20,12 +20,12 @@ export class AdminGuard implements CanActivate {
         })
         subscription.unsubscribe();
         if (this.currentUser) {
-                    if (this.currentUser.role == 'ADMIN') {
+                    if (this.currentUser.role == 'CLIENT') {
 
                         return of(true);
                     }
                     else {
-                        this.router.navigate(['/home']);
+                        this.router.navigate(['/admin/users']);
                         return of(false)
                     }
         }
@@ -35,12 +35,12 @@ export class AdminGuard implements CanActivate {
                 skipWhile(state => !state.authLoading),
                 skipWhile(state => state.authLoading),
                 map(authenticatedUser => {
-                    if (authenticatedUser.authenticatedUser && authenticatedUser.authenticatedUser.role == 'ADMIN') {
+                    if (authenticatedUser.authenticatedUser && authenticatedUser.authenticatedUser.role == 'CLIENT') {
 
                         return true;
                     }
-                    else if (authenticatedUser.authenticatedUser && authenticatedUser.authenticatedUser.role == 'CLIENT') {
-                        this.router.navigateByUrl('/home')
+                    else if (authenticatedUser.authenticatedUser && authenticatedUser.authenticatedUser.role == 'ADMIN') {
+                        this.router.navigate(['/admin/users']);
                         return false;
                     }
                     else {
