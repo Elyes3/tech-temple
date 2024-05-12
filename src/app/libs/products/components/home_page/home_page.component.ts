@@ -65,7 +65,7 @@ export class Home_pageComponent implements OnInit {
         message: '',
         products: [this.slide1]
     },
-      price: 2009,
+      price: 2399,
       brand: 'hp',
       status: OrderItemStatus.AVAILABLE,
       img1: 'https://firebasestorage.googleapis.com/v0/b/techtemple-47a6e.appspot.com/o/products%2F68603aa9-aadc-4454-b241-25ec7e7c93a9?alt=media&token=7cee2d75-6e13-43ba-92aa-bcd958d7a577',
@@ -151,12 +151,28 @@ export class Home_pageComponent implements OnInit {
       console.log("circle indice",index," x : ",centerX," y : ",centerY);
       container.appendChild(circle);
       $('#btn'+(index+1)).popover('dispose');
-      buts[index].setAttribute('data-bs-trigger', 'hover');
-      buts[index].setAttribute('data-toggle','popover');
-      buts[index].setAttribute('data-content',prod.id);
+      let title:any;
+      let prix:any;
+      prix=prod.price
+      if(prediction.class.toLocaleLowerCase()=='mouse'||prediction.class.toLocaleLowerCase()=='laptop'){
+        title=prediction.class
+        buts[index].setAttribute('data-bs-trigger', 'hover');
+        buts[index].setAttribute('data-toggle','popover');
+        if(prediction.class.toLocaleLowerCase()=='mouse'){
+          buts[index].setAttribute('data-content',7);
+          prix='100'
+        }else{
+          buts[index].setAttribute('data-content',prod.id);
+        }
+      }else{
+        title= prod.productCategory.name
+        buts[index].setAttribute('data-bs-trigger', 'hover');
+        buts[index].setAttribute('data-toggle','popover');
+        buts[index].setAttribute('data-content',prod.id);
+      }
       $('#btn'+(index+1)).popover({
-        content:'prix: '+prod.price+' DT',
-        title: prod.productCategory.name
+        content:'prix: '+prix+' DT',
+        title: title
       });
     });
   }

@@ -11,6 +11,7 @@ import { CartService } from 'src/app/libs/orders/services/cart.service';
 })
 export class Product_detailsComponent implements OnInit {
   image:any;
+  notavailable:any;
   av_status='AVAILABLE'
   images: any[]=[];
   current_image:number=0;
@@ -29,6 +30,11 @@ export class Product_detailsComponent implements OnInit {
       this.images=[this.product.img1,this.product.img2,this.product.img3]
       this.image=this.product.img1;
       console.log(this.image)
+      if(this.product.status.toLocaleLowerCase()=='available'){
+        this.notavailable=false
+      }else{
+        this.notavailable=true
+      }
     }
   
 

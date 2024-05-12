@@ -97,7 +97,7 @@
               <span class="h5">{{product.price}}</span>
               <span class="text-muted">DT TTC</span>
             </div>
-            <div class=" mb-3" *ngIf="product.status==av_status">
+            <div class=" mb-3" *ngIf="!notavailable">
               <label class="mb-2 d-block w-100">Quantity</label>
               <div class="input-group mb-3" style="width: 170px;">
                 <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark" (click)="minus_qte()">
@@ -109,10 +109,13 @@
                 </button>
               </div>
             </div>
-            <div class="mb-3 d-flex justify-content-center" style="scale: 1.3;">
+            <div class="mb-3 d-flex justify-content-center" style="scale: 1.3;" *ngIf="!notavailable">
               <button (click)="add_cart(product)" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary btn-sm mt-2" type="button">
                 <i class="me-1 bi bi-basket"></i> Add to Card
               </button>        
+            </div>
+            <div class="d-flex justify-content-center" *ngIf="notavailable">
+              <span class="text-danger">Out Of Stock</span>
             </div>
           </div>
         </div>
