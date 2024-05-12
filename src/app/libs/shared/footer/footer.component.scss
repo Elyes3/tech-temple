@@ -7,7 +7,6 @@
 /* The footer is fixed to the bottom of the page */
 
 footer {
-    position: fixed;
     bottom: 0;
 }
 
@@ -15,6 +14,7 @@ footer {
     footer {
         position: static;
     }
+
     header {
         padding-top: 40px;
     }
@@ -27,10 +27,11 @@ footer {
     text-align: left;
     font: bold 16px;
     padding: 50px 50px 60px 50px;
-    margin-top: 80px;
 }
 
-.footer-distributed .footer-left, .footer-distributed .footer-center, .footer-distributed .footer-right {
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right {
     display: inline-block;
     vertical-align: top;
 }
@@ -166,21 +167,22 @@ footer {
 }
 
 @media (max-width: 880px) {
-    .footer-distributed .footer-left, .footer-distributed .footer-center, .footer-distributed .footer-right {
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right {
         display: block;
         width: 100%;
         margin-bottom: 40px;
         text-align: center;
     }
+
     .footer-distributed .footer-center i {
         margin-left: 0;
     }
-}   
+}
 
 .btn-no-animation:focus,
 .btn-no-animation:active {
-  box-shadow: none !important;
+    box-shadow: none !important;
 }
-        
-
-        
