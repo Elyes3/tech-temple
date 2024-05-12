@@ -36,7 +36,7 @@ export class UserProfileComponent implements OnInit {
       (data) => {
         this.initialFirstName = data.authenticatedUser?.firstName.toUpperCase()??'';
         this.initialLastName = data.authenticatedUser?.lastName.toUpperCase()??''
-        this.initialEmail = data.authenticatedUser?.email.toUpperCase()??''
+        this.initialEmail = data.authenticatedUser?.email??''
         this.role = data.authenticatedUser?.role??'';
         this.initialImage = data.authenticatedUser?.img?? this.defaultImgUrl; 
       },

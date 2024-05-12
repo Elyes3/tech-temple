@@ -9,6 +9,7 @@ import { DashboardRoutingModule } from './libs/dashboard/dashboard-routing.modul
 import { ProductsRoutingModule } from './libs/products/products-routing.module';
 import { UsersModuleModule } from './libs/users-module/users-module.module';
 import { UsersRoutingModule } from './libs/users-module/users-routing.module';
+import { SharedModule } from './libs/shared/shared.module';
 const routes: Routes = [
   { path: '', component: LoginComponent,canActivate : [AuthRedirectGuard] },
   { path: 'reset-password', component: ForgotPasswordComponent, canActivate : [AuthRedirectGuard] },
@@ -24,6 +25,7 @@ const routes: Routes = [
     ProductsRoutingModule,
     ProductsRoutingModule,
     UsersRoutingModule,
+    SharedModule,
   ],
   exports: [RouterModule]
 })

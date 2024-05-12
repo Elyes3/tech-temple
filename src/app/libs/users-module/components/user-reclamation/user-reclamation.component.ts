@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import emailjs from "@emailjs/browser"
 import { UserService } from '../../services/userService';
 import { ViewChild } from '@angular/core';
+import { UsersFacade } from 'src/app/libs/state/users/users.facade';
+import { string } from '@tensorflow/tfjs';
 
 @Component({
   selector: 'app-user-reclamation',
@@ -10,6 +12,9 @@ import { ViewChild } from '@angular/core';
   styleUrls: ['./user-reclamation.component.scss']
 })
 export class UserReclamationComponent implements OnInit {
+
+  firstName: string= ''
+  lastName: string=''
 
   initialName: string = ''
   initialEmail: string = ''
@@ -21,17 +26,18 @@ export class UserReclamationComponent implements OnInit {
     description:['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(private fb: FormBuilder, private userService: UserService, private usersFacade: UsersFacade) {}
 
   @ViewChild('complaintModalSuccess') complaintModalSuccess!: any;
   @ViewChild('complaintModalFailed') complaintModalFailed!: any;
 
   ngOnInit(): void {
-    this.userService.getUserById(1).subscribe(
+    this.usersFacade.authenticatedUser$.subscribe(
       (data) => {
-        this.initialName = data.firstName.toUpperCase()+' '+data.lastName.toUpperCase();
-        this.initialEmail = data.email;
-        console.log(data);
+        this.firstName= data.authenticatedUser?.firstName.toUpperCase()??'';
+        this.lastName= data.authenticatedUser?.lastName.toUpperCase()??'';
+        this.initialName = this.firstName + " " + this.lastName;
+        this.initialEmail = data.authenticatedUser?.email??''
       },
       (error) => {
         console.error(error);
