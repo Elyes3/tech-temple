@@ -25,6 +25,7 @@ export class Home_pageComponent implements OnInit {
   prod_promo!:Product;
   slide1!:Product;
   produits:Product[]=[];
+  produits_promo:Product[]=[];
   model_ml:any;
   predictions:any;
   av_status='AVAILABLE'
@@ -91,8 +92,9 @@ export class Home_pageComponent implements OnInit {
       img3: 'https://i.imgur.com/61hySKT.jpeg',
       img4: 'https://i.imgur.com/61hySKT.jpeg',
     }
-    // this.produits.push(prod)
-    // this.produits.push(prod2)
+    this.produits_promo.push(this.prod_promo)
+     this.produits_promo.push(this.slide1)
+     console.log(this.produits_promo )
     // this.produits.push(prod3)
     this.productsService.loadProducts().subscribe(
       (data: any) => { 
@@ -185,7 +187,11 @@ export class Home_pageComponent implements OnInit {
     console.log("click "+btn_id)
     console.log( $('#'+btn_id).data().content)
     const prod_id=$('#'+btn_id).data().content
-    const prod=this.produits.find(product => product.id === prod_id);
+    let prod=this.produits.find(product => product.id === prod_id);
+    if (!prod){
+      prod=this.produits_promo.find(product => product.id == prod_id);
+      console.log('promo')
+    }
     console.log(prod)
     $('#'+btn_id).popover('dispose');
     localStorage.setItem('product', JSON.stringify(prod));
