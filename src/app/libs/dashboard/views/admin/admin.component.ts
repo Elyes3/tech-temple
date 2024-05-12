@@ -60,6 +60,6 @@ export class AdminComponent implements OnDestroy {
   }
   logout() {
     this.usersFacade.logoutAuthenticatedUser();
-    this.router.navigate(['/login'])
+    this.router.navigate(['/'])
   }
 }
