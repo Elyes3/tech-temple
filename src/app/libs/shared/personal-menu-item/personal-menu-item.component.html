@@ -9,7 +9,9 @@
             <button class="btn dropdown-toggle d-flex justify-content-between align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="pe-3">
                     <span class="d-block fs-6">Hi, welcome</span>
-                    <span class="d-block fw-bold fs-6">Salah pro</span>
+                    <span class="d-block fw-bold fs-6">{{ (authenticatedUser$ | async)?.authenticatedUser == null ? 'Guest' :
+                      ((authenticatedUser$ | async)?.authenticatedUser?.firstName + ' ' + (authenticatedUser$ |
+                      async)?.authenticatedUser?.lastName) }}</span>
                 </div>
             </button>
             <ul class="dropdown-menu">

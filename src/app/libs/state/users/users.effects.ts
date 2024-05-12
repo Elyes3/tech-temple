@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, of, switchMap } from "rxjs";
 import { User } from "../../auth/shared/User";
-import { AddUser, AddUserError, AuthenticatedUserError, AuthenticatedUserLoaded, DeleteUser, DeleteUserError, LoadAuthenticatedUser, LoadUsers, LoadUsersError, LoadUsersWithPaginationAndSort, LoadUsersWithPaginationAndSortError, UpdateUser, UpdateUserError, UserAdded, UserDeleted, UserUpdated, UsersActionTypes, UsersLoaded, UsersWithPaginationAndSortLoaded } from "./users.actions";
+import { AddUser, AddUserError, AuthenticatedUserError, AuthenticatedUserLoaded, AuthenticatedUserLoggedOut, AuthenticatedUserLoggedOutError, DeleteUser, DeleteUserError, LoadAuthenticatedUser, LoadUsers, LoadUsersError, LoadUsersWithPaginationAndSort, LoadUsersWithPaginationAndSortError, UpdateUser, UpdateUserError, UserAdded, UserDeleted, UserUpdated, UsersActionTypes, UsersLoaded, UsersWithPaginationAndSortLoaded } from "./users.actions";
 import { UsersService } from "../../dashboard/services/users.service";
+import { AuthService } from "../../auth/services/auth.service";
 // import { DataPersistence } from '@nrwl/nx';
 // CHECK FOR NRWL IF IT DOESNT WORK
 @Injectable()
@@ -11,6 +12,7 @@ export class UsersEffects {
     constructor(
         private actions$: Actions,
         private usersService: UsersService,
+        private authService: AuthService
     ) { }
     loadAuthenticatedUser$ = createEffect(() =>
         this.actions$.pipe(
@@ -74,6 +76,16 @@ export class UsersEffects {
                 this.usersService.deleteUser(action.payload.id).pipe(
                     map((res: User) => new UserDeleted(res)),
                     catchError(error => of(new DeleteUserError()))),
+            )
+        )
+    );
+    logoutAuthenticatedUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UsersActionTypes.LogoutAuthenticatedUser),
+            switchMap((action: DeleteUser) =>
+                this.authService.logout().pipe(
+                    map(() => new AuthenticatedUserLoggedOut()),
+                    catchError(error => of(new AuthenticatedUserLoggedOutError()))),
             )
         )
     );
