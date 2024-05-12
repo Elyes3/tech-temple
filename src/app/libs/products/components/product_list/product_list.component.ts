@@ -114,7 +114,30 @@ export class Product_listComponent implements OnInit {
   }
 
   redirect(id:any){
-    this.router.navigate(['/details/'+id]);
+    let prod:any
+    prod=this.produits.find(product => product.id === id);
+    let productToStore = {
+      id: prod.id,
+      name: prod.name,
+      description: prod.description,
+      productCategory: {
+        id: this.categorie.id,
+        name:  this.categorie.name,
+        description:  this.categorie.description,
+        message:  this.categorie.message,
+        products:  this.categorie.products // Ensure the product is added to the products array
+      },
+      price: prod.price,
+      brand: prod.brand,
+      status: prod.status,
+      img1: prod.img1,
+      img2: prod.img2,
+      img3: prod.img3,
+      img4: prod.img4,
+    };
+    console.log(prod)
+    localStorage.setItem('product', JSON.stringify(productToStore));
+  this.router.navigate(['/details']);
   }
   
 }

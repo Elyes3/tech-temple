@@ -22,8 +22,8 @@ declare var $: any;
 export class Home_pageComponent implements OnInit {
   @ViewChild('imageElement') imageElement!: ElementRef;
   constructor(private router: Router,private productsService: ProductsService,private cartService:CartService) { }
-
-  produit!:Product;
+  prod_promo!:Product;
+  slide1!:Product;
   produits:Product[]=[];
   model_ml:any;
   predictions:any;
@@ -34,40 +34,40 @@ export class Home_pageComponent implements OnInit {
   }
 
   retreiveProducts():void{
-    const prod={
-      id: '1',
-      name: 'laptop test1',
-      description: 'rani behy echrouni',
+     this.prod_promo={
+      id: '100',
+      name: 'desktop setup',
+      description: 'setup sektop for gaming',
       productCategory: {
-        id: '1',
-        name: 'laptop',
-        description: '5fif ndhif',
-        message: 'echrei menna terbah men 8adi',
-        products: this.produits
+        id: '100',
+        name: 'desktop promotion',
+        description: 'nice',
+        message: 'pack',
+        products: [this.prod_promo]
     },
-      price: 2000,
+      price: 2500,
       brand: 'lenovo',
       status: OrderItemStatus.AVAILABLE,
-      img1: 'https://i.imgur.com/61hySKT.jpeg',
+      img1: 'https://firebasestorage.googleapis.com/v0/b/techtemple-47a6e.appspot.com/o/products%2Faa63f973-9bc7-464c-8744-b36755c2347b?alt=media&token=1d645033-c889-4e4f-83b6-34ef6f8d87c7',
       img2: 'https://i.imgur.com/61hySKT.jpeg',
       img3: 'https://i.imgur.com/61hySKT.jpeg',
       img4: 'https://i.imgur.com/61hySKT.jpeg',
     }
-    const prod2={
-      id: '1',
-      name: 'laptop test1',
-      description: 'rani behy echrouni',
+    this.slide1={
+      id: '101',
+      name: 'laptop',
+      description: 'Ecran 15,6" Full HD - Processeur Intel Core i7-1255U, 12è Génération, up to 4.7 Ghz, 12 Mo de cache - 8 Go de mémoire - Disque SSD 512 Go M.2 NVMe - Intel Iris Xe Graphics - Wifi - Bluetooth - USB Type C - USB Type-A - HDMI - Lecteur de cartes - Webcam HP avec micro intégré - Windows 11 - Couleur Silver - Garantie 1 an',
       productCategory: {
-        id: '1',
-        name: 'laptop',
-        description: '5fif ndhif',
-        message: 'echrei menna terbah men 8adi',
-        products: this.produits
+        id: '101',
+        name: 'laptop promotion',
+        description: 'nice',
+        message: '',
+        products: [this.slide1]
     },
-      price: 1000,
-      brand: 'lenovo',
+      price: 2009,
+      brand: 'hp',
       status: OrderItemStatus.AVAILABLE,
-      img1: 'https://i.imgur.com/tsFXgXc.jpeg',
+      img1: 'https://firebasestorage.googleapis.com/v0/b/techtemple-47a6e.appspot.com/o/products%2F68603aa9-aadc-4454-b241-25ec7e7c93a9?alt=media&token=7cee2d75-6e13-43ba-92aa-bcd958d7a577',
       img2: 'https://i.imgur.com/61hySKT.jpeg',
       img3: 'https://i.imgur.com/61hySKT.jpeg',
       img4: 'https://i.imgur.com/61hySKT.jpeg',
@@ -148,10 +148,12 @@ export class Home_pageComponent implements OnInit {
       circle.style.opacity ='1' 
       console.log("circle indice",index," x : ",centerX," y : ",centerY);
       container.appendChild(circle);
+      $('#btn'+(index+1)).popover('dispose');
       buts[index].setAttribute('data-bs-trigger', 'hover');
       buts[index].setAttribute('data-toggle','popover');
+      buts[index].setAttribute('data-content',prod.id);
       $('#btn'+(index+1)).popover({
-        content:'prix: '+prod.price+'<br>Product ID: ' + prod.id,
+        content:'prix: '+prod.price+' DT',
         title: prod.productCategory.name
       });
     });
@@ -180,11 +182,14 @@ export class Home_pageComponent implements OnInit {
   }
 
   fn(btn_id:string){
-    console.log("click")
-    const content = $('#'+btn_id).data('bs.popover').config.content;
-    const idMatch = /Product ID: (\d+)/.exec(content);
-    const prod_id = idMatch ? idMatch[1] : null;
-    this.router.navigate(['/details/'+prod_id]);
+    console.log("click "+btn_id)
+    console.log( $('#'+btn_id).data().content)
+    const prod_id=$('#'+btn_id).data().content
+    const prod=this.produits.find(product => product.id === prod_id);
+    console.log(prod)
+    $('#'+btn_id).popover('dispose');
+    localStorage.setItem('product', JSON.stringify(prod));
+  this.router.navigate(['/details']);
   }
 
   add_cart(prod:Product){

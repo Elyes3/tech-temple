@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrderItemStatus } from 'src/app/libs/shared/enum/OrderItemStatus';
 import { Product } from 'src/app/libs/shared/models/Product';
 import { ProductsService } from 'src/app/libs/dashboard/services/products.service';
@@ -18,14 +18,20 @@ export class Product_detailsComponent implements OnInit {
   qte:number=1;
   product!:Product;
   prod_id:string='';
-  constructor(private route:ActivatedRoute,private productsService: ProductsService,private cartService:CartService) { }
+  constructor(private router: Router,private route:ActivatedRoute,private productsService: ProductsService,private cartService:CartService) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.prod_id = params['id'];
-      console.log(this.prod_id)
-      this.retreiveProduct();
-    });
+
+    const storedProduct = localStorage.getItem('product');
+    if (storedProduct) {
+      this.product = JSON.parse(storedProduct);
+      console.log('Product:', this.product);
+      this.images=[this.product.img1,this.product.img2,this.product.img3]
+      this.image=this.product.img1;
+      console.log(this.image)
+    }
+  
+
   }
 
 retreiveProduct():void{
@@ -56,7 +62,7 @@ this.productsService.getProductById(this.prod_id).subscribe((prod: any) => {
   console.error('An error occurred:', error);
 },
 () => {
-  this.images=[this.product.img1,this.product.img3,this.product.img4]
+  this.images=[this.product.img1,this.product.img2,this.product.img3]
   this.image=this.product.img1;
 });
 }
