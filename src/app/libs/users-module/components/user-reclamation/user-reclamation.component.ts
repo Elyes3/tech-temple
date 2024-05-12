@@ -4,7 +4,6 @@ import emailjs from "@emailjs/browser"
 import { UserService } from '../../services/userService';
 import { ViewChild } from '@angular/core';
 import { UsersFacade } from 'src/app/libs/state/users/users.facade';
-import { string } from '@tensorflow/tfjs';
 
 @Component({
   selector: 'app-user-reclamation',
@@ -18,6 +17,9 @@ export class UserReclamationComponent implements OnInit {
 
   initialName: string = ''
   initialEmail: string = ''
+  issue_type_name: string = ''
+
+  issueType: string= ''
 
   form: FormGroup = this.fb.group({
     name:['', Validators.required],
@@ -82,10 +84,15 @@ export class UserReclamationComponent implements OnInit {
       this.openFailedModal();    
     }
     else {
+      switch (this.form.get('issue_type')?.value) {
+        case '1' : this.issue_type_name = "Product damaged while in delivery"; break;
+        case '2' : this.issue_type_name = "Wrong product received"; break;
+        case '2' : this.issue_type_name = "Payment issues"; break;
+      }
       let response = await emailjs.send("service_qi8v6zg","template_d0w8z7r",{
         name: this.form.get('name')?.value,
         email: this.form.get('email')?.value,
-        issue_type: this.form.get('issue_type')?.value,
+        issue_type: this.issue_type_name,
         description: this.form.get('description')?.value,
         });
         this.openSuccessModal();
