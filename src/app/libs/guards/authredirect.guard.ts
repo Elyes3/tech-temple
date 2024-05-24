@@ -14,11 +14,20 @@ export class AuthRedirectGuard implements CanActivate {
 
   constructor(private router: Router,private usersFacade: UsersFacade) {}
     currentUser: User | null = null;
+    isUserCalled: boolean = false;
     canActivate(): Observable<boolean> {
-
+        
             if (this.router.getCurrentNavigation()?.extras?.state && this.router.getCurrentNavigation()?.extras?.state?.logout) {
                 return of(true)
             }
+                    const subscription: Subscription = this.usersFacade.authenticatedUser$.subscribe(authenticatedUser => {
+                        this.currentUser = authenticatedUser.authenticatedUser;
+                        this.isUserCalled = authenticatedUser.isUserCalled;
+                    })
+        if (this.currentUser == null && this.isUserCalled) {
+            return of(true);
+            }
+        subscription.unsubscribe();
             return this.usersFacade.authenticatedUser$.pipe(
                 skipWhile(state => !state.authLoading),
                 skipWhile(state => state.authLoading),

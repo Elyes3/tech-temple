@@ -4,13 +4,15 @@ import { UsersActions, UsersActionTypes } from './users.actions';
 export interface UsersState extends EntityState<User>{
     authenticatedUser: User | null;
     authLoading: boolean,
-    dataLoading: boolean
+    dataLoading: boolean,
+    isUserCalled: boolean
 }
 export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
 export const initialState: UsersState = adapter.getInitialState({
     authenticatedUser: null,
     authLoading: false,
     dataLoading: false,
+    isUserCalled: false,
 })
 export function usersReducer(state : UsersState = initialState, action: UsersActions): UsersState {
     switch (action.type) {
@@ -25,7 +27,7 @@ export function usersReducer(state : UsersState = initialState, action: UsersAct
                     orders: action.payload.orders,
                     role: action.payload.role,
                     img: action.payload.img
-            }, authLoading: false})
+            }, authLoading: false, isUserCalled: true})
         }
         case UsersActionTypes.LoadAuthenticatedUser: {
             return Object.assign({}, state, {
@@ -36,7 +38,8 @@ export function usersReducer(state : UsersState = initialState, action: UsersAct
         case UsersActionTypes.AuthenticatedUserError: {
             return Object.assign({}, state, {
                 authenticatedUser: null,
-                authLoading : false,
+                authLoading: false,
+                isUserCalled: true,
             })
         }
         case UsersActionTypes.AddUser: {
